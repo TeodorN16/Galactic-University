@@ -5,6 +5,12 @@ VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GalacticUniversity", "GalacticUniversity\GalacticUniversity.csproj", "{DD36161B-D02F-4397-98CB-3CB9A9FF763C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GalacticUniversity.Models", "GalacticUniversity.Models\GalacticUniversity.Models.csproj", "{F5D185C5-36D8-4BEA-BF6E-98728025F8DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GalacticUniversity.DataAccess", "GalacticUniversity.DataAccess\GalacticUniversity.DataAccess.csproj", "{EF89309F-2775-4885-A170-0D2766A8B6EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GalacticUniversity.Core", "GalacticUniversity.Core\GalacticUniversity.Core.csproj", "{58684C79-6503-4EC6-A195-883173DA4521}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +21,18 @@ Global
 		{DD36161B-D02F-4397-98CB-3CB9A9FF763C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD36161B-D02F-4397-98CB-3CB9A9FF763C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD36161B-D02F-4397-98CB-3CB9A9FF763C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5D185C5-36D8-4BEA-BF6E-98728025F8DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5D185C5-36D8-4BEA-BF6E-98728025F8DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5D185C5-36D8-4BEA-BF6E-98728025F8DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5D185C5-36D8-4BEA-BF6E-98728025F8DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF89309F-2775-4885-A170-0D2766A8B6EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF89309F-2775-4885-A170-0D2766A8B6EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF89309F-2775-4885-A170-0D2766A8B6EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF89309F-2775-4885-A170-0D2766A8B6EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58684C79-6503-4EC6-A195-883173DA4521}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58684C79-6503-4EC6-A195-883173DA4521}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58684C79-6503-4EC6-A195-883173DA4521}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58684C79-6503-4EC6-A195-883173DA4521}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
