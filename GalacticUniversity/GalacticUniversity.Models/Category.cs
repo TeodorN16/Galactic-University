@@ -14,6 +14,6 @@ namespace GalacticUniversity.Models
         public string CategoryName { get; set; }
 
         // Navigation Properties
-        public ICollection<Course> Courses { get; set; }
+        public ICollection<Course> Courses { get; set; }    
     }
 }
