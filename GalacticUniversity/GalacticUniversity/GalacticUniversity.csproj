@@ -21,6 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\GalacticUniversity.Core\GalacticUniversity.Core.csproj" />
+    <ProjectReference Include="..\GalacticUniversity.DataAccess\GalacticUniversity.DataAccess.csproj" />
     <ProjectReference Include="..\GalacticUniversity.Models\GalacticUniversity.Models.csproj" />
   </ItemGroup>
 

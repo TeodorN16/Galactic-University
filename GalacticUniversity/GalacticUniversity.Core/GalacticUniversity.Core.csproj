@@ -20,8 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\GalacticUniversity.DataAccess\GalacticUniversity.DataAccess.csproj" />
     <ProjectReference Include="..\GalacticUniversity.Models\GalacticUniversity.Models.csproj" />
-    <ProjectReference Include="..\GalacticUniversity\GalacticUniversity.csproj" />
   </ItemGroup>
 
 </Project>
