@@ -43,5 +43,11 @@ namespace GalacticUniversity.Core.Repository
             context.Update(obj);
             context.SaveChanges();
         }
+
+        public T Get(int id) 
+        { 
+            T obj  = dbset.Find(id);
+            return obj;
+        }
     }
 }

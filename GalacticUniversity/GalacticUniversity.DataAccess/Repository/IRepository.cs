@@ -15,6 +15,8 @@ namespace GalacticUniversity.Core.Repository
         public void Update(T obj);
 
         public List<T> GetAll();
+
+        public T Get(int id);
         
     }
 }

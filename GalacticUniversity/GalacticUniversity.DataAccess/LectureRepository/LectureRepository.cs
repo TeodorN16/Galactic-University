@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace GalacticUniversity.DataAccess.LectureRepository
 {
-    public class LectureRepository:Repository<LectureRepository>
+    public class LectureRepository:Repository<LectureResource>
     {
         private readonly ApplicationDbContext _context;
         public LectureRepository(ApplicationDbContext context) : base(context)
         {
             _context = context;
         }
+
     }
 }
