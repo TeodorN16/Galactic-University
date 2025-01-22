@@ -30,7 +30,9 @@ namespace GalacticUniversity.Core.CommentService
 
         public List<Comment> FilterCommentsByRating()
         {
-            throw new Exception();
+            return repo.GetAll()
+                .OrderBy(x=>x.Rating)
+                .ToList();
         }
 
         public Comment Get(int id)

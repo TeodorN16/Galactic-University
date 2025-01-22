@@ -1,42 +1,47 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using GalacticUniversity.Core.Repository;
 using GalacticUniversity.Models;
 
 namespace GalacticUniversity.Core.CourseService
 {
     public class CourseService : ICourseService
     {
+        private readonly IRepository<Course> repo;
         public void Add(Course obj)
         {
-            throw new NotImplementedException();
+            repo.Add(obj);
         }
 
         public void Delete(Course obj)
         {
-            throw new NotImplementedException();
+            repo.Delete(obj);
         }
 
         public Course Get(int id)
         {
-            throw new NotImplementedException();
+            Course course = repo.Get(id);
+            return course;
         }
 
         public List<Course> GetAll()
         {
-            throw new NotImplementedException();
+            return repo.GetAll();
         }
 
         public List<Course> GetCourseByCategory(string category)
         {
-            throw new NotImplementedException();
+            Expression<Func<Course, bool>> filter = course => course.Category.CategoryName == category;
+            return repo.Find(filter);
         }
 
         public void Update(Course obj)
         {
-            throw new NotImplementedException();
+            repo.Update(obj);
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GalacticUniversity.Core.Repository;
 using GalacticUniversity.Core.Services;
 using GalacticUniversity.Models;
 
@@ -10,29 +11,31 @@ namespace GalacticUniversity.Core.LectureService
 {
     public class LectureService : ILectureService
     {
+        private readonly IRepository<Lecture> repo;
         public void Add(Lecture obj)
         {
-            throw new NotImplementedException();
+            repo.Add(obj);
         }
 
         public void Delete(Lecture obj)
         {
-            throw new NotImplementedException();
+            repo.Delete(obj);
         }
 
         public Lecture Get(int id)
         {
-            throw new NotImplementedException();
+            Lecture lecture = repo.Get(id);
+            return lecture;
         }
 
         public List<Lecture> GetAll()
         {
-            throw new NotImplementedException();
+            return repo.GetAll();
         }
 
         public void Update(Lecture obj)
         {
-            throw new NotImplementedException();
+            repo.Update(obj);
         }
     }
 }
