@@ -22,9 +22,10 @@ namespace GalacticUniversity.Controllers
         }
         [HttpPost]
         public IActionResult Add(Course course)
-        { 
+        {
             _courseService.Add(course);
             return RedirectToAction("Index");
         }
+
     }
 }
