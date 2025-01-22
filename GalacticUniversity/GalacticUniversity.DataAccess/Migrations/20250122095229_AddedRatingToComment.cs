@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace GalacticUniversity.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialSetup : Migration
+    public partial class AddedRatingToComment : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -70,6 +70,7 @@ namespace GalacticUniversity.DataAccess.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CommentText = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CommentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Rating = table.Column<int>(type: "int", nullable: false),
                     UserID = table.Column<int>(type: "int", nullable: false),
                     CourseID = table.Column<int>(type: "int", nullable: false)
                 },

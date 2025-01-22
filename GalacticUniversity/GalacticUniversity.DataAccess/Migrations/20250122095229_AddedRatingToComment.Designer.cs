@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GalacticUniversity.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250107202538_InitialSetup")]
-    partial class InitialSetup
+    [Migration("20250122095229_AddedRatingToComment")]
+    partial class AddedRatingToComment
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -58,6 +58,9 @@ namespace GalacticUniversity.DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CourseID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Rating")
                         .HasColumnType("int");
 
                     b.Property<int>("UserID")
