@@ -19,7 +19,7 @@ namespace GalacticUniversity.Core.Repository
 
         public T Get(int id);
 
-        public List<T> Find(Expression<Func<T,bool>>)
+        public List<T> Find(Expression<Func<T, bool>>filter);
         
     }
 }
