@@ -26,5 +26,11 @@ namespace GalacticUniversity.Controllers
             _courseService.Add(course);
             return RedirectToAction("Index");
         }
+        [HttpPost]
+        public IActionResult Delete(Category ct)
+        { 
+            
+            return RedirectToAction("Index");
+        }
     }
 }
