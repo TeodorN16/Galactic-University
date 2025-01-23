@@ -8,7 +8,7 @@ using GalacticUniversity.Models;
 
 namespace GalacticUniversity.Core.CommentService
 {
-    internal interface ICommentService:IService<Comment>
+    public interface ICommentService:IService<Comment>
     {
         List<Comment> FilterCommentsByRating();
         List<Comment> FilterCommentsByDate();

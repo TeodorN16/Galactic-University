@@ -1,6 +1,12 @@
 
 
+using GalacticUniversity.Core.CategoryService;
+using GalacticUniversity.Core.CommentService;
+using GalacticUniversity.Core.CourseService;
+using GalacticUniversity.Core.LectureResourceService;
+using GalacticUniversity.Core.LectureService;
 using GalacticUniversity.Core.Repository;
+using GalacticUniversity.Core.Services;
 using GalacticUniversity.DataAccess;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +16,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),b=>b.MigrationsAssembly("GalacticUniversity.DataAccess")));
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped(typeof(IService<>), typeof(Service<>));
+
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<ICommentService, CommentService>();
+builder.Services.AddScoped<ICourseService,CourseService>();
+builder.Services.AddScoped<ILectureResourceService,LectureResourceService>();
+builder.Services.AddScoped<ILectureService, LectureService>();
+
+
 
 var app = builder.Build();
 
