@@ -1,16 +1,19 @@
 ﻿using GalacticUniversity.Core.LectureResourceService;
+using GalacticUniversity.Core.LectureService;
 using GalacticUniversity.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GalacticUniversity.Controllers
 {
     public class LectureResourceController : Controller
     {
         private readonly ILectureResourceService _lectureResourceService;
-
-        public LectureResourceController(ILectureResourceService lectureResourceService)
+        private readonly ILectureService _lectureService;
+        public LectureResourceController(ILectureResourceService lectureResourceService, ILectureService lectureService)
         {
-            _lectureResourceService = _lectureResourceService;
+            _lectureResourceService = lectureResourceService;
+            _lectureService = lectureService;
         }
         public IActionResult Index()
         {
@@ -19,11 +22,14 @@ namespace GalacticUniversity.Controllers
         }
         public IActionResult Add()
         {
+            var lectures = _lectureService.GetAll();
+            ViewBag.Lectures = new SelectList(lectures, "LectureID", "LectureName");
             return View();
         }
         [HttpPost]
         public IActionResult Add(LectureResource lectureResource)
         {
+            
             _lectureResourceService.Add(lectureResource);
             return RedirectToAction("Index");
         }

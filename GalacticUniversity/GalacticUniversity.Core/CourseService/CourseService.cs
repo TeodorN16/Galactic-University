@@ -12,6 +12,10 @@ namespace GalacticUniversity.Core.CourseService
     public class CourseService : ICourseService
     {
         private readonly IRepository<Course> repo;
+        public CourseService(IRepository<Course>_repo)
+        {
+            repo = _repo;
+        }
         public void Add(Course obj)
         {
             repo.Add(obj);

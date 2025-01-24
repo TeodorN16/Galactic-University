@@ -4,9 +4,13 @@
 @{
 }
 @model GalacticUniversity.Models.Lecture;
+
 <form method="post">
     <label asp-for="LectureName">
         <input type="text" asp-for="LectureName" />
+    </label>
+    <label asp-for="Description">
+        <input type="text" asp-for="Description" />
     </label>
     <button type="submit" asp-action="Add" asp-controller="Lecture">Add</button>
 </form>

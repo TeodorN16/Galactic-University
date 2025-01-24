@@ -1,20 +1,17 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-@model GalacticUniversity.Models.LectureResource
+﻿@model GalacticUniversity.Models.LectureResource
 
-<form asp-action="Add" method="post">
-    <label  asp-for="ResourceID" hidden="true"></label>
-    <label asp-for="ResourceType">Enter the type
-        <input type="text" asp-for="ResourceType" />
-    </label>
-    <br />
-    <label asp-for="ResourcePath">
-        <input type="text" asp-for="ResourcePath" />
-    </label>
-    <button asp-action="Add" asp-controller="LectureResource">Add </button>
+<form method="post">
+	<label asp-for="ResourceType">
+		<input type="text" asp-for="ResourceType" />
+	</label>
+	<br />
+	<label asp-for="ResourceType">
+		<input type="text" asp-for=ResourceType />
+	</label>
+	<label >Lection
+			<select asp-for="LectureID" asp-items="ViewBag.Lectures">
+				<option value="">Choose a lection</option>
+			</select>
+	</label>
+	<button type="submit" asp-action="Add" asp-controller="LectureResource"></button>
 </form>
-
-
