@@ -35,6 +35,8 @@ namespace GalacticUniversity.Controllers
         }
         public IActionResult Edit(int id)
         {
+            var lectures = _lectureService.GetAll();
+            ViewBag.Lectures = new SelectList(lectures, "LectureID", "LectureName");
             LectureResource lectureResource = _lectureResourceService.Get(id);
 
             return View(lectureResource);

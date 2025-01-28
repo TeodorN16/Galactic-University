@@ -22,7 +22,12 @@
             <th scope="row">@item.LectureID</th>
             <td>@item.LectureName</td>
             <td>@item.Description</td>
-        
+                <td>
+                    <a type="submit" class="btn btn-primary" asp-action="Edit" asp-controller="Lecture" asp-route-id="@item.LectureID">Edit</a>
+                    <form asp-action="Delete" asp-controller="Lecture" asp-route-id="@item.LectureID" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
           
         </tr>
         }

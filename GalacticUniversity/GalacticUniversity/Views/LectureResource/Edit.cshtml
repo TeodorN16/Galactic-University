@@ -10,6 +10,13 @@
     <label asp-for="ResourceType">
         <input type="text" asp-for="ResourceType" />
     </label>
+    <label asp-for="ResourcePath">
+        <input type="text" asp-for="ResourcePath">
+    </label>
+    <label asp-for="LectureID">Lecture</label>
+    <select asp-for="LectureID" asp-items="ViewBag.Lectures">
+        <option value="">Select Lecture</option>
+    </select>
     <button type="submit" asp-action="Edit" asp-controller="LectureResource">Edit</button>
 </form>
 
