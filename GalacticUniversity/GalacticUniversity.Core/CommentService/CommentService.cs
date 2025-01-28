@@ -11,6 +11,10 @@ namespace GalacticUniversity.Core.CommentService
     public class CommentService : ICommentService
     {
         private readonly IRepository<Comment> repo;
+        public CommentService(IRepository<Comment> _repo)
+        {
+             repo= _repo;
+        }
         public void Add(Comment obj)
         {
             repo.Add(obj);

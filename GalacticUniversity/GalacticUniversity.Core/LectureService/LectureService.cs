@@ -12,6 +12,10 @@ namespace GalacticUniversity.Core.LectureService
     public class LectureService : ILectureService
     {
         private readonly IRepository<Lecture> repo;
+        public LectureService(IRepository<Lecture> _repo)
+        {
+            this.repo = _repo;       
+        }
         public void Add(Lecture obj)
         {
             repo.Add(obj);

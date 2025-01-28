@@ -11,6 +11,11 @@ namespace GalacticUniversity.Core.CategoryService
     public class CategoryService : ICategoryService
     {
         private readonly IRepository<Category> repo;
+
+        public CategoryService(IRepository<Category>_repo)
+        {
+            repo = _repo;
+        }
         public void Add(Category obj)
         {
           repo.Add(obj);

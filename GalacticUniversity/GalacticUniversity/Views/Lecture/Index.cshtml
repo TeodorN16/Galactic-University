@@ -1,0 +1,30 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model IEnumerable<GalacticUniversity.Models.Lecture>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">LectureName</th>
+            <th scope="col">LectureDescription</th>
+          
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        { 
+        <tr>
+            <th scope="row">@item.LectureID</th>
+            <td>@item.LectureName</td>
+            <td>@item.Description</td>
+        
+          
+        </tr>
+        }
+    </tbody>
+</table>

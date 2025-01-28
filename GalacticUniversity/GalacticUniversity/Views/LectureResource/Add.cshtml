@@ -1,0 +1,17 @@
+﻿@model GalacticUniversity.Models.LectureResource
+
+<form method="post">
+	<label asp-for="ResourceType">
+		<input type="text" asp-for="ResourceType" />
+	</label>
+	<br />
+	<label asp-for="ResourceType">
+		<input type="text" asp-for=ResourceType />
+	</label>
+	<label >Lection
+			<select asp-for="LectureID" asp-items="ViewBag.Lectures">
+				<option value="">Choose a lection</option>
+			</select>
+	</label>
+	<button type="submit" asp-action="Add" asp-controller="LectureResource"></button>
+</form>

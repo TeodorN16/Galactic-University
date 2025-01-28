@@ -17,10 +17,10 @@ namespace GalacticUniversity.Models
 
         // Foreign Keys
         [ForeignKey("Course")]
-        public int CourseID { get; set; }
+        public int? CourseID { get; set; }
 
         // Navigation Properties
-        public Course Course { get; set; }
-        public ICollection<LectureResource> LectureResources { get; set; }
+        public Course? Course { get; set; }
+        public ICollection<LectureResource>? LectureResources { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using GalacticUniversity.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GalacticUniversity.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250124074555_Changed Models....again")]
+    partial class ChangedModelsagain
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -138,7 +141,7 @@ namespace GalacticUniversity.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ResourceID"));
 
-                    b.Property<int>("LectureID")
+                    b.Property<int?>("LectureID")
                         .HasColumnType("int");
 
                     b.Property<string>("ResourcePath")
@@ -224,9 +227,7 @@ namespace GalacticUniversity.DataAccess.Migrations
                 {
                     b.HasOne("GalacticUniversity.Models.Lecture", "Lecture")
                         .WithMany("LectureResources")
-                        .HasForeignKey("LectureID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("LectureID");
 
                     b.Navigation("Lecture");
                 });

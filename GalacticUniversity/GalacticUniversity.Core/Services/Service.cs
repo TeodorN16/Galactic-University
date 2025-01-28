@@ -14,7 +14,7 @@ namespace GalacticUniversity.Core.Services
         private readonly IRepository<T> repo;
         public void Add(T obj)
         {
-           repo.Add(obj);
+            repo.Add(obj);
         }
 
         public void Delete(T obj)
@@ -30,12 +30,12 @@ namespace GalacticUniversity.Core.Services
 
         public List<T> GetAll()
         {
-           return repo.GetAll();
+            return repo.GetAll();
         }
 
         public void Update(T obj)
         {
-          repo.Update(obj);
+            repo.Update(obj);
         }
     }
 }
