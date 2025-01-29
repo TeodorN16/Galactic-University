@@ -36,7 +36,8 @@ namespace GalacticUniversity.Controllers
         public IActionResult Edit(int id)
         {
             LectureResource lectureResource = _lectureResourceService.Get(id);
-
+            var lectures = _lectureService.GetAll();
+            ViewBag.Lectures = new SelectList(lectures, "LectureID", "LectureName");
             return View(lectureResource);
         }
         [HttpPost]
