@@ -13,7 +13,7 @@ namespace GalacticUniversity.Models
         public int CategoryID { get; set; }
         public string CategoryName { get; set; }
 
-        // Navigation Properties
+    
         public ICollection<Course> Courses { get; set; }    
     }
 }

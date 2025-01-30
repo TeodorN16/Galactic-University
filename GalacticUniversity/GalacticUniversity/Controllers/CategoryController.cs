@@ -1,5 +1,6 @@
 ﻿using GalacticUniversity.Core.CategoryService;
 using GalacticUniversity.Models;
+using GalacticUniversity.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GalacticUniversity.Controllers
@@ -18,11 +19,13 @@ namespace GalacticUniversity.Controllers
         }
         public IActionResult Add()
         {
+
             return View();
         }
         [HttpPost]
         public IActionResult Add(Category ct)
         {
+            
             _categoryService.Add(ct);
             return RedirectToAction("Index");
         }

@@ -9,7 +9,7 @@
                 <th scope="col">Id</th>
                 <th scope="col">Resource Type</th>
                 <th scope="col">Resource Path</th>
-                <th scope="col">Lecture</th>
+            
                 <th scope="col">Actions</th>
             </tr>
         </thead>
@@ -17,10 +17,10 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <th scope="row">@item.ResourceID</th>
-                    <td>@item.ResourceType</td>
-                    <td>@item.ResourcePath</td>
-                    <td>@item.Lecture.LectureName</td>
+                    <th scope="row">@item.ResourceID</th> 
+                    <td>@item.ResourceType</td> 
+                    <td>@item.ResourcePath</td> 
+                  
                     <td>
                         <a class="btn btn-primary" asp-action="Edit" asp-controller="LectureResource" asp-route-id="@item.ResourceID">Edit</a>
 
