@@ -29,4 +29,8 @@
     <ProjectReference Include="..\GalacticUniversity.Models\GalacticUniversity.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Identity\Data\" />
+  </ItemGroup>
+
 </Project>

@@ -28,6 +28,9 @@ builder.Services.AddScoped<ILectureResourceService,LectureResourceService>();
 builder.Services.AddScoped<ILectureService, LectureService>();
 
 
+/*builder.Services.AddDefaultIdentity<IdentityUser>(options=>options.SignIn.RequireConfirmedAccount)*/
+
+
 
 var app = builder.Build();
 
