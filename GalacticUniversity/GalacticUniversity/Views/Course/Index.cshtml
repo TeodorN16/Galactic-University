@@ -9,7 +9,7 @@
     <h2 class="mb-4">Filter Courses</h2>
     <form asp-action="Index" method="get" class="mb-4">
         <div class="row">
-            <!-- Category Filter -->
+          
             <div class="col-md-4 mb-3">
                 <label asp-for="CategoryID" class="form-label">Category</label>
                 <select asp-for="CategoryID" asp-items="@Model.Categories" class="form-select">
@@ -17,13 +17,13 @@
                 </select>
             </div>
 
-            <!-- Start Date Filter -->
+            
             <div class="col-md-4 mb-3">
                 <label asp-for="StartDate" class="form-label">Start Date</label>
                 <input type="datetime-local" asp-for="StartDate" class="form-control" />
             </div>
 
-            <!-- End Date Filter -->
+            
             <div class="col-md-4 mb-3">
                 <label asp-for="EndDate" class="form-label">End Date</label>
                 <input type="datetime-local" asp-for="EndDate" class="form-control" />
