@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -6,23 +6,6 @@
 }
 @model GalacticUniversity.Models.LectureResource
 
-<form method="post">
-    <input type="hidden" asp-for="ResourceID" />
-    <label asp-for="ResourceType">
-        <input type="text" asp-for="ResourceType" />
-    </label>
-    <label asp-for="ResourcePath">
-        <input type="text" asp-for="ResourcePath">
-    </label>
-    <label asp-for="LectureID">Lecture</label>
-    <select asp-for="LectureID" asp-items="ViewBag.Lectures">
-        <option value="">Select Lecture</option>
-    </select>
-    <button type="submit" asp-action="Edit" asp-controller="LectureResource">Edit</button>
-</form>
-=======
-﻿@model GalacticUniversity.Models.LectureResource
->>>>>>> origin/main
 
 <div class="container mt-4">
     <h2>Edit Resource</h2>

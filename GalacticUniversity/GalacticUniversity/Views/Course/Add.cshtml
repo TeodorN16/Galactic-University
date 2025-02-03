@@ -6,31 +6,6 @@
 }
 @model GalacticUniversity.Models.Course
 
-<form method="post">
-    <label asp-for="CourseName">
-        <input type="text" asp-for="CourseName" />
-    </label>
-    <label asp-for="Description">
-        <input type="text" asp-for="Description" />
-    </label>
-    <label asp-for="StartDate">
-        <input type="datetime-local"/>
-    </label>
-    <label asp-for="EndDate">
-        <input asp-for="EndDate" />
-    </label>
-    <label>Choose Category
-        <select asp-for="CategoryID" asp-items="ViewBag.Categories">
-            <option value="">Choose Category</option>
-        </select>
-    </label>
-    <button type="submit" asp-action="Add" asp-controller="Course">Add Course</button>
-    
-</form>
-
-=======
-﻿@model GalacticUniversity.Models.Course
->>>>>>> origin/main
 
 <div class="container mt-4">
     <h2>Add New Course</h2>

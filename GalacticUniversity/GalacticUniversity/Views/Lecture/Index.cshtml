@@ -2,29 +2,6 @@
 
 <div class="container mt-4">
     <h2>Lectures List</h2>
-
-<<<<<<< HEAD
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        { 
-        <tr>
-            <th scope="row">@item.LectureID</th>
-            <td>@item.LectureName</td>
-            <td>@item.Description</td>
-                <td>
-                    <a type="submit" class="btn btn-primary" asp-action="Edit" asp-controller="Lecture" asp-route-id="@item.LectureID">Edit</a>
-                    <form asp-action="Delete" asp-controller="Lecture" asp-route-id="@item.LectureID" method="post" style="display:inline;">
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
-                </td>
-          
-        </tr>
-        }
-    </tbody>
-</table>
-=======
     <table class="table table-bordered mt-3">
         <thead>
             <tr>
@@ -53,4 +30,3 @@
         </tbody>
     </table>
 </div>
->>>>>>> origin/main
