@@ -10,6 +10,6 @@ namespace GalacticUniversity.Core.LectureResourceService
 {
     public interface ILectureResourceService:IService<LectureResource>
     {
-
+      
     }
 }

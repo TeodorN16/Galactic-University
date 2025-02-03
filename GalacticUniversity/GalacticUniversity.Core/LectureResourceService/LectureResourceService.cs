@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GalacticUniversity.Core.Repository;
 using GalacticUniversity.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace GalacticUniversity.Core.LectureResourceService
 {
@@ -36,9 +37,13 @@ namespace GalacticUniversity.Core.LectureResourceService
             return repo.GetAll();
         }
 
+        
+
         public void Update(LectureResource obj)
         {
              repo.Update(obj);
         }
+
+       
     }
 }

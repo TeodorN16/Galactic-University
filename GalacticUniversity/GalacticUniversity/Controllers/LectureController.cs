@@ -1,6 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 using GalacticUniversity.Core.LectureService;
 using GalacticUniversity.Models;
+using GalacticUniversity.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GalacticUniversity.Controllers
@@ -15,6 +16,7 @@ namespace GalacticUniversity.Controllers
         }
         public IActionResult Index()
         {
+           
             var list = _lectureService.GetAll();
             return View(list);
         }

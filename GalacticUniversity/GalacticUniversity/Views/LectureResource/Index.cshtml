@@ -1,17 +1,9 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-@model IEnumerable<GalacticUniversity.Models.LectureResource>
+﻿@model IEnumerable<GalacticUniversity.Models.LectureResource>
 
-<table class="table">
-	<thead>
-		<tr>
-			<th scope="col">Id</th>
-			<th scope="col">ResourceType</th>
-			<th scope="col">ResourcePath</th>
+<div class="container mt-4">
+    <h2>Lecture Resources List</h2>
 
+<<<<<<< HEAD
 		</tr>
 	</thead>
 	<tbody>
@@ -34,3 +26,35 @@
 
 	</tbody>
 </table>
+=======
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Resource Type</th>
+                <th scope="col">Resource Path</th>
+            
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@item.ResourceID</th> 
+                    <td>@item.ResourceType</td> 
+                    <td>@item.ResourcePath</td> 
+                  
+                    <td>
+                        <a class="btn btn-primary" asp-action="Edit" asp-controller="LectureResource" asp-route-id="@item.ResourceID">Edit</a>
+
+                        <form asp-action="Delete" asp-controller="LectureResource" asp-route-id="@item.ResourceID" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+>>>>>>> origin/main

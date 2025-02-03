@@ -1,8 +1,10 @@
 ﻿using GalacticUniversity.Core.LectureResourceService;
 using GalacticUniversity.Core.LectureService;
 using GalacticUniversity.Models;
+using GalacticUniversity.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace GalacticUniversity.Controllers
 {
@@ -15,13 +17,15 @@ namespace GalacticUniversity.Controllers
             _lectureResourceService = lectureResourceService;
             _lectureService = lectureService;
         }
-        public IActionResult Index()
-        {
-            var list = _lectureResourceService.GetAll();
-            return View(list);
-        }
+            public IActionResult Index()
+            {
+                
+                var list = _lectureResourceService.GetAll();
+                return View(list);
+            }
         public IActionResult Add()
         {
+            
             var lectures = _lectureService.GetAll();
             ViewBag.Lectures = new SelectList(lectures, "LectureID", "LectureName");
             return View();
@@ -29,7 +33,7 @@ namespace GalacticUniversity.Controllers
         [HttpPost]
         public IActionResult Add(LectureResource lectureResource)
         {
-            
+           
             _lectureResourceService.Add(lectureResource);
             return RedirectToAction("Index");
         }
@@ -38,7 +42,8 @@ namespace GalacticUniversity.Controllers
             var lectures = _lectureService.GetAll();
             ViewBag.Lectures = new SelectList(lectures, "LectureID", "LectureName");
             LectureResource lectureResource = _lectureResourceService.Get(id);
-
+            var lectures = _lectureService.GetAll();
+            ViewBag.Lectures = new SelectList(lectures, "LectureID", "LectureName");
             return View(lectureResource);
         }
         [HttpPost]

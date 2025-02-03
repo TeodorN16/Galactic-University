@@ -1,5 +1,6 @@
 ﻿@model GalacticUniversity.Models.LectureResource
 
+<<<<<<< HEAD
 <form method="post">
 	<label asp-for="ResourceType">
 		<input type="text" asp-for="ResourceType" />
@@ -15,3 +16,25 @@
 	</label>
 	<button type="submit" asp-action="Add" asp-controller="LectureResource">Add Lecture</button>
 </form>
+=======
+<div class="container mt-4">
+    <h2>Add Resource</h2>
+    <form method="post" class="mt-3">
+        <div class="mb-3">
+            <label asp-for="ResourceType" class="form-label">Resource Type</label>
+            <input type="text" asp-for="ResourceType" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="ResourcePath" class="form-label">Resource Path</label>
+            <input type="text" asp-for="ResourcePath" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Lecture</label>
+            <select asp-for="LectureID" asp-items="ViewBag.Lectures" class="form-control">
+                <option value="">Choose a lecture</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success">Add Resource</button>
+    </form>
+</div>
+>>>>>>> origin/main
