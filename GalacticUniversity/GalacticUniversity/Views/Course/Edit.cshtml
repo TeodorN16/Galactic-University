@@ -1,29 +1,44 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿
+
 @model GalacticUniversity.Models.Course
 
-<form method="post">
+<form method="post" class="form-container">
     <input type="hidden" asp-for="CourseID" />
-    <label asp-for="CourseName">
-        <input type="text" asp-for="CourseName" />
-    </label>
-    <label asp-for="Description">
-        <input type="text" asp-for="Description" />
-    </label>
-    <label asp-for="StartDate">
-        <input type="datetime-local" asp-for="StartDate" />
-    </label>
-    <label asp-for="EndDate">
-        <input type="datetime-local" asp-for="EndDate" />
-    </label>
-    <label>Category
-        <select asp-for="CategoryID" asp-items="ViewBag.Categories">
+
+    <div class="form-group">
+        <label asp-for="CourseName" class="form-label">Course Name</label>
+        <input type="text" asp-for="CourseName" class="form-input" />
+        <span asp-validation-for="CourseName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description" class="form-label">Description</label>
+        <input type="text" asp-for="Description" class="form-input" />
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="StartDate" class="form-label">Start Date</label>
+        <input type="datetime-local" asp-for="StartDate" class="form-input" />
+        <span asp-validation-for="StartDate" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="EndDate" class="form-label">End Date</label>
+        <input type="datetime-local" asp-for="EndDate" class="form-input" />
+        <span asp-validation-for="EndDate" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label class="form-label" for="CategoryID">Category</label>
+        <select asp-for="CategoryID" asp-items="ViewBag.Categories" class="form-input">
             <option value="">Choose a category</option>
         </select>
-    </label>
-    <button type="submit" asp-action="Edit" asp-controller="Course">Edit Course</button>
+        <span asp-validation-for="CategoryID" class="text-danger"></span>
+    </div>
 
+    <div class="form-group">
+        <button type="submit" class="form-button">Edit Course</button>
+    </div>
 </form>
+
