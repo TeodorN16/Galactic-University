@@ -20,7 +20,7 @@ namespace GalacticUniversity.Controllers
         public IActionResult Index()
         {
 
-            var list = _lectureResourceService.GetAll1();
+            var list = _lectureResourceService.GetAll1().Include(lr=>lr.Lecture.LectureName);
             return View(list);
         }
         public IActionResult Add()
@@ -39,7 +39,7 @@ namespace GalacticUniversity.Controllers
         }
         public IActionResult Edit(int id)
         {
-            var lectures = _lectureService.GetAll().Include;
+            var lectures = _lectureService.GetAll();
             ViewBag.Lectures = new SelectList(lectures, "LectureID", "LectureName");
             LectureResource lectureResource = _lectureResourceService.Get(id);
            
