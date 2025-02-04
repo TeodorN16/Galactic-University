@@ -32,7 +32,7 @@ namespace GalacticUniversity.Core.CourseService
             return course;
         }
 
-        public List<Course> GetAll()
+        public IQueryable<Course> GetAll()
         {
             return repo.GetAll();
         }

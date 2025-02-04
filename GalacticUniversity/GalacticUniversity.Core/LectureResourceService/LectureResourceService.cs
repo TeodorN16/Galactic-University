@@ -32,15 +32,12 @@ namespace GalacticUniversity.Core.LectureResourceService
             return lectureResource;
         }
 
-        public List<LectureResource> GetAll()
+        public IQueryable<LectureResource> GetAll()
         {
             return repo.GetAll();
         }
 
-        public IQueryable<LectureResource> GetAll1()
-        {
-            return repo.GetAll1();
-        }
+       
 
         public void Update(LectureResource obj)
         {

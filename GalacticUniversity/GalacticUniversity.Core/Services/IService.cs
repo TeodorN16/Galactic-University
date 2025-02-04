@@ -15,9 +15,9 @@ namespace GalacticUniversity.Core.Services
 
         public void Update(T obj);
 
-        public List<T> GetAll();
+        public IQueryable<T> GetAll();
 
-        public IQueryable<T> GetAll1();
+        
 
         public T Get(int id);
     }

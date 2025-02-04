@@ -17,11 +17,18 @@ namespace GalacticUniversity.Controllers
             _lectureResourceService = lectureResourceService;
             _lectureService = lectureService;
         }
-        public IActionResult Index()
+        public IActionResult Index(LectureResourceViewModel lr)
         {
-
-            var list = _lectureResourceService.GetAll1().Include(lr=>lr.Lecture.LectureName);
-            return View(list);
+            var model = _lectureResourceService.GetAll().Include(l=>l.Lecture).Select(lr => new LectureResourceViewModel
+            {
+                ID=lr.ResourceID,
+                ResourcePath = lr.ResourcePath,
+                ResourceType = lr.ResourceType,
+                LectureId = lr.LectureID,
+                LectureName=lr.Lecture.LectureName
+            }).ToList();
+            //var list = _lectureResourceService.GetAll().Include(lr=>lr.Lecture);
+            return View(model);
         }
         public IActionResult Add()
         {

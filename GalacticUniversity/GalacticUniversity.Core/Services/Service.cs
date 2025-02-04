@@ -28,7 +28,7 @@ namespace GalacticUniversity.Core.Services
             return obj;
         }
 
-        public List<T> GetAll()
+        public IQueryable<T> GetAll()
         {
             return repo.GetAll();
         }

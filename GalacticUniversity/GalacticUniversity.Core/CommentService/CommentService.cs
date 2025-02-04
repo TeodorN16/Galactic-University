@@ -45,7 +45,7 @@ namespace GalacticUniversity.Core.CommentService
             return comment;
         }
 
-        public List<Comment> GetAll()
+        public IQueryable<Comment> GetAll()
         {
             return repo.GetAll();
         }

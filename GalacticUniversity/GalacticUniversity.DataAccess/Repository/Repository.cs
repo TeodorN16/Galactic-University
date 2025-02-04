@@ -34,9 +34,9 @@ namespace GalacticUniversity.Core.Repository
 
         }
 
-        public List<T> GetAll()
+        public IQueryable<T> GetAll()
         {
-            return dbset.ToList();
+            return dbset.AsQueryable();
         }
 
         public void Update(T obj)
@@ -55,9 +55,6 @@ namespace GalacticUniversity.Core.Repository
             return dbset.Where(filter).ToList();
         }
 
-        public IQueryable<T> GetAll1()
-        {
-            return dbset.AsQueryable();
-        }
+       
     }
 }
