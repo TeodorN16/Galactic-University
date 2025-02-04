@@ -20,7 +20,7 @@ namespace GalacticUniversity.Controllers
         public IActionResult Index()
         {
 
-            var list = _lectureResourceService.GetAll();
+            var list = _lectureResourceService.GetAll1();
             return View(list);
         }
         public IActionResult Add()

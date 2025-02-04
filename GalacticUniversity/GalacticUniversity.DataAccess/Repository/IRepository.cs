@@ -14,7 +14,7 @@ namespace GalacticUniversity.Core.Repository
         public void Delete(T obj);
 
         public void Update(T obj);
-
+        public IQueryable<T> GetAll1();
         public List<T> GetAll();
 
         public T Get(int id);

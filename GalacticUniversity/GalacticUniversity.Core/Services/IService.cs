@@ -17,6 +17,8 @@ namespace GalacticUniversity.Core.Services
 
         public List<T> GetAll();
 
+        public IQueryable<T> GetAll1();
+
         public T Get(int id);
     }
 }

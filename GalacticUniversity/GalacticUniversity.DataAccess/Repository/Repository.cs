@@ -54,5 +54,10 @@ namespace GalacticUniversity.Core.Repository
         { 
             return dbset.Where(filter).ToList();
         }
+
+        public IQueryable<T> GetAll1()
+        {
+            return dbset.AsQueryable();
+        }
     }
 }
