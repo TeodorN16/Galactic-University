@@ -34,13 +34,28 @@ namespace GalacticUniversity.Controllers
         {
 
             var lectures = _lectureService.GetAll();
-            ViewBag.Lectures = new SelectList(lectures, "LectureID", "LectureName");
-            return View();
+            var model = new LectureResourceQueryViewModel
+            {
+                Lectures = lectures.Select(l => new SelectListItem
+                {
+                    Value = l.LectureID.ToString(),
+                    Text = l.LectureName
+                }).ToList()
+            };
+            return View(model);
         }
         [HttpPost]
-        public IActionResult Add(LectureResource lectureResource)
+        public IActionResult Add(LectureResourceQueryViewModel lrvm)
         {
 
+            var lectureResource = new LectureResource
+            {
+                
+                ResourcePath = lrvm.ResourcePath,
+                ResourceType = lrvm.ResourceType,
+                LectureID = lrvm.LectureId,
+
+            };
             _lectureResourceService.Add(lectureResource);
             return RedirectToAction("Index");
         }
