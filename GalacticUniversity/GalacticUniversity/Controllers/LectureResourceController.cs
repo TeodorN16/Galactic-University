@@ -61,18 +61,37 @@ namespace GalacticUniversity.Controllers
         }
         public IActionResult Edit(int id)
         {
-            var lectures = _lectureService.GetAll();
-            ViewBag.Lectures = new SelectList(lectures, "LectureID", "LectureName");
-            LectureResource lectureResource = _lectureResourceService.Get(id);
-           
-            ViewBag.Lectures = new SelectList(lectures, "LectureID", "LectureName");
-            return View(lectureResource);
+            /* var lectures = _lectureService.GetAll();
+             ViewBag.Lectures = new SelectList(lectures, "LectureID", "LectureName");*/
+             LectureResource lectureResource = _lectureResourceService.Get(id);
+
+            
+            var model = new LectureResourceQueryViewModel
+            {
+                ID=lectureResource.ResourceID,
+                ResourceType = lectureResource.ResourceType,
+                ResourcePath = lectureResource.ResourcePath,
+                LectureId = lectureResource.LectureID,
+                Lectures = _lectureService.GetAll().Select(l => new SelectListItem
+                {
+                    Value = l.LectureID.ToString(),
+                    Text = l.LectureName
+                }).ToList()
+            };
+            return View(model);
         }
         [HttpPost]
-        public IActionResult Edit(LectureResource lectureResource)
+        public IActionResult Edit(LectureResourceQueryViewModel lrvm)
         {
-
-            _lectureResourceService.Update(lectureResource);
+            var model = new LectureResource
+            {
+                ResourceID = lrvm.ID,
+                ResourceType = lrvm.ResourceType,
+                ResourcePath = lrvm.ResourcePath,
+                LectureID = lrvm.LectureId,
+               
+            };
+            _lectureResourceService.Update(model);
             return RedirectToAction("Index");
         }
         [HttpPost]

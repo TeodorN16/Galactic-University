@@ -4,7 +4,7 @@ namespace GalacticUniversity.Models.ViewModels
 {
     public class LectureResourceQueryViewModel
     {
-        
+        public int ID { get; set; }
         public string ResourceType { get; set; }
 
         public string ResourcePath { get; set; }
