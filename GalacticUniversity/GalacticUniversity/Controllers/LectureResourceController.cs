@@ -1,7 +1,7 @@
 ﻿using GalacticUniversity.Core.LectureResourceService;
 using GalacticUniversity.Core.LectureService;
 using GalacticUniversity.Models;
-using GalacticUniversity.Models.ViewModels;
+using GalacticUniversity.Models.ViewModels.LectureResource;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -61,8 +61,7 @@ namespace GalacticUniversity.Controllers
         }
         public IActionResult Edit(int id)
         {
-            /* var lectures = _lectureService.GetAll();
-             ViewBag.Lectures = new SelectList(lectures, "LectureID", "LectureName");*/
+          
              LectureResource lectureResource = _lectureResourceService.Get(id);
 
             

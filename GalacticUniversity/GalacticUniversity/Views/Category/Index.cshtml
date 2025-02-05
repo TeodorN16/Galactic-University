@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GalacticUniversity.Models.Category>
+﻿@model IEnumerable<GalacticUniversity.Models.ViewModels.CategoryViewModels.CategoryQueryViewModel>
 
 <div class="container mt-4">
     <h2>Categories List</h2>
@@ -15,12 +15,12 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <th scope="row">@item.CategoryID</th>
-                    <td>@item.CategoryName</td>
+                    <th scope="row">@item.ID</th>
+                    <td>@item.Name</td>
                     <td>
-                        <a class="btn btn-primary" asp-action="Edit" asp-controller="Category" asp-route-id="@item.CategoryID">Edit</a>
+                        <a class="btn btn-primary" asp-action="Edit" asp-controller="Category" asp-route-id="@item.ID">Edit</a>
 
-                        <form asp-action="Delete" asp-controller="Category" asp-route-id="@item.CategoryID" method="post" style="display:inline;">
+                        <form asp-action="Delete" asp-controller="Category" asp-route-id="@item.ID" method="post" style="display:inline;">
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
                     </td>

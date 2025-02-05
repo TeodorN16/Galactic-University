@@ -2,6 +2,7 @@
 using GalacticUniversity.Core.LectureService;
 using GalacticUniversity.Models;
 using GalacticUniversity.Models.ViewModels;
+using GalacticUniversity.Models.ViewModels.LectureViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GalacticUniversity.Controllers
@@ -17,16 +18,27 @@ namespace GalacticUniversity.Controllers
         public IActionResult Index()
         {
            
-            var list = _lectureService.GetAll();
-            return View(list);
+            var model = _lectureService.GetAll().Select(l=>new LectureViewModel 
+            { 
+                ID=l.LectureID,
+                Name=l.LectureName,
+                Description=l.Description
+            }).ToList();
+            return View(model);
         }
         public IActionResult Add()
         {
+            var model = new LectureViewModel();
             return View();
         }
         [HttpPost]
-        public IActionResult Add(Lecture lecture)
-        { 
+        public IActionResult Add(LectureViewModel lvm)
+        {
+            var lecture = new Lecture
+            {
+                LectureName = lvm.Name,
+                Description = lvm.Description,
+            };
             _lectureService.Add(lecture);
             return RedirectToAction("Index");
         }
@@ -34,12 +46,24 @@ namespace GalacticUniversity.Controllers
         public IActionResult Edit(int id)
         {
             Lecture lecture = _lectureService.Get(id);
+
+            var model = new LectureViewModel
+            {
+                ID = lecture.LectureID,
+                Name = lecture.LectureName,
+                Description = lecture.Description,
+            };
             return View(lecture);
         }
 
         [HttpPost]
-        public IActionResult Edit(Lecture lecture)
+        public IActionResult Edit(LectureViewModel lvm)
         {
+            var lecture = new Lecture
+            {
+                LectureName = lvm.Name,
+                Description = lvm.Description,
+            };
             _lectureService.Update(lecture);
             return RedirectToAction("Index");
         }

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace GalacticUniversity.Models.ViewModels
+namespace GalacticUniversity.Models.ViewModels.LectureResource
 {
     public class LectureResourceQueryViewModel
     {

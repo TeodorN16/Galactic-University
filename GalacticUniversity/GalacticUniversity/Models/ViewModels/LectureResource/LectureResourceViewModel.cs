@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace GalacticUniversity.Models.ViewModels
+namespace GalacticUniversity.Models.ViewModels.LectureResource
 {
     public class LectureResourceViewModel
     {
@@ -12,7 +12,7 @@ namespace GalacticUniversity.Models.ViewModels
         public int LectureId { get; set; }
         public string LectureName { get; set; }
 
-       
+
 
     }
 }
