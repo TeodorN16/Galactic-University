@@ -15,7 +15,7 @@ namespace GalacticUniversity.Controllers
         {
            _lectureService = lectureService;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
            
             var model = _lectureService.GetAll().Select(l=>new LectureViewModel 
@@ -26,26 +26,26 @@ namespace GalacticUniversity.Controllers
             }).ToList();
             return View(model);
         }
-        public IActionResult Add()
+        public async Task<IActionResult> Add()
         {
             var model = new LectureViewModel();
             return View();
         }
         [HttpPost]
-        public IActionResult Add(LectureViewModel lvm)
+        public async Task<IActionResult> Add(LectureViewModel lvm)
         {
             var lecture = new Lecture
             {
                 LectureName = lvm.Name,
                 Description = lvm.Description,
             };
-            _lectureService.Add(lecture);
+            await _lectureService.Add(lecture);
             return RedirectToAction("Index");
         }
 
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            Lecture lecture = _lectureService.Get(id);
+            Lecture lecture = await _lectureService.Get(id);
 
             var model = new LectureViewModel
             {
@@ -57,21 +57,21 @@ namespace GalacticUniversity.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(LectureViewModel lvm)
+        public async Task<IActionResult> Edit(LectureViewModel lvm)
         {
             var lecture = new Lecture
             {
                 LectureName = lvm.Name,
                 Description = lvm.Description,
             };
-            _lectureService.Update(lecture);
+            await _lectureService.Update(lecture);
             return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public IActionResult Delete(int id) 
+        public async Task<IActionResult> Delete(int id) 
         {
-            _lectureService.Delete(_lectureService.Get(id));
+            await _lectureService.Delete(await _lectureService.Get(id));
             return RedirectToAction("Index");
         }
 

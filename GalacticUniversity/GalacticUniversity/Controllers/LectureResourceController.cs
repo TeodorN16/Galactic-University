@@ -17,9 +17,10 @@ namespace GalacticUniversity.Controllers
             _lectureResourceService = lectureResourceService;
             _lectureService = lectureService;
         }
-        public IActionResult Index(LectureResourceViewModel lr)
+        public async Task<IActionResult> Index(LectureResourceViewModel lr)
         {
-            var model = _lectureResourceService.GetAll().Include(l=>l.Lecture).Select(lr => new LectureResourceViewModel
+            var resources = _lectureResourceService.GetAll();
+            var model =  resources.Include(l=>l.Lecture).Select(lr => new LectureResourceViewModel
             {
                 ID=lr.ResourceID,
                 ResourcePath = lr.ResourcePath,
@@ -30,10 +31,10 @@ namespace GalacticUniversity.Controllers
             //var list = _lectureResourceService.GetAll().Include(lr=>lr.Lecture);
             return View(model);
         }
-        public IActionResult Add()
+        public async Task<IActionResult> Add()
         {
 
-            var lectures = _lectureService.GetAll();
+            var lectures =  _lectureService.GetAll();
             var model = new LectureResourceQueryViewModel
             {
                 Lectures = lectures.Select(l => new SelectListItem
@@ -45,7 +46,7 @@ namespace GalacticUniversity.Controllers
             return View(model);
         }
         [HttpPost]
-        public IActionResult Add(LectureResourceQueryViewModel lrvm)
+        public async Task<IActionResult> Add(LectureResourceQueryViewModel lrvm)
         {
 
             var lectureResource = new LectureResource
@@ -56,13 +57,13 @@ namespace GalacticUniversity.Controllers
                 LectureID = lrvm.LectureId,
 
             };
-            _lectureResourceService.Add(lectureResource);
+            await _lectureResourceService.Add(lectureResource);
             return RedirectToAction("Index");
         }
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
           
-             LectureResource lectureResource = _lectureResourceService.Get(id);
+             LectureResource lectureResource = await _lectureResourceService.Get(id);
 
             
             var model = new LectureResourceQueryViewModel
@@ -80,7 +81,7 @@ namespace GalacticUniversity.Controllers
             return View(model);
         }
         [HttpPost]
-        public IActionResult Edit(LectureResourceQueryViewModel lrvm)
+        public async Task<IActionResult> Edit(LectureResourceQueryViewModel lrvm)
         {
             var model = new LectureResource
             {
@@ -90,13 +91,13 @@ namespace GalacticUniversity.Controllers
                 LectureID = lrvm.LectureId,
                
             };
-            _lectureResourceService.Update(model);
+            await _lectureResourceService.Update(model);
             return RedirectToAction("Index");
         }
         [HttpPost]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            _lectureResourceService.Delete(_lectureResourceService.Get(id));
+            await _lectureResourceService.Delete(await _lectureResourceService.Get(id));
             return RedirectToAction("Index");
         }
     }

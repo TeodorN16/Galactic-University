@@ -12,30 +12,30 @@ namespace GalacticUniversity.Core.Services
     public class Service<T> : IService<T> where T : class
     {
         private readonly IRepository<T> repo;
-        public void Add(T obj)
+        public async Task Add(T obj)
         {
-            repo.Add(obj);
+            await repo.Add(obj);
         }
 
-        public void Delete(T obj)
+        public async Task Delete(T obj)
         {
-            repo.Delete(obj);
+           await repo.Delete(obj);
         }
 
-        public T Get(int id)
+        public async Task<T> Get(int id)
         {
-            T obj = repo.Get(id);
+            T obj = await repo.Get(id);
             return obj;
         }
 
-        public IQueryable<T> GetAll()
+        public  IQueryable<T> GetAll()
         {
             return repo.GetAll();
         }
 
-        public void Update(T obj)
+        public async Task Update(T obj)
         {
-            repo.Update(obj);
+           await repo.Update(obj);
         }
     }
 }

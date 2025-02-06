@@ -15,44 +15,34 @@ namespace GalacticUniversity.Core.CommentService
         {
              repo= _repo;
         }
-        public void Add(Comment obj)
+        public async Task Add(Comment obj)
         {
-            repo.Add(obj);
+          await  repo.Add(obj);
         }
 
-        public void Delete(Comment obj)
+        public async Task Delete(Comment obj)
         {
-            repo.Delete(obj);
+           await repo.Delete(obj);
         }
 
-        public List<Comment> FilterCommentsByDate()
-        {
-            return repo.GetAll()
-                    .OrderBy(x=>x.CommentDate)
-                    .ToList();
-        }
+        
 
-        public List<Comment> FilterCommentsByRating()
-        {
-            return repo.GetAll()
-                .OrderBy(x=>x.Rating)
-                .ToList();
-        }
+       
 
-        public Comment Get(int id)
+        public async Task<Comment> Get(int id)
         {
-           Comment comment = repo.Get(id);
+           Comment comment = await repo.Get(id);
             return comment;
         }
 
-        public IQueryable<Comment> GetAll()
+        public  IQueryable<Comment> GetAll()
         {
-            return repo.GetAll();
+            return  repo.GetAll();
         }
 
-        public void Update(Comment obj)
+        public async Task Update(Comment obj)
         {
-            repo.Update(obj);
+            await repo.Update(obj);
         }
     }
 }

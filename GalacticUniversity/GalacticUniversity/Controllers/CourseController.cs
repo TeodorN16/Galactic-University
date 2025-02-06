@@ -22,7 +22,7 @@ namespace GalacticUniversity.Controllers
             _lectureService = lectureService;
         }
       
-        public IActionResult Index(CourseViewModel? filter)
+        public async Task<IActionResult> Index(CourseViewModel? filter)
         {
             var query = _courseService.GetAll().AsQueryable();
             if (filter.CategoryID!=null)
@@ -49,7 +49,7 @@ namespace GalacticUniversity.Controllers
             
             return View(model);
         }
-        public IActionResult Add()
+        public async Task<IActionResult> Add()
         {
 
             var categories = _categoryService.GetAll();
@@ -63,31 +63,31 @@ namespace GalacticUniversity.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Add(Course course)
+        public async Task<IActionResult> Add(Course course)
         {
 
-            _courseService.Add(course);
+            await _courseService.Add(course);
             return RedirectToAction("Index");
         }
 
 
-        public IActionResult Edit(int id) 
+        public async Task<IActionResult> Edit(int id) 
         { 
-            Course course = _courseService.Get(id);
+            Course course = await _courseService.Get(id);
             var categories = _categoryService.GetAll();
             ViewBag.Categories = new SelectList(categories, "CategoryID", "CategoryName");
             return View(course);
         }
         [HttpPost]
-        public IActionResult Edit(Course course)
+        public async Task<IActionResult> Edit(Course course)
         {
-            _courseService.Update(course);
+            await _courseService.Update(course);
             return RedirectToAction("Index");
         }
         [HttpPost]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            _courseService.Delete(_courseService.Get(id));
+            await _courseService.Delete(await _courseService.Get(id));
             return RedirectToAction("Index");
         }
 

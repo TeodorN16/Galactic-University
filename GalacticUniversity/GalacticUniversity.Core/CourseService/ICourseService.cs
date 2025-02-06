@@ -10,6 +10,6 @@ namespace GalacticUniversity.Core.CourseService
 {
     public interface ICourseService:IService<Course>
     {
-        List<Course> GetCourseByCategory(string category);
+      
     }
 }

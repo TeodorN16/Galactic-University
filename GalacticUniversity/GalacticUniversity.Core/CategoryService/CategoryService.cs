@@ -16,30 +16,30 @@ namespace GalacticUniversity.Core.CategoryService
         {
             repo = _repo;
         }
-        public void Add(Category obj)
+        public async Task Add(Category obj)
         {
-          repo.Add(obj);
+          await repo.Add(obj);
         }
 
-        public void Delete(Category obj)
+        public async Task Delete(Category obj)
         {
-            repo.Delete(obj);   
+            await repo.Delete(obj);   
         }
 
-        public Category Get(int id)
+        public async Task<Category> Get(int id)
         {
-            Category category = repo.Get(id);
+            Category category = await repo.Get(id);
             return category;
         }
 
-        public IQueryable<Category> GetAll()
+        public  IQueryable<Category> GetAll()
         {
-            return repo.GetAll();
+            return  repo.GetAll();
         }
 
-        public void Update(Category obj)
+        public async Task Update(Category obj)
         {
-            repo.Update(obj);
+            await repo.Update(obj);
         }
     }
 }

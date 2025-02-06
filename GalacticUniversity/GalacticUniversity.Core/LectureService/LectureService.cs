@@ -16,30 +16,30 @@ namespace GalacticUniversity.Core.LectureService
         {
             this.repo = _repo;       
         }
-        public void Add(Lecture obj)
+        public async Task Add(Lecture obj)
         {
-            repo.Add(obj);
+            await repo.Add(obj);
         }
 
-        public void Delete(Lecture obj)
+        public async Task Delete(Lecture obj)
         {
-            repo.Delete(obj);
+            await repo.Delete(obj);
         }
 
-        public Lecture Get(int id)
+        public async Task<Lecture> Get(int id)
         {
-            Lecture lecture = repo.Get(id);
+            Lecture lecture = await repo.Get(id);
             return lecture;
         }
 
-        public IQueryable<Lecture> GetAll()
+        public  IQueryable<Lecture> GetAll()
         {
-            return repo.GetAll();
+            return  repo.GetAll();
         }
 
-        public void Update(Lecture obj)
+        public async Task Update(Lecture obj)
         {
-            repo.Update(obj);
+            await repo.Update(obj);
         }
     }
 }

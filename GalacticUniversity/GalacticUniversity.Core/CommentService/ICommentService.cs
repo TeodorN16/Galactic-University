@@ -10,8 +10,7 @@ namespace GalacticUniversity.Core.CommentService
 {
     public interface ICommentService:IService<Comment>
     {
-        List<Comment> FilterCommentsByRating();
-        List<Comment> FilterCommentsByDate();
+      
 
     }
 }

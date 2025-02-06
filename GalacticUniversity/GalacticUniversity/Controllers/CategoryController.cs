@@ -13,9 +13,10 @@ namespace GalacticUniversity.Controllers
         {
             _categoryService = categoryService;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var models=_categoryService.GetAll().Select(c=>new CategoryQueryViewModel 
+            var categories = _categoryService.GetAll();
+            var models= categories.Select(c=>new CategoryQueryViewModel 
             { 
                 ID=c.CategoryID,
                 Name=c.CategoryName
@@ -23,25 +24,25 @@ namespace GalacticUniversity.Controllers
 
             return View(models);
         }
-        public IActionResult Add()
+        public async Task<IActionResult> Add()
         {
             var model = new CategoryViewModel();
             return View(model);
         }
         [HttpPost]
-        public IActionResult Add(CategoryViewModel ctvm)
+        public async Task<IActionResult> Add(CategoryViewModel ctvm)
         {
             var category = new Category
             {
                 CategoryName = ctvm.Name,
 
             };
-            _categoryService.Add(category);
+            await _categoryService.Add(category);
             return RedirectToAction("Index");
         }
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         { 
-            Category ct = _categoryService.Get(id);
+            Category ct = await _categoryService.Get(id);
             var model = new CategoryViewModel
             {
                 ID = ct.CategoryID,
@@ -51,7 +52,7 @@ namespace GalacticUniversity.Controllers
             return View(model);
         }
         [HttpPost]
-        public IActionResult Edit(CategoryViewModel ctvm)
+        public async Task<IActionResult> Edit(CategoryViewModel ctvm)
         {
 
             var category = new Category
@@ -59,13 +60,13 @@ namespace GalacticUniversity.Controllers
                 CategoryID = ctvm.ID,
                 CategoryName = ctvm.Name
             };
-            _categoryService.Update(category);
+            await _categoryService.Update(category);
             return RedirectToAction("Index");
         }
         [HttpPost]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            _categoryService.Delete(_categoryService.Get(id));
+            await _categoryService.Delete(await _categoryService.Get(id));
             return RedirectToAction("Index");
         }
     }

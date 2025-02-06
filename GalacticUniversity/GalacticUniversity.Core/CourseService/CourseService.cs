@@ -16,36 +16,36 @@ namespace GalacticUniversity.Core.CourseService
         {
             repo = _repo;
         }
-        public void Add(Course obj)
+        public async Task Add(Course obj)
         {
-            repo.Add(obj);
+            await repo.Add(obj);
         }
 
-        public void Delete(Course obj)
+        public async Task Delete(Course obj)
         {
-            repo.Delete(obj);
+            await repo.Delete(obj);
         }
 
-        public Course Get(int id)
+        public async Task<Course> Get(int id)
         {
-            Course course = repo.Get(id);
+            Course course = await repo.Get(id);
             return course;
         }
 
-        public IQueryable<Course> GetAll()
+        public  IQueryable<Course> GetAll()
         {
-            return repo.GetAll();
+            return  repo.GetAll();
         }
 
-        public List<Course> GetCourseByCategory(string category)
+        public async Task<List<Course>> GetCourseByCategory(string category)
         {
             Expression<Func<Course, bool>> filter = course => course.Category.CategoryName == category;
-            return repo.Find(filter);
+            return await repo.Find(filter);
         }
 
-        public void Update(Course obj)
+        public async Task Update(Course obj)
         {
-            repo.Update(obj);
+            await repo.Update(obj);
         }
     }
 }

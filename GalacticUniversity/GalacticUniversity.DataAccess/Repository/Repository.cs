@@ -20,39 +20,39 @@ namespace GalacticUniversity.Core.Repository
             context = _context;
             dbset = context.Set<T>();
         }
-        public void Add(T obj)
+        public async Task Add(T obj)
         {
-            context.Add(obj);
-            context.SaveChanges();
+            await context.AddAsync(obj);
+             await context.SaveChangesAsync();
         }
 
-        public void Delete(T obj)
+        public async Task Delete(T obj)
         {
             
             context.Remove(obj);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
 
         }
 
-        public IQueryable<T> GetAll()
+        public  IQueryable<T> GetAll()
         {
             return dbset.AsQueryable();
-        }
+        }   
 
-        public void Update(T obj)
+        public async Task Update(T obj)
         {
             context.Update(obj);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
 
-        public T Get(int id) 
+        public async Task<T> Get(int id) 
         { 
-            T obj  = dbset.Find(id);
-            return obj;
+            T obj  = await dbset.FindAsync(id);
+            return  obj;
         }
-        public List<T> Find(Expression<Func<T,bool>>filter)
+        public async Task<List<T>> Find(Expression<Func<T,bool>>filter)
         { 
-            return dbset.Where(filter).ToList();
+            return await dbset.Where(filter).ToListAsync();
         }
 
        
