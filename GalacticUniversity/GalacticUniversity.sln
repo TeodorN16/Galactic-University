@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GalacticUniversity.Core", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GalacticUniversity.DataAccess", "GalacticUniversity.DataAccess\GalacticUniversity.DataAccess.csproj", "{A79BDA45-9D96-45A7-A49B-FB8412DC9E60}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GalacticUniversity.Utility", "GalacticUniversity.Utility\GalacticUniversity.Utility.csproj", "{B2761F57-6EB8-45F5-AE94-4385190F6E40}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{A79BDA45-9D96-45A7-A49B-FB8412DC9E60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A79BDA45-9D96-45A7-A49B-FB8412DC9E60}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A79BDA45-9D96-45A7-A49B-FB8412DC9E60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2761F57-6EB8-45F5-AE94-4385190F6E40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2761F57-6EB8-45F5-AE94-4385190F6E40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2761F57-6EB8-45F5-AE94-4385190F6E40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2761F57-6EB8-45F5-AE94-4385190F6E40}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

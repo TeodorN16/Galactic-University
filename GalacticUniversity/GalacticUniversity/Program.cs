@@ -10,6 +10,11 @@ using GalacticUniversity.Core.Services;
 using GalacticUniversity.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using GalacticUniversity.Utility;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using GalacticUniversity.Utility;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using GalacticUniversity.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +22,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),b=>b.MigrationsAssembly("GalacticUniversity.DataAccess")));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
+
+
+builder.Services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+
+/*builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();*/
+
+
+
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped(typeof(IService<>), typeof(Service<>));
 
@@ -26,11 +38,22 @@ builder.Services.AddScoped<ICommentService, CommentService>();
 builder.Services.AddScoped<ICourseService,CourseService>();
 builder.Services.AddScoped<ILectureResourceService,LectureResourceService>();
 builder.Services.AddScoped<ILectureService, LectureService>();
+builder.Services.AddScoped<IEmailSender, EmailSender>();
 
 
-/*builder.Services.AddDefaultIdentity<IdentityUser>(options=>options.SignIn.RequireConfirmedAccount)*/
+/*builder.Services.AddDefaultIdentity<IdentityUser>(options=>options.SignIn.RequireConfirmedAccount=true)
+    .AddEntityFrameworkStores<ApplicationDbContext>();
 
+builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<ApplicationDbContext>();*/
 
+builder.Services.AddRazorPages();
+
+/*builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+                                                                                                options.LoginPath = "/Account/Login");
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => options.AccessDeniedPath = "/Account/AccessDenied");
+                                                                                                
+                                                                                                */
 
 var app = builder.Build();
 
@@ -47,7 +70,11 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
+
 app.UseAuthorization();
+
+app.MapRazorPages();
 
 app.MapControllerRoute(
     name: "default",

@@ -4,18 +4,24 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace GalacticUniversity.Models
 {
-    public class User
+    public class User:IdentityUser
     {
-        [Key]
-        public int UserID { get; set; }
-        public string UserName { get; set; }
-        public string Email { get; set; }
-        public string PasswordHash { get; set; }
+       
+      
+     
+        
+        
 
         // Navigation Properties
         public ICollection<Comment> Comments { get; set; }
+
+
+        public ICollection<UserCourses> UserCourses { get; set; }
+
+
     }
 }

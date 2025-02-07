@@ -2,6 +2,7 @@
 using GalacticUniversity.Models;
 using GalacticUniversity.Models.ViewModels;
 using GalacticUniversity.Models.ViewModels.CategoryViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GalacticUniversity.Controllers
@@ -13,6 +14,8 @@ namespace GalacticUniversity.Controllers
         {
             _categoryService = categoryService;
         }
+        [Authorize(Roles ="User,Admin")]
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var categories = _categoryService.GetAll();
@@ -24,12 +27,14 @@ namespace GalacticUniversity.Controllers
 
             return View(models);
         }
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> Add()
         {
             var model = new CategoryViewModel();
             return View(model);
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Add(CategoryViewModel ctvm)
         {
             var category = new Category
@@ -40,6 +45,7 @@ namespace GalacticUniversity.Controllers
             await _categoryService.Add(category);
             return RedirectToAction("Index");
         }
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id)
         { 
             Category ct = await _categoryService.Get(id);
@@ -52,6 +58,7 @@ namespace GalacticUniversity.Controllers
             return View(model);
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(CategoryViewModel ctvm)
         {
 
@@ -64,6 +71,7 @@ namespace GalacticUniversity.Controllers
             return RedirectToAction("Index");
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             await _categoryService.Delete(await _categoryService.Get(id));

@@ -25,5 +25,7 @@ namespace GalacticUniversity.Models
         public Category Category { get; set; }
         public ICollection<Lecture> Lectures { get; set; }
         public ICollection<Comment> Comments { get; set; }
+
+        public ICollection<Course> UserCourses { get; set; }
     }
 }
