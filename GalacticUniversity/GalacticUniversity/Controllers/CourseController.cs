@@ -53,19 +53,31 @@ namespace GalacticUniversity.Controllers
         {
 
             var categories = _categoryService.GetAll();
-            ViewBag.Categories = new SelectList(categories, "CategoryID", "CategoryName");
-
             var lectures = _lectureService.GetAll();
-            ViewBag.Lectures=new SelectList(lectures,"LectureID","LectureName");
+            var model = new CourseQueryViewModel
+            {
+                Categories = categories.Select(c => new SelectListItem
+                {
+                    Value = c.CategoryID.ToString(),
+                    Text = c.CategoryName
+                }).ToList()
+            };
             
-            ViewBag.Categories = new SelectList(categories,"CategoryID","CategoryName");
 
-            return View();
+            return View(model);
         }
         [HttpPost]
-        public async Task<IActionResult> Add(Course course)
+        public async Task<IActionResult> Add(CourseQueryViewModel cvm)
         {
+            var course = new Course
+            {
+                CourseName = cvm.CourseName,
+                Description = cvm.Description,
+                StartDate = cvm.StartDate,
+                EndDate = cvm.EndDate,
+                CategoryID = cvm.CategoryID,
 
+            };
             await _courseService.Add(course);
             return RedirectToAction("Index");
         }
@@ -75,12 +87,37 @@ namespace GalacticUniversity.Controllers
         { 
             Course course = await _courseService.Get(id);
             var categories = _categoryService.GetAll();
-            ViewBag.Categories = new SelectList(categories, "CategoryID", "CategoryName");
-            return View(course);
+
+            var model = new CourseQueryViewModel
+            {
+                ID = course.CourseID,
+                CourseName = course.CourseName,
+                Description = course.Description,
+                StartDate = course.StartDate,
+                EndDate = course.EndDate,
+                CategoryID = course.CategoryID,
+                Categories = categories.Select(c => new SelectListItem
+                {
+                    Value = c.CategoryID.ToString(),
+                    Text = c.CategoryName
+                }).ToList(),
+            };
+
+
+            return View(model);
         }
         [HttpPost]
-        public async Task<IActionResult> Edit(Course course)
+        public async Task<IActionResult> Edit(CourseQueryViewModel cvm)
         {
+            var course = new Course
+            {
+                CourseID = cvm.ID,
+                CourseName = cvm.CourseName,
+                Description = cvm.Description,
+                StartDate = cvm.StartDate,
+                EndDate = cvm.EndDate,
+                CategoryID = cvm.CategoryID,
+            };
             await _courseService.Update(course);
             return RedirectToAction("Index");
         }
