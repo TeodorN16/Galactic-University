@@ -14,20 +14,20 @@ namespace GalacticUniversity.Controllers
         {
             _categoryService = categoryService;
         }
-        [Authorize(Roles ="User,Admin")]
+        [Authorize(Roles = "User,Admin")]
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var categories = _categoryService.GetAll();
-            var models= categories.Select(c=>new CategoryQueryViewModel 
-            { 
-                ID=c.CategoryID,
-                Name=c.CategoryName
+            var models = categories.Select(c => new CategoryQueryViewModel
+            {
+                ID = c.CategoryID,
+                Name = c.CategoryName
             }).ToList();
 
             return View(models);
         }
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Add()
         {
             var model = new CategoryViewModel();
@@ -47,7 +47,7 @@ namespace GalacticUniversity.Controllers
         }
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id)
-        { 
+        {
             Category ct = await _categoryService.Get(id);
             var model = new CategoryViewModel
             {
