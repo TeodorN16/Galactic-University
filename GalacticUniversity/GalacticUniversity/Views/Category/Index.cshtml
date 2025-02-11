@@ -8,7 +8,10 @@
             <tr>
                 <th scope="col">Id</th>
                 <th scope="col">Category Name</th>
-                <th scope="col">Actions</th>
+                @if (User.IsInRole("Admin"))
+                {
+                    <th scope="col">Actions</th>
+                }
             </tr>
         </thead>
         <tbody>

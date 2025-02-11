@@ -1,21 +1,17 @@
 ﻿@page
 @model RegisterModel
 @{
+    
     ViewData["Title"] = "Register";
 }
 <link rel="stylesheet" href="~/css/Register.css" asp-append-version="true" />
 
 <!-- Background Stars -->
-<section class="bg-stars">
-    <span class="star" style="top: 10%; left: 20%; animation-delay: 0s; animation-duration: 3s;"></span>
-    <span class="star" style="top: 30%; left: 80%; animation-delay: 0.5s; animation-duration: 4s;"></span>
-    <span class="star" style="top: 60%; left: 40%; animation-delay: 1s; animation-duration: 3.5s;"></span>
-    <span class="star" style="top: 80%; left: 70%; animation-delay: 1.5s; animation-duration: 4.2s;"></span>
-</section>
+
 
 <div class="form-container">
-    <div class="form-wrapper">
-        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+    <div class="d-flex justify-content-center align-items-center vh-100">
+        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" class="form" method="post">
             <div class="form-title">
                 <span>Sign up to your</span>
             </div>
@@ -24,15 +20,15 @@
             </div>
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
             <div class="input-container">
-                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                <input asp-for="Input.Email" class="input-pwd form-control" type="email" autocomplete="username" aria-required="true" placeholder="name@example.com" />
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
             <div class="input-container">
-                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                <input asp-for="Input.Password" class="input-pwd form-control" type="password" autocomplete="new-password" aria-required="true" placeholder="password" />
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
             </div>
             <div class="input-container">
-                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                <input asp-for="Input.ConfirmPassword" class="input-pwd form-control" type="password" autocomplete="new-password" aria-required="true" placeholder="confirm password" />
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
             <div class="input-container">
@@ -40,14 +36,22 @@
                     <option disabled selected>-Select Role-</option>
                 </select>
             </div>
-            <button id="registerSubmit" type="submit" class="submit">Register</button>
+            <button id="registerSubmit" type="submit" class="submit">
+                <span class="sign-text">Register</span>
+            </button>
             <p class="signup-link">
                 Already have an account? <a href="/Account/Login">Sign in</a>
             </p>
+            <section class="bg-stars">
+                <span class="star"></span>
+                <span class="star"></span>
+                <span class="star"></span>
+                <span class="star"></span>
+            </section>
         </form>
     </div>
 </div>
 
 @section Scripts {
-        <partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial" />
 }
