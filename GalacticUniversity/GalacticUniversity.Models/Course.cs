@@ -17,6 +17,8 @@ namespace GalacticUniversity.Models
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; } 
 
+        //public string PictureURL { get; set; }
+
         // Foreign Keys
         [ForeignKey("Category")]
         public int CategoryID { get; set; }

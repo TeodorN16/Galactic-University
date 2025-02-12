@@ -1,22 +1,71 @@
-﻿/* Form container */
+﻿/* Reset and Global Styles */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+/* Body Styles */
+body {
+    background: linear-gradient(14deg, rgba(2,0,36,0.8) 0%, rgba(24,24,65,0.7) 66%, rgb(20,76,99) 100%), radial-gradient(circle, rgba(2,0,36,0.5) 0%, rgba(32,15,53,0.2) 65%, rgba(14,29,28,0.9) 100%);
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    position: relative;
+}
+
+/* Form Container */
+.form-container {
+    position: relative;
+    z-index: 1; /* Ensure form appears above the background */
+}
+
+/* Centering Utilities */
+.d-flex {
+    display: flex;
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.vh-100 {
+    height: 100vh;
+}
+
+/* Form Styling (updated to match login form) */
 .form {
     position: relative;
     display: block;
-    padding: 2.2rem;
-    max-width: 350px;
-    background: linear-gradient(14deg, rgba(2,0,36, 0.8) 0%, rgba(24, 24, 65, 0.7) 66%, rgb(20, 76, 99) 100%), radial-gradient(circle, rgba(2,0,36, 0.5) 0%, rgba(32, 15, 53, 0.2) 65%, rgba(14, 29, 28, 0.9) 100%);
+    padding: 3rem; /* Increased padding */
+    max-width: 600px; /* Increased from 450px to 600px */
+    width: 100%;
+    background: linear-gradient(14deg, rgba(2,0,36,0.8) 0%, rgba(24,24,65,0.7) 66%, rgb(20,76,99) 100%), radial-gradient(circle, rgba(2,0,36,0.5) 0%, rgba(32,15,53,0.2) 65%, rgba(14,29,28,0.9) 100%);
     border: 2px solid #fff;
-    box-shadow: rgba(0,212,255) 0px 0px 50px -15px;
+    box-shadow: rgba(0,212,255,0.7) 0px 0px 50px -10px;
     overflow: hidden;
-    z-index: +1;
+    z-index: 1;
+    margin-top: -80px;
 }
 
-/* Input and submit styling */
+/* Input and Button Styling */
 .input-container {
     position: relative;
+    margin-bottom: 8px;
 }
 
-    .input-container input, .form button {
+    .input-container input,
+    .form button {
         outline: none;
         border: 2px solid #ffffff;
         margin: 8px 0;
@@ -28,35 +77,34 @@
         padding: 6px;
         font-size: 0.875rem;
         line-height: 1.25rem;
-        width: 250px;
-        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        width: 100%; /* Now takes the full width of the form */
+        box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
     }
 
+/* Submit Button */
 .submit {
     position: relative;
     display: block;
     padding: 8px;
     background-color: #c0c0c0;
     color: #ffffff;
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
     font-size: 0.875rem;
     line-height: 1.25rem;
     font-weight: 500;
     width: 100%;
     text-transform: uppercase;
     overflow: hidden;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease-out;
 }
 
     .submit:hover {
-        transition: all 0.2s ease-out;
         border-radius: 3.9px;
         box-shadow: 4px 5px 17px -4px #ffffff;
         cursor: pointer;
     }
-
-        .submit:hover::before {
-            animation: sh02 .5s linear;
-        }
 
     .submit::before {
         content: '';
@@ -69,6 +117,10 @@
         opacity: 0;
         background: #fff;
         transform: skewX(-20deg);
+    }
+
+    .submit:hover::before {
+        animation: sh02 0.5s linear;
     }
 
 @keyframes sh02 {
@@ -87,7 +139,7 @@
     }
 }
 
-/* Signup link */
+/* Signup Link */
 .signup-link {
     color: #c0c0c0;
     font-size: 0.875rem;
@@ -101,7 +153,7 @@
         text-decoration: none;
     }
 
-/* Title section */
+/* Title Section */
 .form-title {
     font-size: 1.25rem;
     line-height: 1.75rem;
@@ -109,7 +161,7 @@
     font-weight: 600;
     text-align: center;
     color: #fff;
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.7);
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.7);
 }
 
 .title-2 {
@@ -126,9 +178,9 @@
     text-shadow: 0px 0px 16px #CECECE;
 }
 
-/* Shooting stars background */
+/* Shooting Stars Background */
 .bg-stars {
-    position: absolute;
+    position: fixed; /* Fixed positioning to cover the entire viewport */
     top: 0;
     left: 0;
     width: 100%;
@@ -148,6 +200,7 @@
     }
 }
 
+/* Star Styling */
 .star {
     position: absolute;
     top: 50%;
