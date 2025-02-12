@@ -1,0 +1,128 @@
+﻿body {
+    background: linear-gradient(to bottom, #E6D0F2, #FFFFFF);
+    color: black;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    background-color: #E6D0F2 !important; /* Light purple navbar */
+    border-bottom: 2px solid #8A2BE2; /* A slightly darker purple border */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+}
+
+.navbar-brand, .nav-link {
+    color: black !important; /* Black text for contrast */
+    font-weight: bold;
+}
+
+    .nav-link:hover {
+        color: #8A2BE2 !important; /* Darker purple on hover */
+    }
+
+.footer {
+    background-color: #FFFFFF;
+    color: black;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 14px;
+}
+
+/* Rocket Animation */
+.rocket {
+    position: fixed;
+    top: 10%; /* Adjusted position to be more upwards */
+    right: 10%; /* More margin to the right */
+    width: 400px; /* Set the width to match the rocket icon size */
+    height: 400px; /* Set the height to match the rocket icon size */
+    z-index: 999;
+    background: transparent; /* Makes the rocket div transparent */
+    animation: rocket-move 2s infinite;
+    display: flex; /* Ensure the icon is displayed properly */
+    justify-content: center; /* Center the icon */
+    align-items: center; /* Center the icon */
+}
+
+    .rocket i.fas.fa-rocket {
+        font-size: 400px; /* Increase the size of the rocket icon */
+        color: white;
+        -webkit-text-stroke: 3px black; /* Lighter black outline */
+        margin-top: 300px;
+  margin-right: 450px
+    }
+
+.rocket__body {
+    position: relative;
+    background-color: #FF6347;
+    width: 100%;
+    height: 70%;
+    border-radius: 20px 20px 50% 50%;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.rocket__fins {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 5px;
+}
+
+.fin {
+    width: 20px;
+    height: 30px;
+    background-color: #FF6347;
+    border-radius: 50%;
+    position: relative;
+    top: 10px;
+}
+
+    .fin.left {
+        transform: rotate(-45deg);
+    }
+
+    .fin.right {
+        transform: rotate(45deg);
+    }
+
+.rocket__flame {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 20px;
+    background-color: #FF4500;
+    border-radius: 50%;
+    animation: flame-animation 0.5s infinite alternate;
+}
+
+/* Flame animation */
+@keyframes flame-animation {
+    0% {
+        height: 20px;
+        opacity: 0.8;
+    }
+
+    100% {
+        height: 30px;
+        opacity: 1;
+    }
+}
+
+/* Rocket movement animation */
+@keyframes rocket-move {
+    0% {
+        top: 10%;
+    }
+
+    50% {
+        top: 8%;
+    }
+
+    100% {
+        top: 10%;
+    }
+}

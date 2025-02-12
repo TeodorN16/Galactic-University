@@ -1,0 +1,89 @@
+﻿/* Ensure the page takes full height and uses flexbox */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(to bottom, #E6D0F2, #FFFFFF);
+    color: black;
+    font-family: Arial, sans-serif;
+}
+
+/* Main content container (pushes footer down) */
+.main-content {
+    flex: 1; /* Allows this section to grow and push the footer down */
+    padding: 20px;
+}
+
+/* Navbar container */
+.menu {
+    position: fixed;
+    top: 10px;
+    right: 20px;
+    display: flex;
+    flex-direction: row; /* Aligns links in a horizontal line */
+    gap: 10px; /* Spacing between icons */
+    padding: 10px 15px;
+    background-color: #FFFFFF; /* White background */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    margin-top:30px;
+    margin-right:30px;
+}
+
+/* Navbar links */
+.link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 40px;
+    border-radius: 5px;
+    position: relative;
+    text-decoration: none;
+    color: black;
+    transition: background-color 0.2s ease-in-out, width 0.2s ease-in-out;
+}
+
+    /* Hover effect */
+    .link:hover,
+    .link:focus {
+        background-color: #F0F0F0;
+        width: 100px;
+        color:black
+    }
+
+/* Icons inside navbar */
+.link-icon {
+    width: 18px; /* Smaller icons */
+    height: 18px;
+    display: block;
+    flex-shrink: 0;
+}
+
+/* Text label for links */
+.link-title {
+    display: none; /* Hidden by default */
+    margin-left: 5px;
+    font-size: 14px;
+}
+
+/* Show text on hover */
+.link:hover .link-title,
+.link:focus .link-title {
+    display: block;
+    color:black
+}
+
+/* Footer styles (sticks to bottom) */
+.footer {
+    background-color: #fff;
+    text-align: center;
+    padding: 1rem;
+    width: 100%;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    bottom:0;
+    position:absolute
+}

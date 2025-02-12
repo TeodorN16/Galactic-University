@@ -43,12 +43,12 @@ body {
     height: 100vh;
 }
 
-/* Form Styling (updated to match login form) */
+/* Form Styling (matching login form) */
 .form {
     position: relative;
     display: block;
-    padding: 3rem; /* Increased padding */
-    max-width: 600px; /* Increased from 450px to 600px */
+    padding: 3rem;
+    max-width: 600px; /* Increased to match login form size */
     width: 100%;
     background: linear-gradient(14deg, rgba(2,0,36,0.8) 0%, rgba(24,24,65,0.7) 66%, rgb(20,76,99) 100%), radial-gradient(circle, rgba(2,0,36,0.5) 0%, rgba(32,15,53,0.2) 65%, rgba(14,29,28,0.9) 100%);
     border: 2px solid #fff;
@@ -61,7 +61,7 @@ body {
 /* Input and Button Styling */
 .input-container {
     position: relative;
-    margin-bottom: 8px;
+    margin-bottom: 16px; /* Increased space between inputs */
 }
 
     .input-container input,
@@ -77,33 +77,31 @@ body {
         padding: 6px;
         font-size: 0.875rem;
         line-height: 1.25rem;
-        width: 100%; /* Now takes the full width of the form */
+        width: 100%; /* Full width of the form */
         box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
     }
 
-/* Submit Button */
+/* Submit Button (matching login sign in button) */
 .submit {
     position: relative;
     display: block;
-    padding: 8px;
+    padding: 14px;
     background-color: #c0c0c0;
     color: #ffffff;
     text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-    font-weight: 500;
+    font-size: 1.5rem;
+    font-weight: 600;
     width: 100%;
     text-transform: uppercase;
+    border-radius: 8px;
     overflow: hidden;
-    border: none;
+    border: 2px solid #ffffff;
     cursor: pointer;
     transition: all 0.2s ease-out;
 }
 
     .submit:hover {
-        border-radius: 3.9px;
-        box-shadow: 4px 5px 17px -4px #ffffff;
-        cursor: pointer;
+        box-shadow: 4px 5px 20px -4px #ffffff;
     }
 
     .submit::before {
@@ -116,6 +114,7 @@ body {
         left: 0%;
         opacity: 0;
         background: #fff;
+        box-shadow: 0 0 50px 30px #fff;
         transform: skewX(-20deg);
     }
 
