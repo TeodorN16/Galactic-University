@@ -39,15 +39,16 @@
     animation: rocket-move 2s infinite;
     display: flex; /* Ensure the icon is displayed properly */
     justify-content: center; /* Center the icon */
-    align-items: center; /* Center the icon */
+    align-items: center;
+    margin-top: 200px;
+    margin-right: 200px; /* Center the icon */
 }
 
     .rocket i.fas.fa-rocket {
         font-size: 400px; /* Increase the size of the rocket icon */
         color: white;
         -webkit-text-stroke: 3px black; /* Lighter black outline */
-        margin-top: 300px;
-  margin-right: 450px
+
     }
 
 .rocket__body {
@@ -97,6 +98,27 @@
     background-color: #FF4500;
     border-radius: 50%;
     animation: flame-animation 0.5s infinite alternate;
+}
+
+.fa-cloud {
+    position: absolute;
+    top: calc(60px * var(--i));
+    left: calc(30px * var(--i));
+    font-size: 2em;
+    color: #ffffff11;
+    -webkit-text-stroke: 2px #000;
+    animation: cloud 1s linear infinite;
+    animation-delay: calc(0.5s * var(--i));
+}
+
+@keyframes cloud {
+    0% {
+        transform: translateY(calc(-35 * 10px ));
+    }
+
+    100% {
+        transform: translateY(calc(22px * 15px));
+    }
 }
 
 /* Flame animation */
