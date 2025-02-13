@@ -1,17 +1,87 @@
-﻿/* General Styles */
-body {
-    background: linear-gradient(to bottom, #E6D0F2, #FFFFFF);
-    color: black;
-    font-family: Arial, sans-serif;
-    overflow: hidden; /* Prevents scrollbars */
-
-    position: relative;
+﻿body {
+    font-family: 'Poppins', sans-serif; /* Smooth, rounded font */
 }
 
-/* Rocket Container */
+.title-container {
+    position: absolute;
+    top: 35%; /* Align with the top of the rocket */
+    left: 10%; /* Move to the left side, parallel with the rocket */
+    z-index: 5; /* Ensure it's above other elements */
+    text-align: left;
+    padding-left: 20px; /* Padding to avoid text from being too close to the edge */
+    width: 100%; /* Control the container width */
+    max-width: 1000px; /* Set a max width for responsiveness */
+  
+}
+
+    /* Title styling */
+    .title-container h1 {
+        font-family: 'Poppins', sans-serif; /* Smooth, oval font */
+        font-size: 4rem; /* Larger font size */
+        font-weight: 700; /* Bold weight for emphasis */
+        color: black;
+        margin-top: 0;
+       /* text-shadow: 1px 1px 2px black;*/
+    }
+
+/* Title Description Styling */
+.title-description {
+    display: inline-flex;
+    font-family: 'Roboto', sans-serif; 
+    font-size: 1.5rem; /* Larger font size for description */
+    color: black;
+    margin-top: 20px; /* Space between title and description */
+    padding: 0 0px; /* Padding for readability */
+    /*text-shadow: 1px 1px 2px black;*/
+}
+
+/* Primary button */
+.primary-button {
+    margin-top: 30px; /* Space between description and button */
+    text-align: left;
+}
+
+.styled-button {
+    display: inline-block;
+    padding: 20px 50px;
+    border-radius: 50px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    border: 0;
+    background-color: black;
+    box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-size: 18px;
+    color: white;
+    transition: all 0.5s ease;
+}
+
+    .styled-button:hover {
+        letter-spacing: 3px;
+        background-color: hsl(261deg 80% 48%);
+        color: hsl(0, 0%, 100%);
+        box-shadow: rgb(93 24 220) 0px 7px 29px 0px;
+    }
+
+    .styled-button:active {
+        letter-spacing: 3px;
+        background-color: hsl(261deg 80% 48%);
+        color: hsl(0, 0%, 100%);
+        box-shadow: rgb(93 24 220) 0px 0px 0px 0px;
+        transform: translateY(10px);
+        transition: 100ms;
+    }
+
+
+
+
+
+
 .rocket {
-/*    position: fixed;*/
-/*    top: 20%;*/
+    /*    position: fixed;*/
+    /*    top: 20%;*/
     right: 10%;
     width: 400px;
     height: 400px;
@@ -126,6 +196,7 @@ body {
         opacity: 0;
     }
 }
+
 @keyframes rocket {
     0%,100% {
         transform: translate(0px,0px) rotate(-45deg);
