@@ -1,18 +1,27 @@
 ﻿/* General Styles */
 body {
     background: linear-gradient(to bottom, #E6D0F2, #FFFFFF);
+    background-repeat:no-repeat;
     color: black;
     font-family: Arial, sans-serif;
-    overflow: hidden; /* Prevents scrollbars */
-
     position: relative;
 }
 
+section {
+    position: relative;
+    height: 100vh !important;
+}
+
+section > * {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
 /* Rocket Container */
 .rocket {
-/*    position: fixed;*/
-/*    top: 20%;*/
-    right: 10%;
+    /*    position: fixed;*/
+    /*    top: 20%;*/
+    right: 0%;
     width: 400px;
     height: 400px;
     z-index: 999;
@@ -24,6 +33,7 @@ body {
     transform: translateY(-50%);
 }
 
+
     /* Rocket Icon */
     .rocket .dot i.fas.fa-rocket {
         font-size: 400px;
@@ -34,55 +44,56 @@ body {
         animation: rocket 0.2s linear infinite;
     }
 
+    /*
 /* Clouds Wrapper */
-.clouds {
+/*.clouds {
     position: absolute;
     width: 100%;
     height: 100%;
     overflow: hidden;
-}
+}*/
 
     /* Clouds Behind Rocket */
-    .clouds.behind {
+    /*.clouds.behind {
         z-index: 1;
-    }
+    }*/
 
     /* Clouds In Front of Rocket */
-    .clouds.front {
+    /*.clouds.front {
         z-index: 3;
-    }
+    }*/
 
     /* Cloud Styles */
-    .clouds .fa-cloud {
+    /*.clouds .fa-cloud {
         position: absolute;
         font-size: 6em;
         color: #73d7f575;
         -webkit-text-stroke: 2px black;
         opacity: 0;
-        left: calc(10% + (Math.random() * 60%)); /* Random horizontal position */
-        animation: cloud-fall 8s linear infinite;
-    }
+        left: calc(10% + (Math.random() * 60%));*/ /* Random horizontal position */
+        /*animation: cloud-fall 8s linear infinite;
+    }*/
     /* Cloud Styles */
-    .clouds .fa-cloud-front {
+    /*.clouds .fa-cloud-front {
         position: absolute;
         font-size: 6em;
         color: #a9dbeb99;
         -webkit-text-stroke: 2px black;
         opacity: 0;
-        left: calc(10% + (Math.random() * 60%)); /* Random horizontal position */
-        animation: cloud-fall-front 4s linear infinite;
-    }
+        left: calc(10% + (Math.random() * 60%));*/ /* Random horizontal position */
+        /*animation: cloud-fall-front 4s linear infinite;
+    }*/
 
     /* Ensure random spacing between clouds */
-    .clouds .fa-cloud:nth-child(odd) {
+    /*.clouds .fa-cloud:nth-child(odd) {
         animation-delay: 0s;
-        transform: translateX(calc((Math.random() - 0.5) * 200px)); /* Random offset */
-    }
+        transform: translateX(calc((Math.random() - 0.5) * 200px));*/ /* Random offset */
+    /*}
 
     .clouds .fa-cloud:nth-child(even) {
         animation-delay: 3s;
-        transform: translateX(calc((Math.random() - 0.5) * 200px)); /* Different random offset */
-    }
+        transform: translateX(calc((Math.random() - 0.5) * 200px));*/ /* Different random offset */
+    /*}*/
 
 /* Falling Animation */
 @keyframes cloud-fall {

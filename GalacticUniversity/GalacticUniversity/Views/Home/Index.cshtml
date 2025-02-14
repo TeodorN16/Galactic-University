@@ -1,21 +1,16 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
-
+﻿
 <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
 <section>
-    <div class="title-container">
-        <h1>Открий чудесата на космоса</h1>
-        <div class="title-description">
-            Влез в света на астрономията, астрологията и физиката. Научи повече за Вселената и всичко, което тя крие.
-        </div>
-        <div class="primary-button">
-            <a class="styled-button" asp-action="Index" asp-controller="Course">Започни</a>
-        </div>
+    <div  class="titlecontainer" >
+        <!-- Нов контейнер, който държи заглавието и ракетата -->
+            <h1 class="titlecontainer">Открий чудесата на космоса</h1>
+            <div class=" titlecontainer description">
+                Влез в света на астрономията, астрологията и физиката. Научи повече за Вселената и всичко, което тя крие.
+            </div>
+            <div class="primary-button">
+                <a class="styled-button" asp-action="Index" asp-controller="Course">Започни</a>
+            </div>        
     </div>
-
-  
-
     <div class="rocket">
         <!-- Clouds Behind Rocket -->
         <div class="clouds behind" style="z-index: 1">
@@ -24,7 +19,7 @@
         </div>
 
         <!-- Rocket Icon -->
-        <div class="dot" style="z-index: 2">
+        <div class="dot" style="z-index: 2; margin-top: 10vh;">
             <i class="fas fa-rocket"></i>
         </div>
 
@@ -33,13 +28,53 @@
             <i class="fas fa-cloud fa-cloud-front" style="left:50%; top:50%"></i>
             <i class="fas fa-cloud fa-cloud-front" style="left:9%; top:50%"></i>
         </div>
-    </div>
+    </div>    
 </section>
-<section>
-     
+
+<section style="display:flex">
     <div class="choose-us-title">
-        Защо нас?
+        Научете, Изследвайте, Открийте
     </div>
-   
-</div> 
+    <div class="choose-us-card">
+        <div class="card">
+            <p class="card__text">Достъп до висококачествени курсове</p> <!-- Center text before hover -->
+            <div class="card__content">
+                
+                <p class="card__description">Нашите курсове са създадени от експерти в областта на астрономията, астрологията, физиката и космоса. Всяка лекция е внимателно структурирана, за да осигури максимално разбиране и практически знания. Независимо дали сте начинаещ или напреднал, ще намерите полезно и вдъхновяващо съдържание.</p>
+            </div>
+        </div>
+        <div class="card">
+            <p class="card__text">Интерактивно и увлекателно обучение</p> <!-- Center text before hover -->
+            <div class="card__content">
+               
+                <p class="card__description">Нашите лекции включват разнообразие от текстови и визуални материали, като презентации, изображения и документи, които ще улеснят разбирането на сложните концепции в астрономията и физиката. Чрез тези ресурси ще можете да преглеждате ключови моменти от лекциите и да се запознаете с теми, които няма да намерите  в традиционните учебници.</p>
+            </div>
+        </div>
+        <div class="card">
+            <p class="card__text">Гъвкавост и достъпност</p> <!-- Center text before hover -->
+            <div class="card__content">
+                
+                <p class="card__description">Обучението при нас е съобразено с вашето време и предпочитания. Можете да учите от всяко място, по всяко време, със собствено темпо. Независимо дали сте ученик, студент или просто любител на науката, нашите курсове са създадени, за да бъдат удобни и лесно достъпни за вас.</p>
+            </div>
+        </div>
+    </div>
+    </div>
+    <button class="button">
+        <svg class="svgIcon" viewBox="0 0 384 512">
+            <path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"></path>
+        </svg>
+    </button>
+
+    <div class="qoute-card shadow">
+        <div class="card-content">
+            <div class="image">
+                <img src="img/albert-removebg-preview.png" alt="Image" />
+            </div>
+            <div class="text">
+                <p>"Погледнете нагоре към звездите, а не надолу към краката си. Опитвайте се да разберете това, което виждате, и се чудете защо Вселената съществува. Бъдете любопитни."</p>
+            </div>
+        </div>
+    </div>
+
 </section>
+<script src="~/js/scrollButton.js"></script>

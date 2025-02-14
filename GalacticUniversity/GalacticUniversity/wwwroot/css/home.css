@@ -1,21 +1,23 @@
-﻿body {
-    font-family: 'Poppins', sans-serif; /* Smooth, rounded font */
-}
+﻿/*body {
+    font-family: 'Poppins', sans-serif;*/ /* Smooth, rounded font */
+    /*background-repeat:no-repeat;
+}*/
 
-.title-container {
-    position: absolute;
-    top: 35%; /* Align with the top of the rocket */
-    left: 10%; /* Move to the left side, parallel with the rocket */
+.titlecontainer {
+    
+    /*top: 35%;  Align with the top of the rocket */
+    left: -10%;  
     z-index: 5; /* Ensure it's above other elements */
     text-align: left;
     padding-left: 20px; /* Padding to avoid text from being too close to the edge */
     width: 100%; /* Control the container width */
     max-width: 1000px; /* Set a max width for responsiveness */
+    font-size:20px;
   
 }
 
     /* Title styling */
-    .title-container h1 {
+    .titlecontainer h1 {
         font-family: 'Poppins', sans-serif; /* Smooth, oval font */
         font-size: 4rem; /* Larger font size */
         font-weight: 700; /* Bold weight for emphasis */
@@ -25,9 +27,9 @@
     }
 
 /* Title Description Styling */
-.title-description {
+.titlecontainer description {
     display: inline-flex;
-    font-family: 'Roboto', sans-serif; 
+    font-family: 'Roboto', sans-serif;
     font-size: 1.5rem; /* Larger font size for description */
     color: black;
     margin-top: 20px; /* Space between title and description */
@@ -76,16 +78,218 @@
 
 
 
+.choose-us-card {
+    display: flex;
+    gap: 120px; /* Adjust the gap between cards */
+    justify-content: center; /* Center the cards horizontally */
+    flex-wrap: wrap; /* Allow the cards to wrap if necessary */
+}
+
+.card {
+    position: relative;
+    width: 350px; /* Increased width for larger cards */
+    height: 300px; /* Increased height for bigger cards */
+    background: linear-gradient(-45deg, #9f99ff 0%, #b8a9ff 100% ); /* Light purple gradient */
+    border-radius: 15px; /* Rounded corners */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+    text-align: center;
+}
+
+.card__content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    width: 100%;
+    height: 100%;
+    padding: 30px; /* Increased padding for more space */
+    box-sizing: border-box;
+    background-color: white; /* White background for content */
+    opacity: 0;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column; /* Align the text vertically and horizontally */
+}
+
+.card:hover {
+    transform: rotate(-5deg) scale(1.1);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+    .card:hover .card__content {
+        transform: translate(-50%, -50%) rotate(0deg);
+        opacity: 1;
+    }
+
+.card__text {
+    font-size: 30px; /* Bigger text for the placeholder */
+    color: #fff; /* White color for the text */
+    font-weight: bold;
+    z-index: 1; /* Ensure text is on top */
+}
+
+.card__title,
+.card__description {
+    display: none; /* Hide the content initially */
+}
+
+.card:hover .card__title,
+.card:hover .card__description {
+    display: block; /* Show title and description on hover */
+}
+
+.card:hover .card__text {
+    display: none; /* Hide the center text on hover */
+}
 
 
+
+
+/* Button Styling */
+/* Button Styling */
+.button {
+    position: fixed !important;
+    bottom: 20px !important; /* Keeps it near the bottom */
+    right: 20px !important; /* Moves it to the right */
+
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgb(20, 20, 20);
+    border: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 0px 4px rgba(180, 160, 255, 0.253);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Icon Styling */
+.svgIcon {
+    width: 12px;
+    transition: transform 0.3s ease;
+}
+
+    .svgIcon path {
+        fill: white;
+    }
+
+/* Hover Effects */
+.button:hover {
+    width: 140px;
+    border-radius: 50px;
+    background-color: rgb(181, 160, 255);
+}
+
+    /* Move Icon on Hover */
+    .button:hover .svgIcon {
+        transform: translateY(-200%);
+    }
+
+/* ✅ Centered Back to Home Text */
+.button::after {
+    content: "Back to Home";
+    position: absolute;
+    top: 50%; /* ✅ Center vertically */
+    left: 50%; /* ✅ Center horizontally */
+    transform: translate(-50%, -50%); /* ✅ Perfect centering */
+
+    color: white;
+    font-size: 13px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    white-space: nowrap; /* ✅ Prevent wrapping */
+}
+
+/* ✅ Show text on hover */
+.button:hover::after {
+    opacity: 1;
+}
+
+
+
+
+.qoute-card {
+    width: 500px; /* Increased width */
+    height: 1415px; /* Increased height */
+    background: white;
+    border-radius: 10px;
+    transition: border-radius 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform: rotate(90deg); /* Rotate the card 90 degrees */
+    transform-origin: center; /* Rotate around the center of the card */
+    box-shadow: inset 0 -3em 3em rgba(0,0,0,0.1), 0 0 0 2px rgb(190, 190, 190), 0.3em 0.3em 1em rgba(0,0,0,0.3);
+    /* Centering the card in the middle of the page */
+    display:flex;
+    align-self:center;
+    margin-left:480px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(90deg); /* Adjust the card's position and keep it rotated */
+    margin-top:450px;
+}
+}
+
+
+
+
+.shadow {
+    box-shadow: inset 0 -3em 3em rgba(0,0,0,0.1), 0 0 0 2px rgb(190, 190, 190), 0.3em 0.3em 1em rgba(0,0,0,0.3);
+}
+
+
+.card-content {
+    display: flex; /* Flexbox layout */
+    height: 100%; /* Take up full height of the card */
+    align-items: center; /* Vertically center the content */
+    transform: rotate(270deg); /* Rotate content 270 degrees */
+    transform-origin: center center; /* Rotate around the center */
+}
+
+.image {
+    width: 100%; /* Set image width to 45% of the card */
+    padding: 0px; /* Add space around the image */
+    margin-left: -420px;
+}
+
+    .image img {
+        width: 100%; /* Make the image fill the container */
+        height: auto;
+        border-radius: 8px; /* Optional: rounded corners for the image */
+    }
+
+.text {
+    width: 100%; /* Increase the text width to occupy more space */
+    padding: 10px; /* Add space around the text */
+}
+
+    .text p {
+        font-size: 22px; /* Increase text size */
+        line-height: 1.8; /* Adjust line height for better readability */
+        color: #333;
+        font-family: 'Georgia', serif; /* Suitable font for quotes */
+        font-style: italic; /* Make the quote italic for emphasis */
+         width: 100%; /* Increase the text width to occupy more space */
+    padding: 10px; /* Add space around the text */
+    margin-left: 100px; /* Adjust this value to move text more to the right */
+    }
 
 .rocket {
-    /*    position: fixed;*/
+       position: fixed;
     /*    top: 20%;*/
-    right: 10%;
-    width: 400px;
-    height: 400px;
-    z-index: 999;
+    /*right: 10%;*/
+    width: auto;
+    height: 40vh;
+    z-index: 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -108,13 +312,14 @@
 .clouds {
     position: absolute;
     width: 100%;
-    height: 100%;
+    height: 250%;
     overflow: hidden;
 }
 
     /* Clouds Behind Rocket */
     .clouds.behind {
         z-index: 1;
+        height: 250%;
     }
 
     /* Clouds In Front of Rocket */
@@ -205,4 +410,12 @@
     50% {
         transform: translate(0px,3px) rotate(-45deg);
     }
+}
+.choose-us-title {
+    width: 100%;
+    text-align: center;
+    margin: 40px auto 0; /* Adjust margin-top to set the gap */
+    font-size: 2rem;
+    font-weight: bold;
+    position: relative;
 }
