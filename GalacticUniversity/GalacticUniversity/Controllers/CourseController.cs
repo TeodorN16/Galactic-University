@@ -24,6 +24,7 @@ namespace GalacticUniversity.Controllers
       
         public async Task<IActionResult> Index(CourseViewModel? filter)
         {
+           
             var query = _courseService.GetAll().AsQueryable();
             if (filter.CategoryID!=null)
             {
