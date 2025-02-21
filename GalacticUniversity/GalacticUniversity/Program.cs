@@ -33,6 +33,7 @@ builder.Services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<Appl
 
 builder.Services.AddScoped<CloudinaryService>();
 
+
 var cloudinarySetting = builder.Configuration.GetSection("Cloudinary").Get<CloudinarySettings>();
 
 var account = new Account(cloudinarySetting.CloudName, cloudinarySetting.ApiKey, cloudinarySetting.ApiSecret);
