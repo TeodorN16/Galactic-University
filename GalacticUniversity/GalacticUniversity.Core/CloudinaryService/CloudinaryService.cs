@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GalacticUniversity.Core.CloudinaryService
 {
-    internal class CloudinaryService
+    public class CloudinaryService
     {
     }
 }

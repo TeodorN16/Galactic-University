@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using GalacticUniversity.Utility;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using GalacticUniversity.Models;
+using GalacticUniversity.Core.CloudinaryService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,7 +29,7 @@ builder.Services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<Appl
 
 /*builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();*/
 
-
+builder.Services.AddScoped<CloudinaryService>();
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped(typeof(IService<>), typeof(Service<>));
