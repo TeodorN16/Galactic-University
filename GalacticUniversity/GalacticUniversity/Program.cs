@@ -16,6 +16,8 @@ using GalacticUniversity.Utility;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using GalacticUniversity.Models;
 using GalacticUniversity.Core.CloudinaryService;
+using CloudinaryDotNet;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +32,13 @@ builder.Services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<Appl
 /*builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();*/
 
 builder.Services.AddScoped<CloudinaryService>();
+
+var cloudinarySetting = builder.Configuration.GetSection("Cloudinary").Get<CloudinarySettings>();
+
+var account = new Account(cloudinarySetting.CloudName, cloudinarySetting.ApiKey, cloudinarySetting.ApiSecret);
+
+var cloudinary = new Cloudinary(account);
+builder.Services.AddSingleton(cloudinary);
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped(typeof(IService<>), typeof(Service<>));

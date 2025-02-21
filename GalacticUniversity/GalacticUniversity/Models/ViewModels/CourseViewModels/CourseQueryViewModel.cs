@@ -14,8 +14,14 @@ namespace GalacticUniversity.Models.ViewModels
         public int CategoryID { get; set; }
         public List<SelectListItem> Categories { get; set; }
 
-        
+        public int SelectedLecturesID { get; set; }
+        public List<SelectListItem> Lectures { get; set; }
 
-        
+        public string ImageURL { get; set; }
+        public IFormFile Image { get; set; }
+
+
+
+
     }
 }

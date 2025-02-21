@@ -1,61 +1,130 @@
 ﻿@model GalacticUniversity.Models.ViewModels.CourseViewModel
 
-<div class="container mt-4">
-    <h2 class="mb-4">Filter Courses</h2>
-    <form asp-action="Index" method="get" class="mb-4">
-        <div class="row">
-            <div class="col-md-4 mb-3">
-                <label asp-for="CategoryID" class="form-label">Category</label>
-                <select asp-for="CategoryID" asp-items="@Model.Categories" class="form-select">
-                    <option value="">All Categories</option>
-                </select>
+
+<link rel="stylesheet" href="~/css/courseIndex.css" asp-append-version="true" />
+
+@* ADMIN VIEW *@
+@if (User.IsInRole("Admin"))
+{ 
+
+
+    <div class="container mt-4">
+        <h2 class="mb-4">Filter Courses</h2>
+        <form asp-action="Index" method="get" class="mb-4">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label asp-for="CategoryID" class="form-label">Category</label>
+                    <select asp-for="CategoryID" asp-items="@Model.Categories" class="form-select">
+                        <option value="">All Categories</option>
+                    </select>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label asp-for="StartDate" class="form-label">Start Date</label>
+                    <input type="date" asp-for="StartDate" class="form-control" />
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label asp-for="EndDate" class="form-label">End Date</label>
+                    <input type="date" asp-for="EndDate" class="form-control" />
+                </div>
             </div>
 
-            <div class="col-md-4 mb-3">
-                <label asp-for="StartDate" class="form-label">Start Date</label>
-                <input type="datetime-local" asp-for="StartDate" class="form-control" />
-            </div>
+            <button type="submit" class="btn btn-primary">Filter Courses</button>
+        </form>
 
-            <div class="col-md-4 mb-3">
-                <label asp-for="EndDate" class="form-label">End Date</label>
-                <input type="datetime-local" asp-for="EndDate" class="form-control" />
-            </div>
-        </div>
+        <h2 class="mb-4">Courses</h2>
 
-        <button type="submit" class="btn btn-primary">Filter Courses</button>
-    </form>
-
-    <h2 class="mb-4">Courses</h2>
-
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Course Name</th>
-                <th>Description</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Category</th>
-                <th>Options</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Courses)
-            {
+        <table class="table table-bordered">
+            <thead>
                 <tr>
-                    <td>@item.CourseName</td>
-                    <td>@item.Description</td>
-                    <td>@item.StartDate.ToString("yyyy-MM-dd HH:mm")</td>
-                    <td>@item.EndDate.ToString("yyyy-MM-dd HH:mm")</td>
-                    <td>@item.Category.CategoryName</td>
-                    <td>
-                        <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.CourseID">Edit</a>
-
-                        <form asp-action="Delete" asp-route-id="@item.CourseID" method="post" style="display:inline;">
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
-                    </td>
+                    <th>Course Name</th>
+                    <th>Description</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Category</th>
+                    <th>Options</th>
                 </tr>
-            }
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Courses)
+                {
+                    <tr>
+                        <td>@item.CourseName</td>
+                        <td>@item.Description</td>
+                        <td>@item.StartDate.ToString("yyyy-MM-dd")</td>
+                        <td>@item.EndDate.ToString("yyyy-MM-dd")</td>
+                        <td>@item.Category.CategoryName</td>
+                        <td>
+                            <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.CourseID">Edit</a>
+
+                            <form asp-action="Delete" asp-route-id="@item.CourseID" method="post" style="display:inline;">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@* USER VIEW *@
+
+@if (User.IsInRole("User"))
+{
+    @if (User.IsInRole("User"))
+    {
+        <div class="main-container">
+
+            <h1 class="page-title">Нашите Курсове</h1>
+
+            <div class="filter-container">
+                <h2 class="mb-4">Филтрирай курсове</h2>
+                <form asp-action="Index" method="get" class="filter-form">
+                    <div class="filter-group">
+                        <label asp-for="CategoryID" class="form-label">Категория</label>
+                        <select asp-for="CategoryID" asp-items="@Model.Categories" class="form-select">
+                            <option value="">Всички категории</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label asp-for="StartDate" class="form-label">Начална дата</label>
+                        <input type="date" asp-for="StartDate" class="form-control" />
+                    </div>
+
+                    <div class="filter-group">
+                        <label asp-for="EndDate" class="form-label">Крайна дата</label>
+                        <input type="date" asp-for="EndDate" class="form-control" />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Филтрирай</button>
+                </form>
+            </div>
+
+            <div class="cards-container">
+                @foreach (var item in Model.Courses)
+                {
+                    <div class="card">
+                        <div class="image" style="background-image: url('@item.ImageURL');"></div>
+                        <div class="content">
+                            <a href="#">
+                                <span class="title">@item.CourseName</span>
+                            </a>
+
+                            <p class="desc">@item.Description</p>
+
+                            <a class="action" href="#">Виж още <span aria-hidden="true">→</span></a>
+                            <a asp-action="joinCourse" class="join-btn">Запиши се</a>
+                        </div>
+                    </div>
+                }
+            </div>
+
+        </div>
+    }
+
+
+}
+  
