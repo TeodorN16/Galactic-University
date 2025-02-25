@@ -75,8 +75,8 @@
 {
     @if (User.IsInRole("User"))
     {
-        <div class="main-container">
-
+        
+            
             <h1 class="page-title">Нашите Курсове</h1>
 
             <div class="filter-container">
@@ -114,15 +114,16 @@
                             </a>
 
                             <p class="desc">@item.Description</p>
-
+                            <div class="action-btns">
                             <a class="action" href="#">Виж още <span aria-hidden="true">→</span></a>
                             <a asp-action="joinCourse" class="join-btn">Запиши се</a>
+                            </div>
                         </div>
                     </div>
                 }
             </div>
 
-        </div>
+       
     }
 
 

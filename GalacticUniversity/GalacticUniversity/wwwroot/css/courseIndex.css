@@ -1,116 +1,234 @@
-﻿body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+﻿/* courseIndex.css */
+
+/* Global Styles */
+body {
+    color: #ffffff;
+    font-family: 'Arial', sans-serif;
     min-height: 100vh;
-    background-color: #f7f7f7;
-    margin: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 20px;
 }
 
+/* Admin View Styles */
+.table {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    backdrop-filter: blur(5px);
+}
+
+    .table th {
+        background: #2c2c6e;
+        padding: 15px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .table td {
+        padding: 15px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .table tr:hover {
+        background: rgba(255, 255, 255, 0.05);
+        transition: all 0.3s ease;
+    }
+
+.btn {
+    border-radius: 25px;
+    padding: 8px 20px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: #4e4eff;
+    border: none;
+}
+
+    .btn-primary:hover {
+        background: #6b6bff;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(78, 78, 255, 0.4);
+    }
+
+.btn-danger {
+    background: #ff4444;
+    border: none;
+}
+
+    .btn-danger:hover {
+        background: #ff6666;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(255, 68, 68, 0.4);
+    }
+
+.form-label {
+    color: #000000;
+    margin-bottom: 5px;
+}
+
+.form-control, .form-select {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #000000;
+    border-radius: 5px;
+    padding: 10px;
+    border-color:black;
+}
+
+    .form-control:focus, .form-select:focus {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: #4e4eff;
+        box-shadow: 0 0 10px rgba(78, 78, 255, 0.3);
+    }
+
+/* User View Styles */
 .page-title {
     text-align: center;
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 30px;
-    margin-top: 20px;
+    font-size: 2.5rem;
+    margin: 40px 0;
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(78, 78, 255, 0.5);
 }
 
 .filter-container {
-    background: white;
+    background: rgba(255, 255, 255, 0.05);
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 800px;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
+    backdrop-filter: blur(5px);
 }
 
 .filter-form {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    align-items: end;
 }
 
 .filter-group {
     display: flex;
     flex-direction: column;
-    width: 30%;
 }
 
-    .filter-group label {
-        font-weight: bold;
-        margin-bottom: 5px;
-    }
-
-    .filter-group .form-control,
-    .filter-group .form-select {
-        padding: 8px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-
 .cards-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    max-width: 1200px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 0 20px;
 }
 
 .card {
-    width: 320px;
-    border-radius: 10px;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
     overflow: hidden;
-    text-align: center;
-    padding-bottom: 10px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
+
+    .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(78, 78, 255, 0.2);
+    }
 
 .image {
     width: 100%;
     height: 200px;
     background-size: cover;
     background-position: center;
+    border-bottom: 2px solid rgba(78, 78, 255, 0.3);
 }
 
 .content {
-    padding: 15px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
 .title {
-    font-size: 1.25rem;
-    font-weight: bold;
-    color: #333;
+    font-size: 1.5rem;
+    color: #000000;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 10px;
 }
 
 .desc {
-    font-size: 0.9rem;
-    color: #666;
-    margin-top: 8px;
+    color: #000000;
+    font-size: 1rem;
+    margin-bottom: 15px;
+    line-height: 1.5;
 }
 
 .action {
-    display: inline-block;
-    margin-top: 12px;
-    padding: 8px 12px;
-    background-color: #2563EB;
-    color: white;
-    border-radius: 5px;
+    color: #4e4eff;
     text-decoration: none;
     font-weight: bold;
+    transition: all 0.3s ease;
+    margin-right: 20px; /* Space between link and button */
 }
 
+    .action:hover {
+        color: #6b6bff;
+    }
+
 .join-btn {
-    display: block;
-    margin-top: 8px;
-    padding: 8px;
-    background-color: #28a745;
-    color: white;
-    border-radius: 5px;
+    display: inline-block;
+    background: #4e4eff;
+    color: #ffffff;
+    padding: 8px 20px; /* Slightly reduced padding for better alignment */
+    border-radius: 25px;
     text-decoration: none;
-    font-weight: bold;
+    transition: all 0.3s ease;
+    margin-left: 39px;
+}
+
+/* New container for action and join button */
+.action-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: auto; /* Pushes it to the bottom of the content */
+}
+
+.join-btn:hover {
+    background: #6b6bff;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(78, 78, 255, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .filter-form {
+        grid-template-columns: 1fr;
+    }
+
+    .cards-container {
+        grid-template-columns: 1fr;
+    }
+
+    .table {
+        display: block;
+        overflow-x: auto;
+    }
+
+    .action-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .action {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .join-btn {
+        width: 100%;
+        text-align: center;
+    }
 }
