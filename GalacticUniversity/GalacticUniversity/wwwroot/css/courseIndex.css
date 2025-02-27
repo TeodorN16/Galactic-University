@@ -45,15 +45,48 @@ body {
 }
 
 .btn-primary {
-    background: #4e4eff;
+    line-height: 1;
+    text-decoration: none;
+    display: flex; /* Removed duplicate */
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    background-color: black; /* Default black background */
+    color: #fff; /* Default white text */
     border: none;
+    cursor: pointer;
+    border-radius: 10rem;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: background-color 0.3s, color 0.3s;
+    width: 70%;
+    text-align: center;
 }
 
-    .btn-primary:hover {
-        background: #6b6bff;
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(78, 78, 255, 0.4);
+    .btn-primary .wrapper {
+        flex-shrink: 0;
+        width: 25px;
+        height: 25px;
+        position: relative;
+        color: var(--clr);
+        background-color: #fff;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+        
     }
+
+    .btn-primary:hover {
+        background-color: var(--clr);
+    }
+
+
+
+</style >
 
 .btn-danger {
     background: #ff4444;
@@ -92,7 +125,7 @@ body {
     font-size: 2.5rem;
     margin: 40px 0;
     color: #ffffff;
-    text-shadow: 0 0 20px rgba(78, 78, 255, 0.5);
+  
 }
 
 .filter-container {

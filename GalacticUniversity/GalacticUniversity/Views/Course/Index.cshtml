@@ -76,10 +76,10 @@
    
         
             
-            <h1 class="page-title">Нашите Курсове</h1>
+            <h1 class="page-title" style="color:black">Нашите Курсове</h1>
 
             <div class="filter-container">
-                <h2 class="mb-4">Филтрирай курсове</h2>
+                <h2 class="mb-4" style="color:black">Филтрирай курсове</h2>
                 <form asp-action="Index" method="get" class="filter-form">
                     <div class="filter-group">
                         <label asp-for="CategoryID" class="form-label">Категория</label>
@@ -98,7 +98,10 @@
                         <input type="date" asp-for="EndDate" class="form-control" />
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Филтрирай</button>
+            <button class="btn-primary" style="--clr: #7808d0">
+                
+                Филтрирай
+            </button>
                 </form>
             </div>
 

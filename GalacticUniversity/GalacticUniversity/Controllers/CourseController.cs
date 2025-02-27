@@ -160,5 +160,11 @@ namespace GalacticUniversity.Controllers
             return RedirectToAction("Index");
         }
 
+        public async Task<IActionResult> JoinCourse(int id)
+        { 
+
+            return RedirectToAction("Course");
+        }
+
     }
 }

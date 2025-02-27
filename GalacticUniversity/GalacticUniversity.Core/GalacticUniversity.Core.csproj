@@ -27,4 +27,8 @@
     <ProjectReference Include="..\GalacticUniversity.Utility\GalacticUniversity.Utility.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="UserCourseService\" />
+  </ItemGroup>
+
 </Project>
