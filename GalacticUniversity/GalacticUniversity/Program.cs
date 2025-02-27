@@ -19,6 +19,7 @@ using GalacticUniversity.Core.CloudinaryService;
 using CloudinaryDotNet;
 
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -40,6 +41,10 @@ var account = new Account(cloudinarySetting.CloudName, cloudinarySetting.ApiKey,
 
 var cloudinary = new Cloudinary(account);
 builder.Services.AddSingleton(cloudinary);
+
+
+
+
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped(typeof(IService<>), typeof(Service<>));
