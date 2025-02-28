@@ -66,6 +66,7 @@ namespace GalacticUniversity.Core.UserCourseService
             }
 
             await _repo.Delete(check);
+            
             return true;
         }
 
