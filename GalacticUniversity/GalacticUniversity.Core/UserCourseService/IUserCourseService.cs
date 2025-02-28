@@ -10,6 +10,7 @@ namespace GalacticUniversity.Core.UserCourseService
 {
     public interface IUserCourseService:IService<UserCourses>
     {
-
+        Task<bool> JoinCourse(string userId,int courseId);
+        Task<bool> LeaveCourse(string userId,int courseId);
     }
 }

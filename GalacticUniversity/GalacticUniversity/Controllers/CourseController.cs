@@ -2,6 +2,7 @@
 using GalacticUniversity.Core.CloudinaryService;
 using GalacticUniversity.Core.CourseService;
 using GalacticUniversity.Core.LectureService;
+using GalacticUniversity.Core.UserCourseService;
 using GalacticUniversity.Models;
 using GalacticUniversity.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -18,14 +19,17 @@ namespace GalacticUniversity.Controllers
         private readonly ICategoryService _categoryService;
         private readonly ILectureService _lectureService;
         private readonly CloudinaryService _cloudinaryService;
+        private readonly IUserCourseService _userCourseService;
         
 
-        public CourseController(ICourseService courseService,ICategoryService categoryService,ILectureService lectureService, CloudinaryService cloudinaryService)
+        public CourseController(ICourseService courseService,ICategoryService categoryService,ILectureService lectureService, CloudinaryService cloudinaryService,IUserCourseService userCourseService)
         { 
             _categoryService= categoryService;
             _courseService = courseService; 
             _lectureService = lectureService;
             _cloudinaryService = cloudinaryService;
+            _userCourseService = userCourseService;
+           
         }
       
         public async Task<IActionResult> Index(CourseViewModel? filter)
