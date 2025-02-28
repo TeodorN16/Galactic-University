@@ -6,15 +6,20 @@ using System.Threading.Tasks;
 using GalacticUniversity.Core.Repository;
 using GalacticUniversity.Core.Services;
 using GalacticUniversity.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 
 namespace GalacticUniversity.Core.UserService
 {
     public class UserService : IUserService
     {
         private readonly IRepository<User> _repo;
+        private readonly UserManager<User> _userManager;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public UserService(IRepository<User> repo)
+        public UserService(UserManager<User>userManager,IRepository<User> repo)
         { 
+            _userManager = userManager;
             _repo = repo;
         }
         public async Task Add(User obj)
@@ -24,22 +29,28 @@ namespace GalacticUniversity.Core.UserService
 
         public async Task Delete(User obj)
         {
-            await _repo.Delete(obj]);
+            await _repo.Delete(obj);
         }
 
-        public Task<User> Get(int id)
+        public async Task<User> Get(int id)
         {
-            throw new NotImplementedException();
+            User user = await _repo.Get(id);
+            return user;
         }
 
         public IQueryable<User> GetAll()
         {
-            throw new NotImplementedException();
+            return _repo.GetAll();
         }
 
-        public Task Update(User obj)
+        public async Task<User> GetUserID()
         {
-            throw new NotImplementedException();
+            
+        }
+
+        public async Task Update(User obj)
+        {
+           await _repo.Update(obj);
         }
     }
 }

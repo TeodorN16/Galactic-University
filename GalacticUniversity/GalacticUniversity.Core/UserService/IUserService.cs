@@ -10,6 +10,6 @@ namespace GalacticUniversity.Core.UserService
 {
     public interface IUserService:IService<User>
     {
-
+        Task<User> GetUserID();
     }
 }
