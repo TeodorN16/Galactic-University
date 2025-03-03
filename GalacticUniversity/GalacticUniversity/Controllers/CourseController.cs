@@ -7,6 +7,7 @@ using GalacticUniversity.Core.UserService;
 using GalacticUniversity.Models;
 using GalacticUniversity.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -22,9 +23,11 @@ namespace GalacticUniversity.Controllers
         private readonly CloudinaryService _cloudinaryService;
         private readonly IUserCourseService _userCourseService;
         private readonly IUserService _userService;
+        private readonly UserManager<User> _userManager;
+
         
 
-        public CourseController(ICourseService courseService,ICategoryService categoryService,ILectureService lectureService, CloudinaryService cloudinaryService,IUserCourseService userCourseService,IUserService userService)
+        public CourseController(ICourseService courseService,ICategoryService categoryService,ILectureService lectureService, CloudinaryService cloudinaryService,IUserCourseService userCourseService,IUserService userService, UserManager<User> userManager)
         { 
             _categoryService= categoryService;
             _courseService = courseService; 
@@ -32,6 +35,7 @@ namespace GalacticUniversity.Controllers
             _cloudinaryService = cloudinaryService;
             _userCourseService = userCourseService;
             _userService = userService;
+            _userManager = userManager;
            
         }
       
@@ -169,7 +173,10 @@ namespace GalacticUniversity.Controllers
 
         public async Task<IActionResult> JoinCourse(int courseId)
         {
-            var userId = _userService.GetUserID();
+            var userID = _userManager.GetUserId(User);
+            
+
+            await _userCourseService.JoinCourse(userID, courseId);
             return RedirectToAction("Course");
         }
 

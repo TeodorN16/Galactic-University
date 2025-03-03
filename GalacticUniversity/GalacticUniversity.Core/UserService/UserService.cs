@@ -43,10 +43,7 @@ namespace GalacticUniversity.Core.UserService
             return _repo.GetAll();
         }
 
-        public async Task<User> GetUserID()
-        {
-            
-        }
+    
 
         public async Task Update(User obj)
         {

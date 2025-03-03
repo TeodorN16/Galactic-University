@@ -17,6 +17,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using GalacticUniversity.Models;
 using GalacticUniversity.Core.CloudinaryService;
 using CloudinaryDotNet;
+using GalacticUniversity.Core.UserCourseService;
+using GalacticUniversity.Core.UserService;
 
 
 
@@ -55,6 +57,9 @@ builder.Services.AddScoped<ICourseService,CourseService>();
 builder.Services.AddScoped<ILectureResourceService,LectureResourceService>();
 builder.Services.AddScoped<ILectureService, LectureService>();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
+builder.Services.AddScoped<IUserCourseService, UserCourseService>();
+builder.Services.AddScoped<IUserService, UserService>();
+
 
 
 /*builder.Services.AddDefaultIdentity<IdentityUser>(options=>options.SignIn.RequireConfirmedAccount=true)

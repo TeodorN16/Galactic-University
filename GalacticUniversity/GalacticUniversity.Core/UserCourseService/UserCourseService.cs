@@ -10,13 +10,15 @@ using GalacticUniversity.Models;
 
 namespace GalacticUniversity.Core.UserCourseService
 {
-    internal class UserCourseService : IUserCourseService
+    public class UserCourseService : IUserCourseService
     {
         private readonly IRepository<UserCourses> _repo;
+        private readonly IRepository<Course> _courseRepo;
 
-        public UserCourseService(IRepository<UserCourses> repo)
+        public UserCourseService(IRepository<UserCourses> repo, IRepository<Course> courseRepo)
         { 
             _repo = repo;
+            _courseRepo = courseRepo;
         }
         public async Task Add(UserCourses obj)
         {
@@ -42,7 +44,7 @@ namespace GalacticUniversity.Core.UserCourseService
         public async Task<bool> JoinCourse(string userId, int courseId)
         {
             var check = _repo.GetAll().FirstOrDefault(us => us.UserID == userId && us.CourseID == courseId);
-            if (check == null)
+            if (check != null)
             {
                 return false;
             }
@@ -59,6 +61,13 @@ namespace GalacticUniversity.Core.UserCourseService
 
         public async Task<bool> LeaveCourse(string userId, int courseId)
         {
+            var courseExists = _courseRepo.GetAll().Any(c => c.CourseID == courseId);
+
+            if (courseExists==false)
+            {
+                return false;
+            }
+
             var check = _repo.GetAll().FirstOrDefault(us => us.UserID == userId && us.CourseID == courseId);
             if (check == null)
             {
