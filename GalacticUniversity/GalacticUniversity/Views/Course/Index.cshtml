@@ -117,10 +117,8 @@
 
                             <p class="desc">@item.Description</p>
                             <div class="action-btns">
-                            
-                            <form asp-controller="Course" asp-action="JoinCourse" method="post">
-                               <button class="join-btns" >Zapishi se</button>
-                            </form>
+
+                        <a class="btn btn-primary" asp-action="JoinCourse" asp-controller="Course" asp-route-courseId="@item.CourseID">Edit</a>
                             </div>
                         </div>
                     </div>
