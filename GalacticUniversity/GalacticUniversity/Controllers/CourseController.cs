@@ -170,14 +170,15 @@ namespace GalacticUniversity.Controllers
             await _courseService.Delete(await _courseService.Get(id));
             return RedirectToAction("Index");
         }
-
+        [HttpPost]
+        [Authorize(Roles ="User")]
         public async Task<IActionResult> JoinCourse(int courseId)
         {
             var userID = _userManager.GetUserId(User);
             
 
             await _userCourseService.JoinCourse(userID, courseId);
-            return RedirectToAction("Course");
+            return RedirectToAction("Index");
         }
 
     }
