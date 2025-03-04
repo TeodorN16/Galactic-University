@@ -17,7 +17,7 @@ namespace GalacticUniversity.Core.Repository
         
         public IQueryable<T> GetAll();
 
-        public Task<T> Get(int id);
+        public Task<T> Get(string id);
 
         public Task<List<T>> Find(Expression<Func<T, bool>>filter);
         

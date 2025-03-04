@@ -32,7 +32,7 @@ namespace GalacticUniversity.Core.UserService
             await _repo.Delete(obj);
         }
 
-        public async Task<User> Get(int id)
+        public async Task<User> Get(string id)
         {
             User user = await _repo.Get(id);
             return user;
