@@ -73,53 +73,56 @@
 
 @if (User.IsInRole("User"))
 {
-   
-        
-            
-            <h1 class="page-title" style="color:black">Нашите Курсове</h1>
 
-            <div class="filter-container">
-                <h2 class="mb-4" style="color:black">Филтрирай курсове</h2>
-                <form asp-action="Index" method="get" class="filter-form">
-                    <div class="filter-group">
-                        <label asp-for="CategoryID" class="form-label">Категория</label>
-                        <select asp-for="CategoryID" asp-items="@Model.Categories" class="form-select">
-                            <option value="">Всички категории</option>
-                        </select>
-                    </div>
 
-                    <div class="filter-group">
-                        <label asp-for="StartDate" class="form-label">Начална дата</label>
-                        <input type="date" asp-for="StartDate" class="form-control" />
-                    </div>
 
-                    <div class="filter-group">
-                        <label asp-for="EndDate" class="form-label">Крайна дата</label>
-                        <input type="date" asp-for="EndDate" class="form-control" />
-                    </div>
+    <h1 class="page-title" style="color:black">Нашите Курсове</h1>
 
-            <button class="btn-primary" style="--clr: #7808d0">
-                
-                Филтрирай
-            </button>
-                </form>
+    <div class="filter-container">
+        <h2 class="mb-4" style="color:black">Филтрирай курсове</h2>
+        <form asp-action="Index" method="get" class="filter-form">
+            <div class="filter-group">
+                <label asp-for="CategoryID" class="form-label">Категория</label>
+                <select asp-for="CategoryID" asp-items="@Model.Categories" class="form-select">
+                    <option value="">Всички категории</option>
+                </select>
             </div>
 
-            <div class="cards-container">
-                @foreach (var item in Model.Courses)
-                {
-                    <div class="card">
-                        <div class="image" style="background-image: url('@item.ImageURL');"></div>
-                        <div class="content">
-                            <a href="#">
-                                <span class="title">@item.CourseName</span>
-                            </a>
+            <div class="filter-group">
+                <label asp-for="StartDate" class="form-label">Начална дата</label>
+                <input type="date" asp-for="StartDate" class="form-control" />
+            </div>
 
-                            <p class="desc">@item.Description</p>
-                            <div class="action-btns">
+            <div class="filter-group">
+                <label asp-for="EndDate" class="form-label">Крайна дата</label>
+                <input type="date" asp-for="EndDate" class="form-control" />
+            </div>
 
-                        <a class="btn btn-primary" asp-action="JoinCourse" asp-controller="Course" asp-route-courseId="@item.CourseID">Edit</a>
-                            </div>
+            <button class="btn-primary" style="--clr: #7808d0">
+
+                Филтрирай
+            </button>
+        </form>
+    </div>
+
+    <div class="cards-container">
+        @foreach (var item in Model.Courses)
+        {
+            <div class="card">
+                <div class="image" style="background-image: url('@item.ImageURL');"></div>
+                <div class="content">
+                    <a href="#">
+                        <span class="title">@item.CourseName</span>
+                    </a>
+
+                    <p class="desc">@item.Description</p>
+                    <div class="action-btns">
+                       
+                            <a class="btn btn-primary" asp-action="JoinCourse" asp-controller="Course" asp-route-courseId="@item.CourseID">Join Course</a>
+                        
+                       
+
+                    </div>
                         </div>
                     </div>
                 }

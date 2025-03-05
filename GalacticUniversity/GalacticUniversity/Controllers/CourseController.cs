@@ -38,33 +38,48 @@ namespace GalacticUniversity.Controllers
             _userManager = userManager;
            
         }
-      
+
         public async Task<IActionResult> Index(CourseViewModel? filter)
         {
-           
+            var currentUser = await _userManager.GetUserAsync(User); // Get the current logged-in user
+            var userId = currentUser?.Id;
+
             var query = _courseService.GetAll().AsQueryable();
-            if (filter.CategoryID!=null)
+
+            // Apply filters
+            if (filter.CategoryID != null)
             {
                 query = query.Where(c => c.CategoryID == filter.CategoryID);
             }
-            if (filter.StartDate != null )
+            if (filter.StartDate != null)
             {
                 query = query.Where(c => c.StartDate >= filter.StartDate);
             }
-            if (filter.EndDate!=null)
+            if (filter.EndDate != null)
             {
                 query = query.Where(c => c.EndDate <= filter.EndDate);
             }
+
+            // Get all courses the user has joined
+            var joinedCourses = _userCourseService.GetAll()
+                                                   .Where(u => u.UserID == userId)
+                                                   .Select(u => u.CourseID)
+                                                   .ToList();
+
+            // Filter out the courses the user has already joined
+            var availableCourses = query.Where(c => !joinedCourses.Contains(c.CourseID)).ToList();
+
             var categories = _categoryService.GetAll();
+
             var model = new CourseViewModel
             {
                 CategoryID = filter.CategoryID,
                 StartDate = filter.StartDate,
                 EndDate = filter.EndDate,
                 Categories = new SelectList(categories, "CategoryID", "CategoryName"),
-                Courses = query.Include(c => c.Category).ToList()
+                Courses = availableCourses // Only courses the user hasn't joined yet
             };
-            
+
             return View(model);
         }
         [Authorize(Roles ="Admin")]
@@ -175,10 +190,12 @@ namespace GalacticUniversity.Controllers
         [HttpGet]
         public async Task<IActionResult> JoinCourse(int courseId)
         {
+
             var userID = _userManager.GetUserId(User);
             
 
             await _userCourseService.JoinCourse(userID, courseId);
+            TempData["success"] = "Succesfuly joined course";
             return RedirectToAction("Index");
         }
 

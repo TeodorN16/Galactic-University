@@ -1,0 +1,15 @@
+﻿@model GalacticUniversity.Models.ViewModels.UserViewModels.UserViewModel
+
+
+<h1>My Profile</h1>
+
+<div>
+
+    <p><strong>ID:</strong> @Model.Id</p>
+    <p><strong>Email:</strong> @Model.Email</p>
+    @foreach (var item in Model.Courses)
+    { 
+        <p>@item.CourseName</p>
+    }
+    <!-- Add more user properties as needed -->
+    </div>
