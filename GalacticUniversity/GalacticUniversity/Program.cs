@@ -19,6 +19,7 @@ using GalacticUniversity.Core.CloudinaryService;
 using CloudinaryDotNet;
 using GalacticUniversity.Core.UserCourseService;
 using GalacticUniversity.Core.UserService;
+using GalacticUniversity.DataAccess.UserRepository;
 
 
 
@@ -50,6 +51,9 @@ builder.Services.AddSingleton(cloudinary);
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped(typeof(IService<>), typeof(Service<>));
+builder.Services.AddScoped<IUserRepository<User>, UserRepository<User>>();
+
+
 
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICommentService, CommentService>();
@@ -58,7 +62,7 @@ builder.Services.AddScoped<ILectureResourceService,LectureResourceService>();
 builder.Services.AddScoped<ILectureService, LectureService>();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
 builder.Services.AddScoped<IUserCourseService, UserCourseService>();
-builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserService<User>, UserService>();
 
 
 

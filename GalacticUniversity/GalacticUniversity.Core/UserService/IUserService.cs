@@ -8,8 +8,16 @@ using GalacticUniversity.Models;
 
 namespace GalacticUniversity.Core.UserService
 {
-    public interface IUserService:IService<User>
+    public interface IUserService<User>
     {
-      
+        public Task Add(User obj);
+
+        public Task Delete(User obj);
+
+        public Task Update(User obj);
+
+        public IQueryable<User> GetAll();
+
+        public Task<User> Get(string id);
     }
 }

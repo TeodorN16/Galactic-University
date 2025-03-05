@@ -5,19 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using GalacticUniversity.Core.Repository;
 using GalacticUniversity.Core.Services;
+using GalacticUniversity.DataAccess.UserRepository;
 using GalacticUniversity.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 
 namespace GalacticUniversity.Core.UserService
 {
-    public class UserService : IUserService
+    public class UserService : IUserService<User>
     {
-        private readonly IRepository<User> _repo;
+        private readonly IUserRepository<User> _repo;
         private readonly UserManager<User> _userManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public UserService(UserManager<User>userManager,IRepository<User> repo)
+        public UserService(UserManager<User>userManager,IUserRepository<User> repo)
         { 
             _userManager = userManager;
             _repo = repo;

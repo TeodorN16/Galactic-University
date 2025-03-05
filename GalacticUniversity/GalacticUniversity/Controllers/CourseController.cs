@@ -22,12 +22,12 @@ namespace GalacticUniversity.Controllers
         private readonly ILectureService _lectureService;
         private readonly CloudinaryService _cloudinaryService;
         private readonly IUserCourseService _userCourseService;
-        private readonly IUserService _userService;
+        private readonly IUserService<User> _userService;
         private readonly UserManager<User> _userManager;
 
         
 
-        public CourseController(ICourseService courseService,ICategoryService categoryService,ILectureService lectureService, CloudinaryService cloudinaryService,IUserCourseService userCourseService,IUserService userService, UserManager<User> userManager)
+        public CourseController(ICourseService courseService,ICategoryService categoryService,ILectureService lectureService, CloudinaryService cloudinaryService,IUserCourseService userCourseService,IUserService<User> userService, UserManager<User> userManager)
         { 
             _categoryService= categoryService;
             _courseService = courseService; 
