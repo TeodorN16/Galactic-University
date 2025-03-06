@@ -5,8 +5,7 @@
     <table class="table table-bordered mt-3">
         <thead>
             <tr>
-                <th scope="col">Resource Type</th>
-                <th scope="col">Resource Path</th>
+                <th scope="col">File</th>
                 <th scope="col">Lecture</th>
                 <th scope="col">Actions</th>
             </tr>
@@ -15,9 +14,45 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>@item.ResourceType</td>
-                    <td>@item.ResourcePath</td>
-                    <td>@item.LectureName</td> 
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.FileUrl))
+                        {
+                            if (item.FileUrl.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase))
+                            {
+                                <!-- Embed PDF -->
+                                <iframe src="@item.FileUrl" width="500" height="600"></iframe>
+                            }
+                            else if (item.FileUrl.EndsWith(".docx", StringComparison.OrdinalIgnoreCase) ||
+                            item.FileUrl.EndsWith(".doc", StringComparison.OrdinalIgnoreCase))
+                            {
+                                <!-- View DOCX using Google Docs Viewer -->
+                                <a href="@item.FileUrl" download class="btn btn-info">Download Document</a>
+                                <br />
+                                <iframe src="https://docs.google.com/gview?url=@item.FileUrl&embedded=true"
+                                        width="600" height="500"></iframe>
+                            }
+                            else if (item.FileUrl.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) ||
+                            item.FileUrl.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase) ||
+                            item.FileUrl.EndsWith(".png", StringComparison.OrdinalIgnoreCase) ||
+                            item.FileUrl.EndsWith(".gif", StringComparison.OrdinalIgnoreCase))
+                            {
+                                <!-- Show image -->
+                                <img src="@item.FileUrl" alt="Lecture Resource Image" style="max-width: 200px; height: auto;">
+                            }
+                            else
+                            {
+                                <!-- Default: Show as a download link -->
+                                <a href="@item.FileUrl" download>Download File</a>
+                            }
+                        }
+                        else
+                        {
+                            <p>No file available</p>
+                        }
+                    </td>
+
+                    <td>@item.LectureName</td>
+
                     <td>
                         <a class="btn btn-primary" asp-action="Edit" asp-controller="LectureResource" asp-route-id="@item.ID">Edit</a>
 

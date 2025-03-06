@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace GalacticUniversity.Models
 {
@@ -12,10 +13,11 @@ namespace GalacticUniversity.Models
     {
         [Key]
         public int ResourceID { get; set; }
-        public string ResourceType { get; set; }
-        public string ResourcePath { get; set; }
+        public string FileUrl { get; set; }
 
-        // Foreign Keys
+        [NotMapped]
+        public IFormFile File {get;set;}
+        // oreign Keys
         [ForeignKey("Lecture")]
         public int LectureID { get; set; }
          

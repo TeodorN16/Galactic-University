@@ -1,4 +1,5 @@
-﻿using GalacticUniversity.Core.LectureResourceService;
+﻿using GalacticUniversity.Core.CloudinaryService;
+using GalacticUniversity.Core.LectureResourceService;
 using GalacticUniversity.Core.LectureService;
 using GalacticUniversity.Models;
 using GalacticUniversity.Models.ViewModels.LectureResource;
@@ -12,10 +13,12 @@ namespace GalacticUniversity.Controllers
     {
         private readonly ILectureResourceService _lectureResourceService;
         private readonly ILectureService _lectureService;
-        public LectureResourceController(ILectureResourceService lectureResourceService, ILectureService lectureService)
+        private readonly CloudinaryService _cloudinaryService;
+        public LectureResourceController(ILectureResourceService lectureResourceService, ILectureService lectureService,CloudinaryService cloudinaryService)
         {
             _lectureResourceService = lectureResourceService;
             _lectureService = lectureService;
+            _cloudinaryService = cloudinaryService;
         }
         public async Task<IActionResult> Index(LectureResourceViewModel lr)
         {
@@ -23,8 +26,7 @@ namespace GalacticUniversity.Controllers
             var model =  resources.Include(l=>l.Lecture).Select(lr => new LectureResourceViewModel
             {
                 ID=lr.ResourceID,
-                ResourcePath = lr.ResourcePath,
-                ResourceType = lr.ResourceType,
+                FileUrl=lr.FileUrl,
                 LectureId = lr.LectureID,
                 LectureName=lr.Lecture.LectureName
             }).ToList();
@@ -48,12 +50,16 @@ namespace GalacticUniversity.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(LectureResourceQueryViewModel lrvm)
         {
+            string uploadedImageURL = null;
 
+            if (lrvm.File != null)
+            {
+                uploadedImageURL = await _cloudinaryService.UploadImageAsync(lrvm.File);
+            }
             var lectureResource = new LectureResource
             {
                 
-                ResourcePath = lrvm.ResourcePath,
-                ResourceType = lrvm.ResourceType,
+                FileUrl = uploadedImageURL ?? lrvm.FileUrl,
                 LectureID = lrvm.LectureId,
 
             };
@@ -69,8 +75,7 @@ namespace GalacticUniversity.Controllers
             var model = new LectureResourceQueryViewModel
             {
                 ID=lectureResource.ResourceID,
-                ResourceType = lectureResource.ResourceType,
-                ResourcePath = lectureResource.ResourcePath,
+                FileUrl = lectureResource.FileUrl,
                 LectureId = lectureResource.LectureID,
                 Lectures = _lectureService.GetAll().Select(l => new SelectListItem
                 {
@@ -86,8 +91,7 @@ namespace GalacticUniversity.Controllers
             var model = new LectureResource
             {
                 ResourceID = lrvm.ID,
-                ResourceType = lrvm.ResourceType,
-                ResourcePath = lrvm.ResourcePath,
+                FileUrl= lrvm.FileUrl,
                 LectureID = lrvm.LectureId,
                
             };
