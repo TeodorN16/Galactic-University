@@ -33,7 +33,9 @@ namespace GalacticUniversity.Core.CloudinaryService
             var uploadsParams = new ImageUploadParams
             {
                 File = new FileDescription(file.FileName, stream),
+                
                 Transformation = new Transformation().Width(500).Height(500).Crop("fill").Gravity("face"),
+               
 
 
             };
