@@ -48,28 +48,48 @@ namespace GalacticUniversity.Core.CloudinaryService
         }
         public async Task<string> UploadDocumentAsync(IFormFile file)
         {
+            // Validate input
             if (file == null || file.Length == 0)
             {
                 return null;
             }
 
-            using var stream = file.OpenReadStream();
-            string fileExtension = Path.GetExtension(file.FileName).ToLower();
-
-            // Ensure only PDF and DOCX are allowed
-            if (fileExtension != ".pdf" && fileExtension != ".docx" && fileExtension != ".doc")
+            try
             {
-                return null; // Invalid file type
+                // Get file extension (case-insensitive)
+                string fileExtension = Path.GetExtension(file.FileName)?.ToLowerInvariant();
+                if (string.IsNullOrEmpty(fileExtension) || fileExtension != ".pdf")
+                {
+                    return null;
+                }
+
+                // Open the file stream
+                using var stream = file.OpenReadStream();
+
+                // Configure Cloudinary upload parameters for PDFs
+                var uploadParams = new RawUploadParams
+                {
+                    File = new FileDescription(file.FileName, stream),
+                    
+                };
+
+                // Perform the upload
+                var uploadResult = await _cloudinary.UploadAsync(uploadParams);
+
+                // Check the result
+                if (uploadResult == null || uploadResult.SecureUrl == null)
+                {
+                    return null;
+                }
+
+                // Return the secure URL
+                return uploadResult.SecureUrl.ToString();
             }
-
-            var uploadParams = new RawUploadParams
+            catch (Exception)
             {
-                File = new FileDescription(file.FileName, stream)
-            };
-
-            var uploadResult = await _cloudinary.UploadAsync(uploadParams); // No need for ResourceType
-
-            return uploadResult?.SecureUrl?.ToString();
+                // Silently handle any unexpected errors
+                return null;
+            }
         }
 
     }

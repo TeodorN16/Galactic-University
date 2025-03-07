@@ -185,9 +185,21 @@ namespace GalacticUniversity.Controllers
             await _courseService.Delete(await _courseService.Get(id));
             return RedirectToAction("Index");
         }
-        
-        [Authorize(Roles ="User")]
+
+        [Authorize(Roles = "User")]
         [HttpGet]
+
+        public async Task<IActionResult> Details(int id)
+        {   
+            Course course = await _courseService.GetAll().Where(c=>c.CourseID==id)
+                .Include(c=>c.Lectures)
+                .ThenInclude(l=>l.LectureResources)
+                .Include(c=>c.Category)
+                .FirstOrDefaultAsync();
+
+            return View(course);
+        }
+       
         public async Task<IActionResult> JoinCourse(int courseId)
         {
 

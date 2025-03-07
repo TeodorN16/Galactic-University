@@ -1,15 +1,147 @@
 ﻿@model GalacticUniversity.Models.ViewModels.UserViewModels.UserViewModel
 
+@{
+    ViewData["Title"] = "My Profile";
+}
 
-<h1>My Profile</h1>
+<link rel="stylesheet" href="~/css/display.css" asp-append-version="true" />
 
-<div>
-
-    <p><strong>ID:</strong> @Model.Id</p>
-    <p><strong>Email:</strong> @Model.Email</p>
-    @foreach (var item in Model.Courses)
-    { 
-        <p>@item.CourseName</p>
-    }
-    <!-- Add more user properties as needed -->
+<div class="container mt-4">
+    <!-- User Info Header -->
+    <div class="mb-4 p-4 bg-light border rounded">
+        <h1 class="fw-bold text-primary">My Profile</h1>
+        @if (Model != null)
+        {
+            <p class="text-dark">Email: @(Model.Email ?? "N/A")</p>
+            <small class="text-muted">User ID: @(Model.Id ?? "N/A")</small>
+        }
+        else
+        {
+            <p class="text-danger">Error: User data is not available.</p>
+        }
     </div>
+
+    <!-- Enrolled Courses Section -->
+    <div class="row">
+        <div class="col-12">
+            <h3 class="text-secondary mb-3">My Enrolled Courses</h3>
+            @if (Model != null && Model.Courses != null && Model.Courses.Any())
+            {
+                @foreach (var course in Model.Courses)
+                {
+                    <div class="mb-5">
+                        <h4 class="text-primary">@(course?.CourseName ?? "Unnamed Course")</h4>
+                        <p class="text-muted mb-3">@(course?.Description ?? "No description available.")</p>
+                        @if (course?.Lectures != null && course.Lectures.Any())
+                        {
+                            <div class="row row-cols-1 row-cols-md-2 g-3">
+                                @foreach (var lecture in course.Lectures)
+                                {
+                                    <div class="col">
+                                        <div class="accordion" id="lectureAccordion-@(lecture?.LectureID ?? 0)">
+                                            <div class="accordion-item border">
+                                                <h2 class="accordion-header" id="heading-@(lecture?.LectureID ?? 0)">
+                                                    <button class="accordion-button collapsed" type="button"
+                                                            data-bs-toggle="collapse" data-bs-target="#collapse-@(lecture?.LectureID ?? 0)"
+                                                            aria-expanded="false" aria-controls="collapse-@(lecture?.LectureID ?? 0)">
+                                                        <span class="me-2">@(lecture?.LectureName ?? "Unnamed Lecture")</span>
+                                                        <i class="bi bi-unlock-fill text-success"></i>
+                                                    </button>
+                                                </h2>
+                                                <div id="collapse-@(lecture?.LectureID ?? 0)" class="accordion-collapse collapse"
+                                                     aria-labelledby="heading-@(lecture?.LectureID ?? 0)" data-bs-parent="#lectureAccordion-@(lecture?.LectureID ?? 0)">
+                                                    <div class="accordion-body">
+                                                        @if (lecture?.LectureResources != null && lecture.LectureResources.Any())
+                                                        {
+                                                            <ul class="list-group list-group-flush">
+                                                                @foreach (var resource in lecture.LectureResources)
+                                                                {
+                                                                    <li class="list-group-item">
+                                                                        @if (!string.IsNullOrEmpty(resource?.FileUrl) && resource.FileUrl.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase))
+                                                                        {
+                                                                            <div class="embed-responsive embed-responsive-16by9 mb-3">
+                                                                                <iframe class="embed-responsive-item"
+                                                                                        src="@resource.FileUrl"
+                                                                                        style="width: 100%; height: 300px; border: none;"
+                                                                                        title="Lecture Resource PDF"></iframe>
+                                                                            </div>
+                                                                            <a href="@resource.FileUrl" target="_blank" class="btn btn-link btn-sm">Open in New Tab</a>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <span class="text-muted">No PDF available.</span>
+                                                                        }
+                                                                    </li>
+                                                                }
+                                                            </ul>
+                                                        }
+                                                        else
+                                                        {
+                                                            <p class="text-muted">No resources available for this lecture.</p>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                        else
+                        {
+                            <p class="text-muted">No lectures available for this course.</p>
+                        }
+                    </div>
+                }
+            }
+            else
+            {
+                <p class="text-muted">You are not enrolled in any courses yet, or course data is unavailable.</p>
+            }
+        </div>
+    </div>
+</div>
+
+<!-- Full-Width Footer -->
+<footer class="footer-full">
+    <div class="footer-left">
+        <div class="astronaut">
+            <div class="head"></div>
+            <div class="arm arm-left"></div>
+            <div class="arm arm-right"></div>
+            <div class="body">
+                <div class="panel"></div>
+            </div>
+            <div class="leg leg-left"></div>
+            <div class="leg leg-right"></div>
+            <div class="schoolbag"></div>
+        </div>
+    </div>
+    <div class="footer-right">
+        <p>© 2025 GalacticUniversity. All rights reserved.</p>
+        <div>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Contact</a>
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap CSS and JS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap Icons for the unlock icon -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet" />
+<script>
+    document.getElementById('heading-2').addEventListener('click', function (e){
+
+        var curClasses = e.target;
+        if(curClasses.classList.contains('collapse')) {
+           // document.getElementById('collapse-2').classList.add("show");
+        }else{
+           // document.getElementById('collapse-2').classList.remove("show");
+        }
+        //curClasses.contains()
+        console.log('sdsds');
+    });
+</script>

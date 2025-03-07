@@ -15,39 +15,20 @@
             {
                 <tr>
                     <td>
-                        @if (!string.IsNullOrEmpty(item.FileUrl))
+                        @if (!string.IsNullOrEmpty(item.FileUrl) && item.FileUrl.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase))
                         {
-                            if (item.FileUrl.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase))
-                            {
-                                <!-- Embed PDF -->
-                                <iframe src="@item.FileUrl" width="500" height="600"></iframe>
-                            }
-                            else if (item.FileUrl.EndsWith(".docx", StringComparison.OrdinalIgnoreCase) ||
-                            item.FileUrl.EndsWith(".doc", StringComparison.OrdinalIgnoreCase))
-                            {
-                                <!-- View DOCX using Google Docs Viewer -->
-                                <a href="@item.FileUrl" download class="btn btn-info">Download Document</a>
-                                <br />
-                                <iframe src="https://docs.google.com/gview?url=@item.FileUrl&embedded=true"
-                                        width="600" height="500"></iframe>
-                            }
-                            else if (item.FileUrl.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) ||
-                            item.FileUrl.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase) ||
-                            item.FileUrl.EndsWith(".png", StringComparison.OrdinalIgnoreCase) ||
-                            item.FileUrl.EndsWith(".gif", StringComparison.OrdinalIgnoreCase))
-                            {
-                                <!-- Show image -->
-                                <img src="@item.FileUrl" alt="Lecture Resource Image" style="max-width: 200px; height: auto;">
-                            }
-                            else
-                            {
-                                <!-- Default: Show as a download link -->
-                                <a href="@item.FileUrl" download>Download File</a>
-                            }
+                            <!-- Embed PDF with fallback options -->
+                            <iframe src="@item.FileUrl"
+                                    width="500"
+                                    height="600"
+                                    style="border: none;"
+                                    title="Lecture Resource PDF"></iframe>
+                            <!-- Fallback link in case iframe fails -->
+                            <p><a href="@item.FileUrl" target="_blank" class="btn btn-link">Open PDF in new tab</a></p>
                         }
                         else
                         {
-                            <p>No file available</p>
+                            <p>No PDF available</p>
                         }
                     </td>
 
@@ -55,7 +36,6 @@
 
                     <td>
                         <a class="btn btn-primary" asp-action="Edit" asp-controller="LectureResource" asp-route-id="@item.ID">Edit</a>
-
                         <form asp-action="Delete" asp-controller="LectureResource" asp-route-id="@item.ID" method="post" style="display:inline;">
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>

@@ -24,17 +24,23 @@ namespace GalacticUniversity.Controllers
         {
             return View();
         }
-        
+
         public async Task<IActionResult> MyProfile(UserViewModel? uvm)
         {
             var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null)
+            {
+                return NotFound("User not found.");
+            }
 
             var courses = _userCourseService
-                  .GetAll()
-                  .Where(u => u.UserID == currentUser.Id)
-                  .Include(u => u.Course) // Include the related Course entity
-                  .Select(u => u.Course)  // Select the Course data from the UserCourses relationship
-                  .ToList();
+                .GetAll()
+                .Where(u => u.UserID == currentUser.Id)
+                .Include(u => u.Course) // Include the Course entity
+                    .ThenInclude(c => c.Lectures) // Include Lectures for each Course
+                    .ThenInclude(l => l.LectureResources) // Include LectureResources for each Lecture
+                .Select(u => u.Course) // Select the Course data
+                .ToList();
 
             var model = new UserViewModel
             {
@@ -43,11 +49,11 @@ namespace GalacticUniversity.Controllers
                 Courses = courses
             };
 
-            return View(model);    
+            return View(model);
         }
-       
 
-       
+
+
 
     }
 }
