@@ -1,16 +1,23 @@
-﻿@model GalacticUniversity.Models.ViewModels.LectureViewModels.LectureViewModel
+﻿    @model GalacticUniversity.Models.ViewModels.LectureViewModels.LectureViewModel
 
-<div class="container mt-4">
-    <h2>Add Lecture</h2>
-    <form method="post" class="mt-3">
-        <div class="mb-3">
-            <label asp-for="Name" class="form-label">Lecture Name</label>
-            <input type="text" asp-for="Name" class="form-control" />
-        </div>
-        <div class="mb-3">
-            <label asp-for="Description" class="form-label">Description</label>
-            <input type="text" asp-for="Description" class="form-control" />
-        </div>
-        <button type="submit" class="btn btn-success">Add</button>
-    </form>
-</div>
+    <div class="container mt-4">
+        <h2>Add Lecture</h2>
+        <form method="post" class="mt-3">
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label">Lecture Name</label>
+                <input type="text" asp-for="Name" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="Description" class="form-label">Description</label>
+                <input type="text" asp-for="Description" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="CourseID" class="form-label">Courses</label>
+                <select asp-for="CourseID" asp-items="@Model.Courses" class="form-control" required="required">
+                    <option value="">Choose a category</option>
+                </select>
+                <span asp-validation-for="CourseID" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-success">Add</button>
+        </form>
+    </div>

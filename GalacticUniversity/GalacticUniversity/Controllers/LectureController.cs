@@ -38,6 +38,8 @@ namespace GalacticUniversity.Controllers
             {
                 LectureName = lvm.Name,
                 Description = lvm.Description,
+                CourseID = lvm.CourseID,
+
             };
             await _lectureService.Add(lecture);
             return RedirectToAction("Index");
@@ -52,6 +54,7 @@ namespace GalacticUniversity.Controllers
                 ID = lecture.LectureID,
                 Name = lecture.LectureName,
                 Description = lecture.Description,
+                
             };
             return View(lecture);
         }
@@ -63,6 +66,7 @@ namespace GalacticUniversity.Controllers
             {
                 LectureName = lvm.Name,
                 Description = lvm.Description,
+                CourseID = lvm.CourseID,
             };
             await _lectureService.Update(lecture);
             return RedirectToAction("Index");

@@ -10,5 +10,9 @@ namespace GalacticUniversity.Models.ViewModels.LectureViewModels
 
         public string Description { get; set; }
 
+        public int CourseID { get; set; }
+
+        public List<SelectListItem> Courses { get; set; }
+
     }
 }
