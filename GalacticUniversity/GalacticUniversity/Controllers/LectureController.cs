@@ -1,35 +1,49 @@
 ﻿using System.Runtime.CompilerServices;
+using GalacticUniversity.Core.CourseService;
 using GalacticUniversity.Core.LectureService;
+using GalacticUniversity.DataAccess.Migrations;
 using GalacticUniversity.Models;
 using GalacticUniversity.Models.ViewModels;
 using GalacticUniversity.Models.ViewModels.LectureViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GalacticUniversity.Controllers
 {
     public class LectureController : Controller
     {
         private readonly ILectureService _lectureService;
+        private readonly ICourseService _courseService;
 
-        public LectureController(ILectureService lectureService)
+        public LectureController(ILectureService lectureService,ICourseService courseService)
         {
            _lectureService = lectureService;
+            _courseService = courseService;
         }
         public async Task<IActionResult> Index()
         {
-           
-            var model = _lectureService.GetAll().Select(l=>new LectureViewModel 
-            { 
-                ID=l.LectureID,
-                Name=l.LectureName,
-                Description=l.Description
-            }).ToList();
+            var courses = _courseService.GetAll();
+            var model = _lectureService.GetAll().Select(l => new LectureViewModel
+            {
+                ID = l.LectureID,
+                Name = l.LectureName,
+                Description = l.Description,
+                
+            });
             return View(model);
         }
         public async Task<IActionResult> Add()
         {
-            var model = new LectureViewModel();
-            return View();
+            var courses = _courseService.GetAll();
+            var model = new LectureViewModel()
+            {
+                Courses = courses.Select(c => new SelectListItem
+                {
+                    Value = c.CourseID.ToString(),
+                    Text = c.CourseName,
+                }).ToList()
+            };
+            return View(model);
         }
         [HttpPost]
         public async Task<IActionResult> Add(LectureViewModel lvm)
