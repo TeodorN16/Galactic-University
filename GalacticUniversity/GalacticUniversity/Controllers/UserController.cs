@@ -1,4 +1,5 @@
-﻿using GalacticUniversity.Core.UserCourseService;
+﻿using System.Security.Claims;
+using GalacticUniversity.Core.UserCourseService;
 using GalacticUniversity.Core.UserService;
 using GalacticUniversity.Models;
 using GalacticUniversity.Models.ViewModels.UserViewModels;
@@ -50,6 +51,38 @@ namespace GalacticUniversity.Controllers
             };
 
             return View(model);
+        }
+        public async Task<IActionResult> Learn(int id)
+        {
+            // Check if ID is provided
+            
+
+            // Get the current user from UserManager
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+
+            // Get all courses for the current user
+            var courses = _userCourseService
+                .GetAll()
+                .Where(u => u.UserID == user.Id)
+                .Include(u => u.Course) // Include the Course entity
+                    .ThenInclude(c => c.Lectures) // Include Lectures for each Course
+                    .ThenInclude(l => l.LectureResources) // Include LectureResources for each Lecture
+                .Select(u => u.Course) // Select the Course data
+                .ToList();
+
+            // Find the specific course
+            var course = courses.FirstOrDefault(c => c.CourseID == id);
+            if (course == null)
+            {
+                return NotFound("Course not found or you are not enrolled in this course");
+            }
+
+            // Return the view with the course
+            return View(course);
         }
 
 
