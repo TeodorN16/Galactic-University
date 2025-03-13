@@ -22,6 +22,13 @@ namespace GalacticUniversity.Models
         public int CourseID { get; set; }
         public Course Course { get; set; }
 
+        [ForeignKey("Lecture")]
+
+        public int? LectureID { get; set; }
+
+        public Lecture Lecture { get; set; }
+
+
 
     }
 }

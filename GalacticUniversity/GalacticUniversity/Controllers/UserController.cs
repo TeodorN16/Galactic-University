@@ -2,10 +2,14 @@
 using GalacticUniversity.Core.UserCourseService;
 using GalacticUniversity.Core.UserService;
 using GalacticUniversity.Models;
+using GalacticUniversity.Models.ViewModels.LectureResource;
+using GalacticUniversity.Models.ViewModels.LectureViewModels;
+using GalacticUniversity.Models.ViewModels;
 using GalacticUniversity.Models.ViewModels.UserViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using GalacticUniversity.Models.ViewModels.CourseViewModels;
 
 namespace GalacticUniversity.Controllers
 {
@@ -55,7 +59,10 @@ namespace GalacticUniversity.Controllers
         public async Task<IActionResult> Learn(int id)
         {
             // Check if ID is provided
-            
+            if (id == 0)
+            {
+                return BadRequest("Invalid course ID.");
+            }
 
             // Get the current user from UserManager
             var user = await _userManager.GetUserAsync(User);
@@ -64,8 +71,8 @@ namespace GalacticUniversity.Controllers
                 return Unauthorized();
             }
 
-            // Get all courses for the current user
-            var courses = _userCourseService
+            // Get the user's enrolled courses and include necessary data
+            var userCourses = _userCourseService
                 .GetAll()
                 .Where(u => u.UserID == user.Id)
                 .Include(u => u.Course) // Include the Course entity
@@ -74,16 +81,38 @@ namespace GalacticUniversity.Controllers
                 .Select(u => u.Course) // Select the Course data
                 .ToList();
 
-            // Find the specific course
-            var course = courses.FirstOrDefault(c => c.CourseID == id);
+            // Find the specific course for the user
+            var course = userCourses.FirstOrDefault(c => c.CourseID == id);
             if (course == null)
             {
-                return NotFound("Course not found or you are not enrolled in this course");
+                return NotFound("Course not found.");
             }
 
-            // Return the view with the course
-            return View(course);
+            // Retrieve the user's last selected lecture (if any)
+            var userCourse = _userCourseService.GetAll()
+                .FirstOrDefault(u => u.UserID == user.Id && u.CourseID == id);
+
+            // If a UserCourse record exists, fetch the last selected lecture ID
+            int? lastLectureId = userCourse?.LectureID;
+
+            // If the lastLectureId is null, default to the first lecture
+            var firstLecture = course.Lectures.FirstOrDefault();
+            if (lastLectureId == null && firstLecture != null)
+            {
+                lastLectureId = firstLecture.LectureID;
+            }
+
+            // Pass the course and the last selected lecture ID to the view
+            var model = new CourseProgressViewModel
+            {
+                Course = course,
+                LastLectureID = lastLectureId
+            };
+
+            // Return the course progress view with the data
+            return View(model);
         }
+
 
 
 

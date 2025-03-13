@@ -44,90 +44,14 @@
                             <p class="card-text">@(course?.Description ?? "No description available.")</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <span class="badge bg-info text-dark">@(course?.Lectures?.Count ?? 0) Lectures</span>
-                                <a asp-action="User" asp-controller="Learn" asp-route-id="@course.CourseID" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#courseModal-@(course.CourseID)">Learn</a>
+                                <a asp-action="Learn" asp-controller="User" asp-route-id="@course.CourseID" class="btn btn-primary" >Learn</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Modal for this course -->
-                <div class="modal fade" id="courseModal-@(course.CourseID)" tabindex="-1" aria-labelledby="courseModalLabel-@(course.CourseID)" aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="courseModalLabel-@(course.CourseID)">@(course?.CourseName ?? "Unnamed Course")</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <p>@(course?.Description ?? "No description available.")</p>
+                
 
-                                @if (course?.Lectures != null && course.Lectures.Any())
-                                {
-                                    <div class="accordion" id="accordion-course-@(course.CourseID)">
-                                        @foreach (var lecture in course.Lectures)
-                                        {
-                                            var lectureId = lecture.LectureID;
-                                            var headingId = $"heading-{lectureId}";
-                                            var collapseId = $"collapse-{lectureId}";
-                                            <div class="accordion-item border mb-3">
-                                                <h2 class="accordion-header" id="@headingId">
-                                                    <button class="accordion-button collapsed" type="button"
-                                                            data-bs-toggle="collapse"
-                                                            data-bs-target="#@collapseId"
-                                                            aria-expanded="false"
-                                                            aria-controls="@collapseId">
-                                                        <span class="me-2">@(lecture?.LectureName ?? "Unnamed Lecture")</span>
-                                                        <i class="bi bi-unlock-fill text-success"></i>
-                                                    </button>
-                                                </h2>
-                                                <div id="@collapseId" class="accordion-collapse collapse"
-                                                     aria-labelledby="@headingId" data-bs-parent="#accordion-course-@(course.CourseID)">
-                                                    <div class="accordion-body">
-                                                        @if (lecture?.LectureResources != null && lecture.LectureResources.Any())
-                                                        {
-                                                            <ul class="list-group list-group-flush">
-                                                                @foreach (var resource in lecture.LectureResources)
-                                                                {
-                                                                    <li class="list-group-item">
-                                                                        @if (!string.IsNullOrEmpty(resource?.FileUrl) && resource.FileUrl.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase))
-                                                                        {
-                                                                            <div class="embed-responsive embed-responsive-16by9 mb-3">
-                                                                                <iframe class="embed-responsive-item"
-                                                                                        src="@resource.FileUrl"
-                                                                                        style="width: 100%; height: 300px; border: none;"
-                                                                                        title="Lecture Resource PDF"></iframe>
-                                                                            </div>
-                                                                            <a href="@resource.FileUrl" target="_blank" class="btn btn-link btn-sm">Open in New Tab</a>
-                                                                        }
-                                                                        else
-                                                                        {
-                                                                            <span class="text-muted">No PDF available.</span>
-                                                                        }
-                                                                    </li>
-                                                                }
-                                                            </ul>
-                                                        }
-                                                        else
-                                                        {
-                                                            <p class="text-muted">No resources available for this lecture.</p>
-                                                        }
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        }
-                                    </div>
-                                }
-                                else
-                                {
-                                    <p class="text-muted">No lectures available for this course.</p>
-                                }
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             }
         </div>
     }
