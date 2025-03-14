@@ -22,6 +22,8 @@ namespace GalacticUniversity.Models
 
         public ICollection<UserCourses> UserCourses { get; set; }
 
+        public ICollection<Certificate> Certificates { get; set; }
+
 
     }
 }

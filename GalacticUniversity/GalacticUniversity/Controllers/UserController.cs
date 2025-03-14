@@ -112,6 +112,36 @@ namespace GalacticUniversity.Controllers
             // Return the course progress view with the data
             return View(model);
         }
+        [HttpPost]
+        public async Task<IActionResult> UpdateProgress(int courseId, int lectureId)
+        {
+            // Get the current user
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+
+            // Get the user's course record
+            var userCourse = _userCourseService.GetAll()
+                .FirstOrDefault(u => u.UserID == user.Id && u.CourseID == courseId);
+
+            if (userCourse == null)
+            {
+                return NotFound("User course not found");
+            }
+
+            // Update the LastLectureID
+            userCourse.LectureID = lectureId;
+            
+            _userCourseService.Update(userCourse);
+
+            // Redirect back to the Learn page
+            return RedirectToAction("Learn", new { id = courseId });
+           
+        }
+       
+
 
 
 
