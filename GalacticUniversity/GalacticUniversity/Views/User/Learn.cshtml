@@ -100,11 +100,13 @@
                             <h4>@item.LectureName</h4>
                             @if (isCurrentLecture)
                             {
-                                <form asp-action="UpdateProgress" asp-controller="Course" method="post">
+                                <form asp-action="UpdateProgress" asp-controller="User" method="post">
                                     <input type="hidden" name="courseId" value="@Model.Course.CourseID" />
                                     @if (isLastLecture)
                                     {
-                                       
+                                       <button asp-action="GenerateCertificate" asp-controller="User" asp-route-courseId="@Model.Course.CourseID\" class="btn btn-primary">
+                                           Get my Certificate
+                                       </button>
                                     }
                                     else if (nextLectureId.HasValue)
                                     {

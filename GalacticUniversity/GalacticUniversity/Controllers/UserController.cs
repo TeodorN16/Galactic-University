@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GalacticUniversity.Models.ViewModels.CourseViewModels;
+using GalacticUniversity.Utility;
+using GalacticUniversity.Core.CourseService;
 
 namespace GalacticUniversity.Controllers
 {
@@ -18,12 +20,14 @@ namespace GalacticUniversity.Controllers
         private readonly IUserCourseService _userCourseService;
         private readonly IUserService<User> _userService;
         private readonly UserManager<User> _userManager;
+        private readonly ICourseService _courseService;
 
-        public UserController(IUserCourseService userCourseService,IUserService<User> userService, UserManager<User> userManager)
+        public UserController(IUserCourseService userCourseService,IUserService<User> userService, UserManager<User> userManager,ICourseService courseService)
         { 
             _userCourseService = userCourseService;
             _userService = userService;
             _userManager = userManager;
+            _courseService = courseService;
         }
         public  IActionResult Index()
         {
@@ -134,13 +138,45 @@ namespace GalacticUniversity.Controllers
             // Update the LastLectureID
             userCourse.LectureID = lectureId;
             
-            _userCourseService.Update(userCourse);
+            await _userCourseService.Update(userCourse);
 
             // Redirect back to the Learn page
             return RedirectToAction("Learn", new { id = courseId });
            
         }
-       
+        [HttpPost]
+        public async Task<IActionResult> GenerateCertificate(int courseId)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null) return Unauthorized();
+
+            var userCourse = _userCourseService.GetAll()
+             .Include(uc => uc.Course)  // Include the related Course data
+            .FirstOrDefault(uc => uc.UserID == user.Id && uc.CourseID == courseId);
+
+
+
+            string certificateHtml = CertificateGenerator.GenerateCertificateHtml(
+                user.UserName,
+                userCourse.Course.CourseName,
+                DateTime.Now
+            );
+
+            var certificate = new Certificate
+            {
+                UserID = user.Id,
+                CourseID = courseId,
+                Course = userCourse.Course,
+                IssueDate = DateTime.Now,
+                CertificateUrl = certificateHtml
+            };
+
+            var bytes = System.Text.Encoding.UTF8.GetBytes(certificateHtml);
+            return File(bytes, "text/html", $"{userCourse.Course.CourseName}_Certificate_{user.UserName}.html");
+
+            user.Certificates.Add(certificate);
+        }
+
 
 
 
