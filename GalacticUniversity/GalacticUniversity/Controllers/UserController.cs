@@ -1,10 +1,6 @@
-﻿using System.Security.Claims;
-using GalacticUniversity.Core.UserCourseService;
+﻿using GalacticUniversity.Core.UserCourseService;
 using GalacticUniversity.Core.UserService;
 using GalacticUniversity.Models;
-using GalacticUniversity.Models.ViewModels.LectureResource;
-using GalacticUniversity.Models.ViewModels.LectureViewModels;
-using GalacticUniversity.Models.ViewModels;
 using GalacticUniversity.Models.ViewModels.UserViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using GalacticUniversity.Models.ViewModels.CourseViewModels;
 using GalacticUniversity.Utility;
 using GalacticUniversity.Core.CourseService;
-
+using GalacticUniversity.Core.CloudinaryService;
+using System.IO;
+using System.Net.Mime;
 namespace GalacticUniversity.Controllers
 {
     public class UserController : Controller
@@ -21,15 +19,17 @@ namespace GalacticUniversity.Controllers
         private readonly IUserService<User> _userService;
         private readonly UserManager<User> _userManager;
         private readonly ICourseService _courseService;
+        private readonly CloudinaryService _cloudinaryService;
 
-        public UserController(IUserCourseService userCourseService,IUserService<User> userService, UserManager<User> userManager,ICourseService courseService)
-        { 
+        public UserController(IUserCourseService userCourseService, IUserService<User> userService, UserManager<User> userManager, ICourseService courseService, CloudinaryService cloudinaryService)
+        {
             _userCourseService = userCourseService;
             _userService = userService;
             _userManager = userManager;
             _courseService = courseService;
+            _cloudinaryService = cloudinaryService;
         }
-        public  IActionResult Index()
+        public IActionResult Index()
         {
             return View();
         }
@@ -137,12 +137,12 @@ namespace GalacticUniversity.Controllers
 
             // Update the LastLectureID
             userCourse.LectureID = lectureId;
-            
+
             await _userCourseService.Update(userCourse);
 
             // Redirect back to the Learn page
             return RedirectToAction("Learn", new { id = courseId });
-           
+
         }
         [HttpPost]
         public async Task<IActionResult> GenerateCertificate(int courseId)
@@ -151,10 +151,11 @@ namespace GalacticUniversity.Controllers
             if (user == null) return Unauthorized();
 
             var userCourse = _userCourseService.GetAll()
-             .Include(uc => uc.Course)  // Include the related Course data
-            .FirstOrDefault(uc => uc.UserID == user.Id && uc.CourseID == courseId);
+                .Include(uc => uc.Course)  // Include the related Course data
+                .FirstOrDefault(uc => uc.UserID == user.Id && uc.CourseID == courseId);
 
-
+            if (userCourse == null)
+                return NotFound("Course not found for this user");
 
             string certificateHtml = CertificateGenerator.GenerateCertificateHtml(
                 user.UserName,
@@ -162,26 +163,51 @@ namespace GalacticUniversity.Controllers
                 DateTime.Now
             );
 
+            // Convert HTML to bytes
+            var bytes = System.Text.Encoding.UTF8.GetBytes(certificateHtml);
+
+            // Create a temporary file to upload to Cloudinary
+            string fileName = $"{userCourse.Course.CourseName}Certificate{user.UserName}.pdf";
+            string tempPath = Path.GetTempFileName();
+            await System.IO.File.WriteAllBytesAsync(tempPath, bytes);
+
+            // Upload to Cloudinary
+            string cloudinaryUrl;
+            using (var fileStream = new FileStream(tempPath, FileMode.Open))
+            {
+
+                var file = new FormFile(fileStream, 0, fileStream.Length, "certificate", fileName)
+                {
+                    Headers = new HeaderDictionary(),
+                    ContentType = "application/pdf",
+
+                };
+                cloudinaryUrl = await _cloudinaryService.UploadImageAsync(file);
+                
+            }
+
+            // Delete the temporary file
+            System.IO.File.Delete(tempPath);
+
+            // Create and save certificate record
             var certificate = new Certificate
             {
                 UserID = user.Id,
                 CourseID = courseId,
                 Course = userCourse.Course,
                 IssueDate = DateTime.Now,
-                CertificateUrl = certificateHtml
+                CertificateUrl = cloudinaryUrl ?? "URL not available" // Use the Cloudinary URL
             };
 
-            var bytes = System.Text.Encoding.UTF8.GetBytes(certificateHtml);
-            return File(bytes, "text/html", $"{userCourse.Course.CourseName}_Certificate_{user.UserName}.html");
+            if (user.Certificates == null)
+                user.Certificates = new List<Certificate>();
 
             user.Certificates.Add(certificate);
+            await _userManager.UpdateAsync(user);
+
+            // Return the file
+            return File(bytes, "application/pdf", fileName);
         }
-
-
-
-
-
-
-
     }
+    
 }
