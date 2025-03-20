@@ -11,6 +11,7 @@ using GalacticUniversity.Core.CourseService;
 using GalacticUniversity.Core.CloudinaryService;
 using System.IO;
 using System.Net.Mime;
+
 namespace GalacticUniversity.Controllers
 {
     public class UserController : Controller
@@ -164,7 +165,7 @@ namespace GalacticUniversity.Controllers
             );
 
             // Convert HTML to PDF
-            var converter = new HtmlToPdf();
+            SelectPdf converter = new HtmlToPdf();
             var pdfDoc = converter.ConvertHtmlString(certificateHtml);
             byte[] bytes = pdfDoc.Save();
 

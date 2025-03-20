@@ -22,6 +22,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="PuppeteerSharp" Version="18.1.0" />
+    <PackageReference Include="Select.HtmlToPdf" Version="24.1.0" />
   </ItemGroup>
 
   <ItemGroup>
