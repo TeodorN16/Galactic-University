@@ -26,6 +26,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
     <PackageReference Include="PuppeteerSharp" Version="18.1.0" />
     <PackageReference Include="Select.HtmlToPdf" Version="24.1.0" />
+    <PackageReference Include="Select.HtmlToPdf.NetCore" Version="24.1.0" />
   </ItemGroup>
 
   <ItemGroup>

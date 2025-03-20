@@ -1,0 +1,511 @@
+﻿@{
+    ViewData["Title"] = "About Galactic University";
+}
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --primary-color: #6366f1;
+        --primary-hover: #4f46e5;
+        --secondary-color: #2d3748;
+        --accent-color: #8b5cf6;
+        --light-color: #f3f4f6;
+        --dark-color: #1f2937;
+        --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    body {
+        background-color: #f8f9fa;
+        color: var(--secondary-color);
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .about-header {
+        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+        border-radius: 16px;
+        padding: 60px 40px;
+        margin-bottom: 40px;
+        color: white;
+        box-shadow: var(--card-shadow);
+        position: relative;
+        overflow: hidden;
+    }
+
+        .about-header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48cGF0aCBmaWxsPSIjZmZmZmZmIiBmaWxsLW9wYWNpdHk9IjAuMSIgZD0iTTEwMCwxMDBjMC01NS4yLDQ0LjgtMTAwLDEwMC0xMDBoMTAwdjEwMGMwLDU1LjItNDQuOCwxMDAtMTAwLDEwMGgtMTAwVjEwMHoiLz48L3N2Zz4=');
+            background-position: top right;
+            background-repeat: no-repeat;
+            background-size: 50%;
+            opacity: 0.2;
+            z-index: 0;
+        }
+
+    .about-header-content {
+        position: relative;
+        z-index: 1;
+        max-width: 800px;
+    }
+
+    .section-title {
+        position: relative;
+        display: inline-block;
+        margin-bottom: 30px;
+        font-weight: 700;
+        color: var(--secondary-color);
+    }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 50px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            border-radius: 2px;
+        }
+
+    .about-card {
+        background-color: white;
+        border-radius: 16px;
+        padding: 30px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+    }
+
+        .about-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-shadow);
+        }
+
+    .team-member {
+        text-align: center;
+        padding: 20px;
+    }
+
+    .team-member-img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 15px;
+        border: 5px solid white;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .team-member h4 {
+        color: var(--primary-color);
+        margin-bottom: 5px;
+        font-weight: 600;
+    }
+
+    .team-member p {
+        color: var(--secondary-color);
+        font-size: 0.9rem;
+    }
+
+    .team-member .position {
+        color: var(--accent-color);
+        font-weight: 500;
+        margin-bottom: 10px;
+    }
+
+    .values-item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 30px;
+    }
+
+    .values-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 20px;
+        flex-shrink: 0;
+    }
+
+        .values-icon i {
+            font-size: 28px;
+            color: white;
+        }
+
+    .values-content h4 {
+        margin-bottom: 10px;
+        color: var(--secondary-color);
+        font-weight: 600;
+    }
+
+    .timeline {
+        position: relative;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background: linear-gradient(to bottom, #6366f1 0%, #8b5cf6 100%);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 3px;
+        }
+
+    .timeline-container {
+        padding: 10px 40px;
+        position: relative;
+        background-color: inherit;
+        width: 50%;
+    }
+
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -12px;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            border: 4px solid white;
+            top: 20px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+    .left {
+        left: 0;
+    }
+
+    .right {
+        left: 50%;
+    }
+
+    .left::before {
+        content: " ";
+        height: 0;
+        position: absolute;
+        top: 22px;
+        width: 0;
+        z-index: 1;
+        right: 30px;
+        border: medium solid white;
+        border-width: 10px 0 10px 10px;
+        border-color: transparent transparent transparent white;
+    }
+
+    .right::before {
+        content: " ";
+        height: 0;
+        position: absolute;
+        top: 22px;
+        width: 0;
+        z-index: 1;
+        left: 30px;
+        border: medium solid white;
+        border-width: 10px 10px 10px 0;
+        border-color: transparent white transparent transparent;
+    }
+
+    .right::after {
+        left: -13px;
+    }
+
+    .timeline-content {
+        padding: 20px 30px;
+        background-color: white;
+        position: relative;
+        border-radius: 16px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .year {
+        color: var(--primary-color);
+        font-weight: 600;
+    }
+
+    @@media screen and (max-width: 992px) {
+        .timeline::after
+
+    {
+        left: 31px;
+    }
+
+    .timeline-container {
+        width: 100%;
+        padding-left: 70px;
+        padding-right: 25px;
+        left: 0;
+    }
+
+        .timeline-container::before {
+            left: 60px;
+            border: medium solid white;
+            border-width: 10px 10px 10px 0;
+            border-color: transparent white transparent transparent;
+        }
+
+    .left::after, .right::after {
+        left: 18px;
+    }
+
+    .right {
+        left: 0%;
+    }
+
+    }
+
+    .galaxy-animation {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 0;
+    }
+
+    .star {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: white;
+        border-radius: 50%;
+        animation: twinkle 2s infinite;
+    }
+
+    @@keyframes twinkle {
+        0%
+
+    {
+        opacity: 0.2;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.2;
+    }
+
+    }
+
+    .cta-section {
+        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+        border-radius: 16px;
+        padding: 40px;
+        color: white;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        margin: 60px 0 40px;
+    }
+
+    .cta-btn {
+        background-color: white;
+        color: var(--primary-color);
+        border: none;
+        padding: 12px 30px;
+        border-radius: 30px;
+        font-weight: 600;
+        margin-top: 20px;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+        .cta-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            color: var(--primary-hover);
+        }
+</style>
+
+<div class="container mt-5">
+    <!-- About Header -->
+    <div class="about-header">
+        <div class="galaxy-animation" id="stars-container"></div>
+        <div class="about-header-content">
+            <h1 class="display-4 fw-bold mb-4">Welcome to Galactic University</h1>
+            <p class="fs-5 mb-0">Where cosmic knowledge meets interstellar education. Since our founding in 2120, we've been expanding minds across the universe.</p>
+        </div>
+    </div>
+
+    <!-- Our Story Section -->
+    <h2 class="section-title">Our Story</h2>
+    <div class="about-card">
+        <p>Galactic University was established in 2120 as humanity's first interplanetary educational institution. What began as a small research outpost on Mars has grown into the solar system's premier center for higher learning, with campuses spanning from Mercury to the moons of Jupiter.</p>
+        <p>Our mission is to provide accessible, cutting-edge education to students throughout the inhabited worlds, preparing them for careers in emerging fields like quantum terraforming, xenolinguistics, and interspecies diplomacy.</p>
+        <p>As the boundaries of human exploration expand, so does Galactic University. We're proud to be at the forefront of knowledge in this new era of cosmic discovery.</p>
+    </div>
+
+    <!-- Timeline Section -->
+    <h2 class="section-title">Our Journey</h2>
+    <div class="timeline">
+        <div class="timeline-container left">
+            <div class="timeline-content">
+                <h3 class="year">2120</h3>
+                <h4>Founding Year</h4>
+                <p>Established as the Mars Research Academy with just 50 students and 10 faculty members.</p>
+            </div>
+        </div>
+        <div class="timeline-container right">
+            <div class="timeline-content">
+                <h3 class="year">2135</h3>
+                <h4>Interplanetary Expansion</h4>
+                <p>Opened our first satellite campus on Europa, specializing in subsurface ocean studies.</p>
+            </div>
+        </div>
+        <div class="timeline-container left">
+            <div class="timeline-content">
+                <h3 class="year">2150</h3>
+                <h4>Digital Revolution</h4>
+                <p>Launched the first quantum-entangled learning network, allowing real-time education across vast distances.</p>
+            </div>
+        </div>
+        <div class="timeline-container right">
+            <div class="timeline-content">
+                <h3 class="year">2175</h3>
+                <h4>First Contact Curriculum</h4>
+                <p>Developed the solar system's first comprehensive xenolinguistics program following First Contact.</p>
+            </div>
+        </div>
+        <div class="timeline-container left">
+            <div class="timeline-content">
+                <h3 class="year">2200</h3>
+                <h4>Centennial Celebration</h4>
+                <p>Celebrated 100 years with the inauguration of our flagship orbital campus and 1 million alumni across the solar system.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Our Values Section -->
+    <h2 class="section-title mt-5">Our Core Values</h2>
+    <div class="about-card">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="values-item">
+                    <div class="values-icon">
+                        <i class="bi bi-stars"></i>
+                    </div>
+                    <div class="values-content">
+                        <h4>Cosmic Curiosity</h4>
+                        <p>We believe in the boundless nature of knowledge and encourage exploration beyond conventional boundaries.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="values-item">
+                    <div class="values-icon">
+                        <i class="bi bi-people-fill"></i>
+                    </div>
+                    <div class="values-content">
+                        <h4>Universal Inclusion</h4>
+                        <p>Education should be accessible to all sentient beings, regardless of planet of origin or biological composition.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="values-item">
+                    <div class="values-icon">
+                        <i class="bi bi-lightbulb-fill"></i>
+                    </div>
+                    <div class="values-content">
+                        <h4>Innovative Thinking</h4>
+                        <p>The challenges of tomorrow require the innovative solutions of today. We foster creativity in all disciplines.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="values-item">
+                    <div class="values-icon">
+                        <i class="bi bi-globe2"></i>
+                    </div>
+                    <div class="values-content">
+                        <h4>Interstellar Responsibility</h4>
+                        <p>With knowledge comes the duty to use it ethically for the betterment of all worlds and species.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Our Team Section -->
+    <h2 class="section-title">Our Leadership Team</h2>
+    <div class="about-card">
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <div class="team-member">
+                    <img src="/api/placeholder/300/300" alt="Dr. Elara Vex" class="team-member-img">
+                    <h4>Dr. Elara Vex</h4>
+                    <p class="position">Chancellor</p>
+                    <p>Pioneering xenobiologist with over 40 years of experience in interspecies educational methodologies.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="team-member">
+                    <img src="/api/placeholder/300/300" alt="Professor Orion Tau" class="team-member-img">
+                    <h4>Professor Orion Tau</h4>
+                    <p class="position">Dean of Sciences</p>
+                    <p>Quantum physicist and former asteroid miner who revolutionized gravitational wave communication.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="team-member">
+                    <img src="/api/placeholder/300/300" alt="Dr. Nova Chen" class="team-member-img">
+                    <h4>Dr. Nova Chen</h4>
+                    <p class="position">Dean of Arts & Humanities</p>
+                    <p>Award-winning composer and linguistic anthropologist specializing in non-verbal communication forms.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="team-member">
+                    <img src="/api/placeholder/300/300" alt="Admiral Zephyr Rel" class="team-member-img">
+                    <h4>Admiral Zephyr Rel</h4>
+                    <p class="position">Director of Operations</p>
+                    <p>Former Solar Fleet commander who now oversees our complex multi-planetary campus network.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Call to Action Section -->
+    <div class="cta-section">
+        <h2 class="mb-3">Ready to Begin Your Cosmic Journey?</h2>
+        <p class="mb-4">Join thousands of students across the solar system in pursuing knowledge that transcends planetary boundaries.</p>
+        <a href="#" class="cta-btn">Apply Today</a>
+    </div>
+</div>
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Create twinkling stars in the header
+        const starsContainer = document.getElementById('stars-container');
+        const starCount = 100;
+
+        for (let i = 0; i < starCount; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.animationDelay = `${Math.random() * 2}s`;
+            starsContainer.appendChild(star);
+        }
+    });
+</script>

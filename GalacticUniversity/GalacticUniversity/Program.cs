@@ -20,6 +20,7 @@ using CloudinaryDotNet;
 using GalacticUniversity.Core.UserCourseService;
 using GalacticUniversity.Core.UserService;
 using GalacticUniversity.DataAccess.UserRepository;
+using GalacticUniversity.Core.TarotCardService;
 
 
 
@@ -44,6 +45,8 @@ var account = new Account(cloudinarySetting.CloudName, cloudinarySetting.ApiKey,
 
 var cloudinary = new Cloudinary(account);
 builder.Services.AddSingleton(cloudinary);
+
+builder.Services.AddScoped<TarotService>();
 
 
 

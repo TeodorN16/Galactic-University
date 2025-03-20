@@ -11,6 +11,9 @@ using GalacticUniversity.Core.CourseService;
 using GalacticUniversity.Core.CloudinaryService;
 using System.IO;
 using System.Net.Mime;
+using SelectPdf;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 
 namespace GalacticUniversity.Controllers
 {
@@ -164,8 +167,8 @@ namespace GalacticUniversity.Controllers
                 DateTime.Now
             );
 
-            // Convert HTML to PDF
-            SelectPdf converter = new HtmlToPdf();
+            
+            var converter = new HtmlToPdf();
             var pdfDoc = converter.ConvertHtmlString(certificateHtml);
             byte[] bytes = pdfDoc.Save();
 
@@ -176,28 +179,23 @@ namespace GalacticUniversity.Controllers
             string tempPath = Path.GetTempFileName();
             await System.IO.File.WriteAllBytesAsync(tempPath, bytes);
 
-            // Upload to Cloudinary
+           
             string cloudinaryUrl;
+           
             using (var fileStream = new FileStream(tempPath, FileMode.Open))
             {
-                var file = new FormFile(fileStream, 0, fileStream.Length, "certificate", fileName)
+                // Convert FileStream to IFormFile
+                var formFile = new FormFile(fileStream, 0, fileStream.Length, "certificate", fileName)
                 {
                     Headers = new HeaderDictionary(),
-                    ContentType = "application/pdf",
+                    ContentType = "application/pdf"
                 };
 
-                // Add your Cloudinary upload logic here
-                // For example, if using CloudinaryDotNet:
-                // var uploadParams = new FileUploadParams()
-                // {
-                //     File = new FileDescription(fileName, fileStream)
-                // };
-                // var uploadResult = await _cloudinary.UploadAsync(uploadParams);
-                // cloudinaryUrl = uploadResult.SecureUri.ToString();
-                cloudinaryUrl = "your-cloudinary-upload-logic-here";
+                var uploadResult = await _cloudinaryService.UploadImageAsync(formFile);
+                cloudinaryUrl = uploadResult.ToString(); 
             }
 
-            // Delete the temporary file
+           
             System.IO.File.Delete(tempPath);
 
             // Create and save certificate record
@@ -216,7 +214,7 @@ namespace GalacticUniversity.Controllers
             user.Certificates.Add(certificate);
             await _userManager.UpdateAsync(user);
 
-            // Return the file
+            
             return File(bytes, "application/pdf", fileName);
         }
     }

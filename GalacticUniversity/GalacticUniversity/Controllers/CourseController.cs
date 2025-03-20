@@ -203,11 +203,12 @@ namespace GalacticUniversity.Controllers
         public async Task<IActionResult> JoinCourse(int courseId)
         {
 
+            TempData["success"] = "upeh. vijte si profile";
             var userID = _userManager.GetUserId(User);
             
 
             await _userCourseService.JoinCourse(userID, courseId);
-            TempData["success"] = "Succesfuly joined course";
+            TempData["success"] = "upeh. vijte si profile";
             return RedirectToAction("Index");
         }
 

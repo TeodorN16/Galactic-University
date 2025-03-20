@@ -13,6 +13,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.11" />
     <PackageReference Include="PuppeteerSharp" Version="18.1.0" />
     <PackageReference Include="Select.HtmlToPdf" Version="24.1.0" />
+    <PackageReference Include="Select.HtmlToPdf.NetCore" Version="24.1.0" />
   </ItemGroup>
 
 </Project>
