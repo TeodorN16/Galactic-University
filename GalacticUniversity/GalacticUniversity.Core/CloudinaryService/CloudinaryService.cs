@@ -45,7 +45,7 @@ namespace GalacticUniversity.Core.CloudinaryService
                 return null;
             }
             return uploadResult.SecureUrl.ToString();
-        }
+            }
         public async Task<string> UploadDocumentAsync(IFormFile file)
         {
             // Validate input

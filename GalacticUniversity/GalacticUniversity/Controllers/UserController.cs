@@ -151,7 +151,7 @@ namespace GalacticUniversity.Controllers
             if (user == null) return Unauthorized();
 
             var userCourse = _userCourseService.GetAll()
-                .Include(uc => uc.Course)  // Include the related Course data
+                .Include(uc => uc.Course)
                 .FirstOrDefault(uc => uc.UserID == user.Id && uc.CourseID == courseId);
 
             if (userCourse == null)
@@ -163,11 +163,15 @@ namespace GalacticUniversity.Controllers
                 DateTime.Now
             );
 
-            // Convert HTML to bytes
-            var bytes = System.Text.Encoding.UTF8.GetBytes(certificateHtml);
+            // Convert HTML to PDF
+            var converter = new HtmlToPdf();
+            var pdfDoc = converter.ConvertHtmlString(certificateHtml);
+            byte[] bytes = pdfDoc.Save();
 
-            // Create a temporary file to upload to Cloudinary
+            // Create filename
             string fileName = $"{userCourse.Course.CourseName}Certificate{user.UserName}.pdf";
+
+            // Create temporary file for Cloudinary upload
             string tempPath = Path.GetTempFileName();
             await System.IO.File.WriteAllBytesAsync(tempPath, bytes);
 
@@ -175,15 +179,21 @@ namespace GalacticUniversity.Controllers
             string cloudinaryUrl;
             using (var fileStream = new FileStream(tempPath, FileMode.Open))
             {
-
                 var file = new FormFile(fileStream, 0, fileStream.Length, "certificate", fileName)
                 {
                     Headers = new HeaderDictionary(),
                     ContentType = "application/pdf",
-
                 };
-                cloudinaryUrl = await _cloudinaryService.UploadImageAsync(file);
-                
+
+                // Add your Cloudinary upload logic here
+                // For example, if using CloudinaryDotNet:
+                // var uploadParams = new FileUploadParams()
+                // {
+                //     File = new FileDescription(fileName, fileStream)
+                // };
+                // var uploadResult = await _cloudinary.UploadAsync(uploadParams);
+                // cloudinaryUrl = uploadResult.SecureUri.ToString();
+                cloudinaryUrl = "your-cloudinary-upload-logic-here";
             }
 
             // Delete the temporary file
@@ -196,7 +206,7 @@ namespace GalacticUniversity.Controllers
                 CourseID = courseId,
                 Course = userCourse.Course,
                 IssueDate = DateTime.Now,
-                CertificateUrl = cloudinaryUrl ?? "URL not available" // Use the Cloudinary URL
+                CertificateUrl = cloudinaryUrl ?? "URL not available"
             };
 
             if (user.Certificates == null)
