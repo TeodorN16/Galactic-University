@@ -1,0 +1,403 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@{
+    ViewData["Title"] = "Privacy Policy";
+}
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --primary-color: #6366f1;
+        --primary-hover: #4f46e5;
+        --secondary-color: #2d3748;
+        --accent-color: #8b5cf6;
+        --light-color: #f3f4f6;
+        --dark-color: #1f2937;
+        --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    body {
+        background-color: #f8f9fa;
+        color: var(--secondary-color);
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .privacy-header {
+        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+        border-radius: 16px;
+        padding: 50px 40px;
+        margin-bottom: 40px;
+        color: white;
+        box-shadow: var(--card-shadow);
+        position: relative;
+        overflow: hidden;
+    }
+
+        .privacy-header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48cGF0aCBmaWxsPSIjZmZmZmZmIiBmaWxsLW9wYWNpdHk9IjAuMSIgZD0iTTEwMCwxMDBjMC01NS4yLDQ0LjgtMTAwLDEwMC0xMDBoMTAwdjEwMGMwLDU1LjItNDQuOCwxMDAtMTAwLDEwMGgtMTAwVjEwMHoiLz48L3N2Zz4=');
+            background-position: top right;
+            background-repeat: no-repeat;
+            background-size: 50%;
+            opacity: 0.2;
+            z-index: 0;
+        }
+
+    .privacy-header-content {
+        position: relative;
+        z-index: 1;
+    }
+
+    .privacy-content {
+        background-color: white;
+        border-radius: 16px;
+        padding: 40px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .content-section {
+        margin-bottom: 40px;
+    }
+
+        .content-section:last-child {
+            margin-bottom: 0;
+        }
+
+    .section-title {
+        position: relative;
+        font-weight: 600;
+        color: var(--primary-color);
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #f3f4f6;
+    }
+
+    .policy-update {
+        background-color: #f3f4f6;
+        border-radius: 8px;
+        padding: 15px 20px;
+        font-size: 0.9rem;
+        margin-top: 20px;
+    }
+
+    .highlight-box {
+        background: linear-gradient(to right, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+        border-left: 4px solid var(--primary-color);
+        padding: 20px;
+        border-radius: 8px;
+        margin: 25px 0;
+    }
+
+    .table-of-contents {
+        background-color: #f8faff;
+        border-radius: 12px;
+        padding: 25px;
+        margin-bottom: 30px;
+    }
+
+        .table-of-contents ul {
+            list-style-type: none;
+            padding-left: 10px;
+        }
+
+            .table-of-contents ul li {
+                margin-bottom: 10px;
+                position: relative;
+                padding-left: 25px;
+            }
+
+                .table-of-contents ul li::before {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    top: 8px;
+                    width: 8px;
+                    height: 8px;
+                    border-radius: 50%;
+                    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+                }
+
+                .table-of-contents ul li a {
+                    color: var(--secondary-color);
+                    text-decoration: none;
+                    transition: all 0.3s ease;
+                }
+
+                    .table-of-contents ul li a:hover {
+                        color: var(--primary-color);
+                        padding-left: 5px;
+                    }
+
+    .back-to-top {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        z-index: 999;
+    }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+        }
+</style>
+
+<div class="container mt-5 mb-5">
+    <!-- Privacy Policy Header -->
+    <div class="privacy-header">
+        <div class="privacy-header-content">
+            <h1 class="display-5 fw-bold mb-3">Privacy Policy</h1>
+            <p class="mb-0 fs-5">We value your privacy and are committed to protecting your personal information across the galaxy.</p>
+        </div>
+    </div>
+
+    <!-- Privacy Content -->
+    <div class="privacy-content">
+        <div class="policy-update">
+            <strong>Last Updated:</strong> March 21, 2025
+        </div>
+
+        <!-- Table of Contents -->
+        <div class="table-of-contents mt-4">
+            <h4 class="mb-3">Contents</h4>
+            <ul>
+                <li><a href="#introduction">Introduction</a></li>
+                <li><a href="#information-collection">Information We Collect</a></li>
+                <li><a href="#information-use">How We Use Your Information</a></li>
+                <li><a href="#information-sharing">Information Sharing and Disclosure</a></li>
+                <li><a href="#data-security">Data Security</a></li>
+                <li><a href="#user-rights">Your Rights and Choices</a></li>
+                <li><a href="#cookies">Cookies and Tracking Technologies</a></li>
+                <li><a href="#children">Children's Privacy</a></li>
+                <li><a href="#changes">Changes to This Privacy Policy</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+            </ul>
+        </div>
+
+        <div class="content-section" id="introduction">
+            <h3 class="section-title">1. Introduction</h3>
+            <p>Welcome to Galactic University ("we," "our," or "us"). We respect your privacy and are committed to protecting it through our compliance with this policy.</p>
+            <p>This Privacy Policy describes the types of information we may collect from you or that you may provide when you visit our website or use our educational services, and our practices for collecting, using, maintaining, protecting, and disclosing that information.</p>
+            <p>This policy applies to information we collect:</p>
+            <ul>
+                <li>On our website and digital platforms.</li>
+                <li>In email, text, and other electronic messages between you and our systems.</li>
+                <li>Through our learning management system and course delivery platforms.</li>
+                <li>When you interact with our applications on third-party websites and services.</li>
+            </ul>
+        </div>
+
+        <div class="content-section" id="information-collection">
+            <h3 class="section-title">2. Information We Collect</h3>
+            <p>We collect several types of information from and about users of our website and services, including:</p>
+
+            <h5 class="mt-4 mb-3">Personal Information</h5>
+            <p>Information by which you may be personally identified, such as:</p>
+            <ul>
+                <li>Full name and academic credentials</li>
+                <li>Contact information (email address, mailing address, planetary residence)</li>
+                <li>Educational and professional background</li>
+                <li>Payment and billing information</li>
+                <li>Government-issued identification for identity verification</li>
+                <li>Authentication credentials</li>
+            </ul>
+
+            <h5 class="mt-4 mb-3">Non-Personal Information</h5>
+            <p>Information that does not directly identify you, including:</p>
+            <ul>
+                <li>Browser and device information</li>
+                <li>Usage data (pages visited, time spent, clicks)</li>
+                <li>IP address and location data</li>
+                <li>Learning analytics and course progress</li>
+                <li>Aggregate data on course performance</li>
+            </ul>
+
+            <div class="highlight-box">
+                <h5 class="mb-3">Special Note on Biometric Data</h5>
+                <p class="mb-0">For students participating in remote examinations, we may collect biometric data for identity verification purposes only with explicit consent. This data is encrypted and retained only for the duration necessary to verify your identity.</p>
+            </div>
+        </div>
+
+        <div class="content-section" id="information-use">
+            <h3 class="section-title">3. How We Use Your Information</h3>
+            <p>We use information that we collect about you or that you provide to us, including any personal information:</p>
+            <ul>
+                <li>To provide, maintain, and improve our educational services</li>
+                <li>To process enrollments, payments, and credential verifications</li>
+                <li>To personalize your learning experience and recommend relevant content</li>
+                <li>To communicate with you about courses, updates, and support</li>
+                <li>To analyze and improve our platform's performance and educational effectiveness</li>
+                <li>To detect, prevent, and address technical issues and security threats</li>
+                <li>To comply with academic accreditation and regulatory requirements</li>
+            </ul>
+
+            <p>We process your personal data based on the following legal grounds:</p>
+            <ul>
+                <li>Performance of our contract with you as a student</li>
+                <li>Our legitimate interests in operating and improving our educational services</li>
+                <li>Your consent, where specifically requested</li>
+                <li>Compliance with legal obligations applicable to educational institutions</li>
+            </ul>
+        </div>
+
+        <div class="content-section" id="information-sharing">
+            <h3 class="section-title">4. Information Sharing and Disclosure</h3>
+            <p>We may disclose aggregated information about our users, and information that does not identify any individual, without restriction. We may disclose personal information that we collect or you provide as described in this privacy policy:</p>
+            <ul>
+                <li>To our subsidiaries and affiliates within the Galactic University system.</li>
+                <li>To contractors, service providers, and other third parties we use to support our educational operations.</li>
+                <li>To accrediting bodies, educational partners, and credential verification services.</li>
+                <li>To fulfill the purpose for which you provide it.</li>
+                <li>For any other purpose disclosed by us when you provide the information.</li>
+                <li>With your consent.</li>
+            </ul>
+
+            <p>We may also disclose your personal information:</p>
+            <ul>
+                <li>To comply with any court order, law, or legal process.</li>
+                <li>To enforce or apply our terms of use and other agreements.</li>
+                <li>If we believe disclosure is necessary to protect the rights, property, or safety of Galactic University, our students, or others.</li>
+            </ul>
+        </div>
+
+        <div class="content-section" id="data-security">
+            <h3 class="section-title">5. Data Security</h3>
+            <p>We have implemented measures designed to secure your personal information from accidental loss and from unauthorized access, use, alteration, and disclosure. All information you provide to us is stored on secure servers behind firewalls.</p>
+            <p>Our security measures include:</p>
+            <ul>
+                <li>Encryption of sensitive data at rest and in transit using quantum-resistant algorithms</li>
+                <li>Multi-factor authentication for account access</li>
+                <li>Regular security assessments and penetration testing</li>
+                <li>Staff training on data protection and security practices</li>
+                <li>Access controls and authorization protocols</li>
+            </ul>
+            <p>Unfortunately, the transmission of information via the internet is not completely secure. Although we do our best to protect your personal information, we cannot guarantee the security of your personal information transmitted to our website.</p>
+        </div>
+
+        <div class="content-section" id="user-rights">
+            <h3 class="section-title">6. Your Rights and Choices</h3>
+            <p>Depending on your location, you may have certain rights regarding your personal information, including:</p>
+            <ul>
+                <li>Access to your personal information</li>
+                <li>Correction of inaccurate or incomplete information</li>
+                <li>Deletion of your personal information in certain circumstances</li>
+                <li>Restriction or objection to certain processing activities</li>
+                <li>Data portability to transfer your information to another service</li>
+                <li>Withdrawal of consent where processing is based on consent</li>
+            </ul>
+            <p>To exercise these rights, please contact us using the information provided in the "Contact Us" section.</p>
+
+            <div class="highlight-box">
+                <h5 class="mb-3">Academic Records Retention</h5>
+                <p class="mb-0">Please note that certain educational records may be retained as required by academic accreditation standards and applicable laws, even if you request deletion of your personal information.</p>
+            </div>
+        </div>
+
+        <div class="content-section" id="cookies">
+            <h3 class="section-title">7. Cookies and Tracking Technologies</h3>
+            <p>We use cookies and similar tracking technologies to track the activity on our platform and hold certain information.</p>
+            <p>Cookies are files with a small amount of data which may include an anonymous unique identifier. Cookies are sent to your browser from a website and stored on your device.</p>
+            <p>We use the following types of cookies:</p>
+            <ul>
+                <li><strong>Essential cookies:</strong> Necessary for the website to function properly.</li>
+                <li><strong>Analytics cookies:</strong> Help us understand how visitors interact with our website.</li>
+                <li><strong>Functional cookies:</strong> Enable enhanced functionality and personalization.</li>
+                <li><strong>Marketing cookies:</strong> Used to track visitors across websites to enable targeted advertising.</li>
+            </ul>
+            <p>You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent. However, if you do not accept cookies, you may not be able to use some portions of our platform.</p>
+        </div>
+
+        <div class="content-section" id="children">
+            <h3 class="section-title">8. Children's Privacy</h3>
+            <p>Our platform is not intended for children under 16 years of age. We do not knowingly collect personal information from children under 16. If you are a parent or guardian and believe we may have collected information about a child, please contact us using the information in the "Contact Us" section, and we will promptly delete such information.</p>
+        </div>
+
+        <div class="content-section" id="changes">
+            <h3 class="section-title">9. Changes to This Privacy Policy</h3>
+            <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date at the top of this page.</p>
+            <p>We will provide more prominent notice of material changes to this policy, including, for certain services, email notification of Privacy Policy changes. We encourage you to review this Privacy Policy periodically for any changes.</p>
+        </div>
+
+        <div class="content-section" id="contact">
+            <h3 class="section-title">10. Contact Us</h3>
+            <p>If you have any questions about this Privacy Policy or our data practices, please contact us:</p>
+            <ul>
+                <li><strong>Email:</strong> privacy@galacticuniversity.edu</li>
+                <li><strong>Postal Address:</strong> Data Protection Office, Galactic University Headquarters, Mars Campus, Olympus Mons District, Mars Colony</li>
+                <li><strong>Quantum Comm Channel:</strong> QC-GU-PRIVACY-2025</li>
+            </ul>
+            <p>For urgent privacy matters, you may also contact our Data Protection Officer directly at dpo@galacticuniversity.edu.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Back to Top Button -->
+<div class="back-to-top" id="backToTop">
+    <i class="bi bi-arrow-up"></i>
+</div>
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Back to top button functionality
+        const backToTopButton = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Smooth scrolling for table of contents links
+        document.querySelectorAll('.table-of-contents a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+
+                window.scrollTo({
+                    top: targetElement.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    });
+</script>

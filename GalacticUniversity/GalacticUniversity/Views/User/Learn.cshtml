@@ -31,192 +31,171 @@
 }
 
 <link rel="stylesheet" href="~/css/display.css" asp-append-version="true" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-
-
-<div class="container mt-4">
-    <!-- Course Header -->
-    <div class="mb-4 p-4 bg-light border rounded">
-        <h1 class="fw-bold text-primary">@Model.Course.CourseName</h1>
-        <p>@Model.Course.Description</p>
-        <div class="d-flex align-items-center">
-            <span class="badge bg-info text-dark me-2">@Model.Course.Lectures.Count Lectures</span>
-            <span class="badge bg-success text-white me-2">@completedLectures Completed</span>
-            <a href="/Profile" class="btn btn-outline-secondary btn-sm ms-auto">
-                <i class="bi bi-arrow-left me-1"></i> Back to Profile
-            </a>
-        </div>
-    </div>
-
-    <!-- Progress Bar -->
-    <div class="mb-4">
-        <label class="fw-bold mb-1">Progress</label>
-        <div class="progress">
-            <div id="progressBar"
-                 class="progress-bar progress-bar-striped bg-success"
-                 role="progressbar"
-                 style="width: @progress%"
-                 aria-valuenow="@progress"
-                 aria-valuemin="0"
-                 aria-valuemax="100">
-                @($"{progress:F0}%")
-            </div>
-        </div>
-    </div>
-    <div class="accordion" id="lectureAccordion">
-        @foreach (var item in Model.Course.Lectures.OrderBy(l => l.LectureID))
-        {
-            var collapseId = $"collapse-{item.LectureID}";
-            var headingId = $"heading-{item.LectureID}";
-            var isLectureAccessible = item.LectureID <= Model.LastLectureID;
-            var isCurrentLecture = item.LectureID == Model.LastLectureID;
-            var isLastLecture = item.LectureID == Model.Course.Lectures.Max(l => l.LectureID);
-            var nextLectureId = Model.Course.Lectures
-            .OrderBy(l => l.LectureID)
-            .FirstOrDefault(l => l.LectureID > Model.LastLectureID)?.LectureID;
-
-            <div class="accordion-item @(!isLectureAccessible ? "locked-lecture" : "")">
-                <h2 class="accordion-header" id="@headingId">
-                    <button class="accordion-button @(isCurrentLecture ? "" : "collapsed") @(!isLectureAccessible ? "disabled" : "")"
-                            type="button"
-                            data-bs-toggle="@(isLectureAccessible ? "collapse" : "")"
-                            data-bs-target="@(isLectureAccessible ? "#" + collapseId : "")"
-                            aria-expanded="@(isCurrentLecture ? "true" : "false")"
-                            aria-controls="@collapseId">
-                        @item.LectureName
-                        @if (!isLectureAccessible)
-                        {
-                            <i class="bi bi-lock ms-2" title="Complete previous lectures to unlock"></i>
-                        }
-                        else if (item.LectureID < Model.LastLectureID || isFullyCompleted)
-                        {
-                            <i class="bi bi-check-circle-fill ms-2 text-success" title="Completed"></i>
-                        }
-                    </button>
-                </h2>
-                <div id="@collapseId"
-                     class="accordion-collapse collapse @(isCurrentLecture ? "show" : "")"
-                     aria-labelledby="@headingId">
-                    <div class="accordion-body">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h4>@item.LectureName</h4>
-                            @if (isCurrentLecture)
-                            {
-                                <form asp-action="UpdateProgress" asp-controller="User" method="post">
-                                    <input type="hidden" name="courseId" value="@Model.Course.CourseID" />
-                                    @if (isLastLecture)
-                                    {
-                                       <button asp-action="GenerateCertificate" asp-controller="User" asp-route-courseId="@Model.Course.CourseID\" class="btn btn-primary">
-                                           Get my Certificate
-                                       </button>
-                                    }
-                                    else if (nextLectureId.HasValue)
-                                    {
-                                        <input type="hidden" name="lectureId" value="@nextLectureId" />
-                                        <button asp-action="UpdateProgress" asp-controller="User" class="btn btn-primary">
-                                            Mark as Complete & Next Lecture
-                                            <i class="bi bi-arrow-right ms-1"></i>
-                                        </button>
-                                    }
-                                </form>
-                            }
-                        </div>
-
-                        @if (item.LectureResources?.Any() == true)
-                        {
-                            <div class="lecture-resources mb-3">
-                                <h5>Resources</h5>
-                                <ul class="list-group">
-                                    @foreach (var resource in item.LectureResources)
-                                    {
-                                        var modalId = $"resourceModal_{item.LectureID}_{resource.ResourceID}";
-
-                                        <li class="list-group-item">
-                                            @if (!string.IsNullOrEmpty(resource.FileUrl))
-                                            {
-                                                <!-- Resource link with SVG icon -->
-                                                <button type="button" class="btn btn-link p-0 text-decoration-none" data-bs-toggle="modal" data-bs-target="#@modalId">
-                                                    <svg version="1.0" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve" fill="#000000" width="24" height="24" class="me-2">
-                                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                                                    <g id="SVGRepo_iconCarrier">
-                                                    <g>
-                                                    <g>
-                                                    <polygon fill="#F9EBB2" points="46,3.414 46,14 56.586,14 "></polygon>
-                                                    <path fill="#F9EBB2" d="M45,16c-0.553,0-1-0.447-1-1V2H8C6.896,2,6,2.896,6,4v56c0,1.104,0.896,2,2,2h48c1.104,0,2-0.896,2-2V16 H45z"></path>
-                                                                                </g>
-                                                    <path fill="#394240" d="M14,26c0,0.553,0.447,1,1,1h34c0.553,0,1-0.447,1-1s-0.447-1-1-1H15C14.447,25,14,25.447,14,26z"></path>
-                                                    <path fill="#394240" d="M49,37H15c-0.553,0-1,0.447-1,1s0.447,1,1,1h34c0.553,0,1-0.447,1-1S49.553,37,49,37z"></path>
-                                                    <path fill="#394240" d="M49,43H15c-0.553,0-1,0.447-1,1s0.447,1,1,1h34c0.553,0,1-0.447,1-1S49.553,43,49,43z"></path>
-                                                    <path fill="#394240" d="M49,49H15c-0.553,0-1,0.447-1,1s0.447,1,1,1h34c0.553,0,1-0.447,1-1S49.553,49,49,49z"></path>
-                                                    <path fill="#394240" d="M49,31H15c-0.553,0-1,0.447-1,1s0.447,1,1,1h34c0.553,0,1-0.447,1-1S49.553,31,49,31z"></path>
-                                                    <path fill="#394240" d="M15,20h16c0.553,0,1-0.447,1-1s-0.447-1-1-1H15c-0.553,0-1,0.447-1,1S14.447,20,15,20z"></path>
-                                                    <path fill="#394240" d="M59.706,14.292L45.708,0.294C45.527,0.112,45.277,0,45,0H8C5.789,0,4,1.789,4,4v56c0,2.211,1.789,4,4,4h48 c2.211,0,4-1.789,4-4V15C60,14.723,59.888,14.473,59.706,14.292z M46,3.414L56.586,14H46V3.414z M58,60c0,1.104-0.896,2-2,2H8 c-1.104,0-2-0.896-2-2V4c0-1.104,0.896-2,2-2h36v13c0,0.553,0.447,1,1,1h13V60z"></path>
-                                                    <polygon opacity="0.15" fill="#231F20" points="46,3.414 56.586,14 46,14 "></polygon>
-                                                                            </g>
-                                                                        </g>
-                                                                    </svg>
-                                                    @("Resource")
-                                                </button>
-
-                                                <!-- Modal for this resource -->
-                                                <div class="modal fade" id="@modalId" tabindex="-1" aria-labelledby="@($"{modalId}_Label")" aria-hidden="true">
-                                                    <div class="modal-dialog modal-lg">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="@($"{modalId}_Label")">@("Resource")</h5>
-                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                @if (resource.FileUrl.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase))
-                                                                {
-                                                                    <iframe src="@resource.FileUrl" width="100%" height="500px" style="border:none;"></iframe>
-                                                                }
-                                                                else if (resource.FileUrl.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) ||
-                                                                resource.FileUrl.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase) ||
-                                                                resource.FileUrl.EndsWith(".png", StringComparison.OrdinalIgnoreCase) ||
-                                                                resource.FileUrl.EndsWith(".gif", StringComparison.OrdinalIgnoreCase))
-                                                                {
-                                                                    <img src="@resource.FileUrl" class="img-fluid" >
-                                                                }
-                                                                else
-                                                                {
-                                                                    <p>This file type cannot be previewed directly. Please use the "Open in New Tab" button to view it.</p>
-                                                                }
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <a href="@resource.FileUrl" target="_blank" class="btn btn-primary">Open in New Tab</a>
-                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            }
-                                            else
-                                            {
-                                                <span>No resource available.</span>
-                                            }
-                                        </li>
-                                    }
-                                </ul>
-                            </div>
-                        }
-                        else
-                        {
-                            <p>No resources available.</p>
-                        }
-                    </div>
-                </div>
-            </div>
-        }
-    </div>
-</div>
-
-<!-- Add some custom styles for locked lectures -->
 <style>
-    .locked-lecture .accordion-button {
+    :root {
+        --primary-color: #6366f1;
+        --primary-hover: #4f46e5;
+        --secondary-color: #2d3748;
+        --accent-color: #8b5cf6;
+        --success-color: #10b981;
+        --light-color: #f3f4f6;
+        --dark-color: #1f2937;
+        --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    body {
         background-color: #f8f9fa;
-        color: #6c757d;
+        color: var(--secondary-color);
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .course-header {
+        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+        border-radius: 16px;
+        padding: 40px;
+        margin-bottom: 30px;
+        color: white;
+        box-shadow: var(--card-shadow);
+        position: relative;
+        overflow: hidden;
+    }
+
+        .course-header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48cGF0aCBmaWxsPSIjZmZmZmZmIiBmaWxsLW9wYWNpdHk9IjAuMSIgZD0iTTEwMCwxMDBjMC01NS4yLDQ0LjgtMTAwLDEwMC0xMDBoMTAwdjEwMGMwLDU1LjItNDQuOCwxMDAtMTAwLDEwMGgtMTAwVjEwMHoiLz48L3N2Zz4=');
+            background-position: top right;
+            background-repeat: no-repeat;
+            background-size: 50%;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+    .course-header-content {
+        position: relative;
+        z-index: 1;
+    }
+
+    .back-button {
+        background-color: rgba(255, 255, 255, 0.2);
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        backdrop-filter: blur(4px);
+    }
+
+        .back-button:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+    .course-badge {
+        background-color: rgba(255, 255, 255, 0.2);
+        color: white;
+        font-weight: 500;
+        border-radius: 20px;
+        padding: 6px 14px;
+        margin-right: 10px;
+        backdrop-filter: blur(4px);
+    }
+
+    .progress-container {
+        background-color: white;
+        border-radius: 16px;
+        padding: 25px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .progress-label {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
+
+    .progress-bar-container {
+        height: 14px;
+        background-color: #e9ecef;
+        border-radius: 20px;
+        overflow: hidden;
+    }
+
+    .progress-bar-fill {
+        height: 100%;
+        border-radius: 20px;
+        background: linear-gradient(to right, #10b981, #34d399);
+        transition: width 0.5s ease;
+        position: relative;
+    }
+
+    .lectures-container {
+        background-color: white;
+        border-radius: 16px;
+        padding: 5px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+    }
+
+    .accordion-item {
+        border: none;
+        margin-bottom: 10px;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+    }
+
+        .accordion-item:hover:not(.locked-lecture) {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+    .accordion-button {
+        padding: 18px 25px;
+        font-weight: 600;
+        color: var(--secondary-color);
+        background: white;
+        border-radius: 10px !important;
+    }
+
+        .accordion-button:not(.collapsed) {
+            color: var(--primary-color);
+            background-color: #f8faff;
+            box-shadow: none;
+        }
+
+        .accordion-button:focus {
+            box-shadow: none;
+            border-color: rgba(99, 102, 241, 0.5);
+        }
+
+        .accordion-button::after {
+            background-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+    .accordion-body {
+        padding: 20px 25px;
+        background-color: #f8faff;
+    }
+
+    .locked-lecture .accordion-button {
+        background-color: #f3f4f6;
+        color: #9ca3af;
         cursor: not-allowed;
     }
 
@@ -227,8 +206,368 @@
     .accordion-button.disabled {
         pointer-events: none;
     }
+
+    .lecture-title {
+        font-weight: 600;
+        color: var(--primary-color);
+        margin-bottom: 20px;
+    }
+
+    .lecture-resources {
+        background-color: white;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+        .lecture-resources h5 {
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+
+    .list-group-item {
+        border: none;
+        padding: 12px 15px;
+        margin-bottom: 8px;
+        border-radius: 8px;
+        background-color: #f1f5f9;
+        transition: all 0.3s ease;
+    }
+
+        .list-group-item:hover {
+            background-color: #e2e8f0;
+        }
+
+        .list-group-item:last-child {
+            margin-bottom: 0;
+        }
+
+    .resource-button {
+        background: none;
+        border: none;
+        color: var(--primary-color);
+        text-decoration: none;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        cursor: pointer;
+    }
+
+        .resource-button:hover {
+            color: var(--primary-hover);
+        }
+
+        .resource-button:focus {
+            outline: none;
+        }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
+        }
+
+    .btn-secondary {
+        background-color: #f3f4f6;
+        color: #4b5563;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+        .btn-secondary:hover {
+            background-color: #e5e7eb;
+        }
+
+    .btn-link {
+        color: var(--primary-color);
+        text-decoration: none;
+    }
+
+        .btn-link:hover {
+            color: var(--primary-hover);
+        }
+
+    .completion-indicator {
+        display: flex;
+        align-items: center;
+        margin-top: 15px;
+        color: #6b7280;
+        font-size: 14px;
+    }
+
+        .completion-indicator i {
+            margin-right: 6px;
+        }
+
+    .lecture-status-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        margin-left: 10px;
+    }
+
+    .status-complete {
+        background-color: rgba(16, 185, 129, 0.1);
+        color: #10b981;
+    }
+
+    .status-locked {
+        background-color: rgba(107, 114, 128, 0.1);
+        color: #6b7280;
+    }
+
+    .status-current {
+        background-color: rgba(59, 130, 246, 0.1);
+        color: #3b82f6;
+    }
+
+    /* Modal customizations - keeping original functionality */
+    .modal-content {
+        border-radius: 16px;
+        border: none;
+        box-shadow: var(--card-shadow);
+    }
+
+    .modal-header {
+        border-bottom: 1px solid #e5e7eb;
+        padding: 16px 24px;
+    }
+
+    .modal-body {
+        padding: 24px;
+    }
+
+    .modal-footer {
+        border-top: 1px solid #e5e7eb;
+        padding: 16px 24px;
+    }
+
+    /* Added styles for resource icon */
+    .resource-icon {
+        margin-right: 10px;
+    }
 </style>
 
+<div class="container mt-5">
+    <!-- Course Header -->
+    <div class="course-header">
+        <div class="course-header-content">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <a href="/Profile" class="back-button">
+                    <i class="bi bi-arrow-left me-2"></i> Back to Profile
+                </a>
+            </div>
+
+            <h1 class="display-5 fw-bold mb-3">@Model.Course.CourseName</h1>
+            <p class="mb-4 fs-5 opacity-90">@Model.Course.Description</p>
+
+            <div class="d-flex flex-wrap">
+                <span class="course-badge me-2">
+                    <i class="bi bi-collection me-1"></i>
+                    @Model.Course.Lectures.Count Lectures
+                </span>
+                <span class="course-badge">
+                    <i class="bi bi-check-circle me-1"></i>
+                    @completedLectures Completed
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-label">
+            <span>Your Progress</span>
+            <span>@($"{progress:F0}%")</span>
+        </div>
+        <div class="progress-bar-container">
+            <div class="progress-bar-fill" style="width: @progress%"></div>
+        </div>
+        <div class="completion-indicator mt-3">
+            <i class="bi bi-info-circle"></i>
+            You've completed @completedLectures out of @lectureCount lectures
+        </div>
+    </div>
+
+    <!-- Lectures Accordion -->
+    <div class="lectures-container">
+        <div class="accordion" id="lectureAccordion">
+            @foreach (var item in Model.Course.Lectures.OrderBy(l => l.LectureID))
+            {
+                var collapseId = $"collapse-{item.LectureID}";
+                var headingId = $"heading-{item.LectureID}";
+                var isLectureAccessible = item.LectureID <= Model.LastLectureID;
+                var isCurrentLecture = item.LectureID == Model.LastLectureID;
+                var isLastLecture = item.LectureID == Model.Course.Lectures.Max(l => l.LectureID);
+                var nextLectureId = Model.Course.Lectures
+                .OrderBy(l => l.LectureID)
+                .FirstOrDefault(l => l.LectureID > Model.LastLectureID)?.LectureID;
+
+                <div class="accordion-item @(!isLectureAccessible ? "locked-lecture" : "")">
+                    <h2 class="accordion-header" id="@headingId">
+                        <button class="accordion-button @(isCurrentLecture ? "" : "collapsed") @(!isLectureAccessible ? "disabled" : "")"
+                                type="button"
+                                data-bs-toggle="@(isLectureAccessible ? "collapse" : "")"
+                                data-bs-target="@(isLectureAccessible ? "#" + collapseId : "")"
+                                aria-expanded="@(isCurrentLecture ? "true" : "false")"
+                                aria-controls="@collapseId">
+                            <span>@item.LectureName</span>
+                            @if (!isLectureAccessible)
+                            {
+                                <i class="bi bi-lock ms-2" title="Complete previous lectures to unlock"></i>
+                            }
+                            else if (item.LectureID < Model.LastLectureID || isFullyCompleted)
+                            {
+                                <i class="bi bi-check-circle-fill ms-2 text-success" title="Completed"></i>
+                            }
+                        </button>
+                    </h2>
+                    <div id="@collapseId"
+                         class="accordion-collapse collapse @(isCurrentLecture ? "show" : "")"
+                         aria-labelledby="@headingId">
+                        <div class="accordion-body">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h4 class="lecture-title mb-0">@item.LectureName</h4>
+                                @if (isCurrentLecture)
+                                {
+                                    <form asp-action="UpdateProgress" asp-controller="User" method="post">
+                                        <input type="hidden" name="courseId" value="@Model.Course.CourseID" />
+                                        @if (isLastLecture)
+                                        {
+                                            <button asp-action="GenerateCertificate" asp-controller="User" asp-route-courseId="@Model.Course.CourseID" class="btn btn-primary">
+                                                <i class="bi bi-award me-2"></i> Get my Certificate
+                                            </button>
+                                        }
+                                        else if (nextLectureId.HasValue)
+                                        {
+                                            <input type="hidden" name="lectureId" value="@nextLectureId" />
+                                            <button asp-action="UpdateProgress" asp-controller="User" class="btn btn-primary">
+                                                Mark as Complete & Next Lecture
+                                                <i class="bi bi-arrow-right ms-1"></i>
+                                            </button>
+                                        }
+                                    </form>
+                                }
+                            </div>
+
+                            @if (item.LectureResources?.Any() == true)
+                            {
+                                <div class="lecture-resources">
+                                    <h5><i class="bi bi-file-earmark-text me-2"></i>Resources</h5>
+                                    <ul class="list-group">
+                                        @foreach (var resource in item.LectureResources)
+                                        {
+                                            var modalId = $"resourceModal_{item.LectureID}_{resource.ResourceID}";
+
+                                            <li class="list-group-item">
+                                                @if (!string.IsNullOrEmpty(resource.FileUrl))
+                                                {
+                                                    <!-- Resource link - fixed to prevent flickering -->
+                                                    <button type="button" class="resource-button" data-bs-toggle="modal" data-bs-target="#@modalId" onclick="event.stopPropagation();">
+                                                        <svg version="1.0" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve" fill="#6366f1" width="24" height="24" class="resource-icon">
+                                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                                        <g id="SVGRepo_iconCarrier">
+                                                        <g>
+                                                        <g>
+                                                        <polygon fill="#F9EBB2" points="46,3.414 46,14 56.586,14 "></polygon>
+                                                        <path fill="#F9EBB2" d="M45,16c-0.553,0-1-0.447-1-1V2H8C6.896,2,6,2.896,6,4v56c0,1.104,0.896,2,2,2h48c1.104,0,2-0.896,2-2V16 H45z"></path>
+                                                                                    </g>
+                                                        <path fill="#394240" d="M14,26c0,0.553,0.447,1,1,1h34c0.553,0,1-0.447,1-1s-0.447-1-1-1H15C14.447,25,14,25.447,14,26z"></path>
+                                                        <path fill="#394240" d="M49,37H15c-0.553,0-1,0.447-1,1s0.447,1,1,1h34c0.553,0,1-0.447,1-1S49.553,37,49,37z"></path>
+                                                        <path fill="#394240" d="M49,43H15c-0.553,0-1,0.447-1,1s0.447,1,1,1h34c0.553,0,1-0.447,1-1S49.553,43,49,43z"></path>
+                                                        <path fill="#394240" d="M49,49H15c-0.553,0-1,0.447-1,1s0.447,1,1,1h34c0.553,0,1-0.447,1-1S49.553,49,49,49z"></path>
+                                                        <path fill="#394240" d="M49,31H15c-0.553,0-1,0.447-1,1s0.447,1,1,1h34c0.553,0,1-0.447,1-1S49.553,31,49,31z"></path>
+                                                        <path fill="#394240" d="M15,20h16c0.553,0,1-0.447,1-1s-0.447-1-1-1H15c-0.553,0-1,0.447-1,1S14.447,20,15,20z"></path>
+                                                        <path fill="#394240" d="M59.706,14.292L45.708,0.294C45.527,0.112,45.277,0,45,0H8C5.789,0,4,1.789,4,4v56c0,2.211,1.789,4,4,4h48 c2.211,0,4-1.789,4-4V15C60,14.723,59.888,14.473,59.706,14.292z M46,3.414L56.586,14H46V3.414z M58,60c0,1.104-0.896,2-2,2H8 c-1.104,0-2-0.896-2-2V4c0-1.104,0.896-2,2-2h36v13c0,0.553,0.447,1,1,1h13V60z"></path>
+                                                        <polygon opacity="0.15" fill="#231F20" points="46,3.414 56.586,14 46,14 "></polygon>
+                                                                                </g>
+                                                                            </g>
+                                                                        </svg>
+                                                        Resource
+                                                    </button>
+
+                                                    <!-- Modal for this resource - keeping original HTML structure intact -->
+                                                    <div class="modal fade" id="@modalId" tabindex="-1" aria-labelledby="@($"{modalId}_Label")" aria-hidden="true">
+                                                        <div class="modal-dialog modal-lg">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="@($"{modalId}_Label")">Resource</h5>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    @if (resource.FileUrl.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase))
+                                                                    {
+                                                                        <iframe src="@resource.FileUrl" width="100%" height="500px" style="border:none;"></iframe>
+                                                                    }
+                                                                    else if (resource.FileUrl.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) ||
+                                                                    resource.FileUrl.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase) ||
+                                                                    resource.FileUrl.EndsWith(".png", StringComparison.OrdinalIgnoreCase) ||
+                                                                    resource.FileUrl.EndsWith(".gif", StringComparison.OrdinalIgnoreCase))
+                                                                    {
+                                                                        <img src="@resource.FileUrl" class="img-fluid">
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <p>This file type cannot be previewed directly. Please use the "Open in New Tab" button to view it.</p>
+                                                                    }
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <a href="@resource.FileUrl" target="_blank" class="btn btn-primary">Open in New Tab</a>
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <span>No resource available.</span>
+                                                }
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            }
+                            else
+                            {
+                                <p class="text-muted fst-italic">No resources available for this lecture.</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
 
 <!-- Bootstrap Icons -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+<script>
+    // This script prevents the modal from closing when clicking inside it
+    document.addEventListener('DOMContentLoaded', function() {
+        // Stop propagation on modal content to prevent accordion from collapsing
+        document.querySelectorAll('.modal-content').forEach(function(element) {
+            element.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        });
+    });
+</script>
