@@ -104,8 +104,8 @@ namespace GalacticUniversity.Controllers
                 }).ToList(),
 
             };
-            
 
+            
             return View(model);
         }
         [Authorize(Roles ="Admin")]
@@ -135,6 +135,7 @@ namespace GalacticUniversity.Controllers
             };
 
             await _courseService.Add(course);
+            TempData["success"] = "Succesfully added course!";
             return RedirectToAction("Index");
         }
 
@@ -176,6 +177,7 @@ namespace GalacticUniversity.Controllers
                 CategoryID = cvm.CategoryID,
             };
             await _courseService.Update(course);
+            TempData["success"] = "Succesfully edited course!";
             return RedirectToAction("Index");
         }
         [Authorize(Roles = "Admin")]
@@ -183,6 +185,7 @@ namespace GalacticUniversity.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             await _courseService.Delete(await _courseService.Get(id));
+            TempData["success"] = "Succesfully deleted course!";
             return RedirectToAction("Index");
         }
 
@@ -203,12 +206,12 @@ namespace GalacticUniversity.Controllers
         public async Task<IActionResult> JoinCourse(int courseId)
         {
 
-            TempData["success"] = "upeh. vijte si profile";
+            
             var userID = _userManager.GetUserId(User);
             
 
             await _userCourseService.JoinCourse(userID, courseId);
-            TempData["success"] = "upeh. vijte si profile";
+            TempData["success"] = "Check your profile!";
             return RedirectToAction("Index");
         }
 
