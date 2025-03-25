@@ -59,6 +59,7 @@ namespace GalacticUniversity.Controllers
             {
                 Id = currentUser.Id,
                 Email = currentUser.Email,
+                UserName = currentUser.UserName,
                 Courses = courses
             };
 
@@ -213,7 +214,7 @@ namespace GalacticUniversity.Controllers
 
             user.Certificates.Add(certificate);
             await _userManager.UpdateAsync(user);
-
+            
             
             return File(bytes, "application/pdf", fileName);
         }

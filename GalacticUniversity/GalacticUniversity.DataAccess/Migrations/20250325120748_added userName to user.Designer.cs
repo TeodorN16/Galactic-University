@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GalacticUniversity.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250207161245_Connected to home PC")]
-    partial class ConnectedtohomePC
+    [Migration("20250325120748_added userName to user")]
+    partial class addeduserNametouser
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,6 +40,37 @@ namespace GalacticUniversity.DataAccess.Migrations
                     b.HasKey("CategoryID");
 
                     b.ToTable("categories");
+                });
+
+            modelBuilder.Entity("GalacticUniversity.Models.Certificate", b =>
+                {
+                    b.Property<int>("CertificateID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CertificateID"));
+
+                    b.Property<string>("CertificateUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CourseID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("IssueDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("CertificateID");
+
+                    b.HasIndex("CourseID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("Certificate");
                 });
 
             modelBuilder.Entity("GalacticUniversity.Models.Comment", b =>
@@ -101,6 +132,9 @@ namespace GalacticUniversity.DataAccess.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("ImageURL")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
@@ -147,16 +181,12 @@ namespace GalacticUniversity.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ResourceID"));
 
+                    b.Property<string>("FileUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("LectureID")
                         .HasColumnType("int");
-
-                    b.Property<string>("ResourcePath")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ResourceType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ResourceID");
 
@@ -176,6 +206,9 @@ namespace GalacticUniversity.DataAccess.Migrations
                     b.Property<int>("CourseID")
                         .HasColumnType("int");
 
+                    b.Property<int?>("LectureID")
+                        .HasColumnType("int");
+
                     b.Property<string>("UserID")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -183,6 +216,8 @@ namespace GalacticUniversity.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CourseID");
+
+                    b.HasIndex("LectureID");
 
                     b.HasIndex("UserID");
 
@@ -403,6 +438,25 @@ namespace GalacticUniversity.DataAccess.Migrations
                     b.HasDiscriminator().HasValue("User");
                 });
 
+            modelBuilder.Entity("GalacticUniversity.Models.Certificate", b =>
+                {
+                    b.HasOne("GalacticUniversity.Models.Course", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GalacticUniversity.Models.User", "User")
+                        .WithMany("Certificates")
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("GalacticUniversity.Models.Comment", b =>
                 {
                     b.HasOne("GalacticUniversity.Models.Course", "Course")
@@ -465,6 +519,10 @@ namespace GalacticUniversity.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("GalacticUniversity.Models.Lecture", "Lecture")
+                        .WithMany()
+                        .HasForeignKey("LectureID");
+
                     b.HasOne("GalacticUniversity.Models.User", "User")
                         .WithMany("UserCourses")
                         .HasForeignKey("UserID")
@@ -472,6 +530,8 @@ namespace GalacticUniversity.DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("Course");
+
+                    b.Navigation("Lecture");
 
                     b.Navigation("User");
                 });
@@ -548,6 +608,8 @@ namespace GalacticUniversity.DataAccess.Migrations
 
             modelBuilder.Entity("GalacticUniversity.Models.User", b =>
                 {
+                    b.Navigation("Certificates");
+
                     b.Navigation("Comments");
 
                     b.Navigation("UserCourses");

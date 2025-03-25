@@ -1,7 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 using GalacticUniversity.Core.CourseService;
 using GalacticUniversity.Core.LectureService;
-using GalacticUniversity.DataAccess.Migrations;
+
 using GalacticUniversity.Models;
 using GalacticUniversity.Models.ViewModels;
 using GalacticUniversity.Models.ViewModels.LectureViewModels;

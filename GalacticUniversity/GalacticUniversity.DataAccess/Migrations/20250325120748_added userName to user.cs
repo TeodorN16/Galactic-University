@@ -5,7 +5,7 @@
 namespace GalacticUniversity.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class ChangedLecturerequirementtocourse : Migration
+    public partial class addeduserNametouser : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

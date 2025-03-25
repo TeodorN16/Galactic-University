@@ -28,7 +28,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),b=>b.MigrationsAssembly("GalacticUniversity.DataAccess")));
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("GalacticUniversity.DataAccess")));
 
 
 
@@ -60,8 +60,8 @@ builder.Services.AddScoped<IUserRepository<User>, UserRepository<User>>();
 
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICommentService, CommentService>();
-builder.Services.AddScoped<ICourseService,CourseService>();
-builder.Services.AddScoped<ILectureResourceService,LectureResourceService>();
+builder.Services.AddScoped<ICourseService, CourseService>();
+builder.Services.AddScoped<ILectureResourceService, LectureResourceService>();
 builder.Services.AddScoped<ILectureService, LectureService>();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
 builder.Services.AddScoped<IUserCourseService, UserCourseService>();
@@ -84,6 +84,13 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
                                                                                                 */
 
 var app = builder.Build();
+using (var scope = app.Services.CreateScope())
+{
+    var serviceProvider = scope.ServiceProvider;
+    
+    var context = serviceProvider.GetRequiredService<ApplicationDbContext>();
+    await DbInitializer.Initialize(context);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

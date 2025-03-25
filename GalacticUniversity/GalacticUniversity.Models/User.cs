@@ -12,7 +12,7 @@ namespace GalacticUniversity.Models
     {
        
       
-     
+        public string UserName { get; set; }
         
         
 
