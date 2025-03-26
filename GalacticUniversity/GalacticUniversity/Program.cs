@@ -32,12 +32,26 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
 
 
 
-builder.Services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
 /*builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();*/
 
 builder.Services.AddScoped<CloudinaryService>();
 
+builder.Services.AddDefaultIdentity<User>(options =>
+{
+
+    options.SignIn.RequireConfirmedAccount = false;
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequiredLength = 6;
+
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+    options.Lockout.MaxFailedAccessAttempts = 5;
+})
+        .AddRoles<IdentityRole>()
+        .AddEntityFrameworkStores<ApplicationDbContext>();
 
 var cloudinarySetting = builder.Configuration.GetSection("Cloudinary").Get<CloudinarySettings>();
 
@@ -48,6 +62,7 @@ builder.Services.AddSingleton(cloudinary);
 
 builder.Services.AddScoped<TarotService>();
 
+builder.Services.AddScoped<IEmailSender, EmailSender>();
 
 
 
@@ -86,11 +101,15 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
-    var serviceProvider = scope.ServiceProvider;
-    
-    var context = serviceProvider.GetRequiredService<ApplicationDbContext>();
-    await DbInitializer.Initialize(context);
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<ApplicationDbContext>();
+    var userManager = services.GetRequiredService<UserManager<User>>();
+    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
+    await DbInitializer.InitializeAsync(context, userManager, roleManager);
 }
+
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

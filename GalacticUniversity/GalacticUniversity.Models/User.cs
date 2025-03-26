@@ -8,11 +8,10 @@ using Microsoft.AspNetCore.Identity;
 
 namespace GalacticUniversity.Models
 {
-    public class User:IdentityUser
+    public class User : IdentityUser
     {
        
       
-        public string UserName { get; set; }
         
         
 
