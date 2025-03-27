@@ -83,30 +83,128 @@ namespace GalacticUniversity.DataAccess
                 }
                 await context.SaveChangesAsync();
             }
-            //if (!context.lectureResources.Any())
-            //{
-            //    var lectureResources = new LectureResource[]
-            //    {
-            //        new LectureResource
-            //        {
-            //            LectureID=1,
-            //            //FileUrl
-            //        },
-            //        new LectureResource
-            //        {
-            //            LectureID = 1,
-            //        },
-            //        new LectureResource
-            //        {
-            //            LectureID=1,
-            //        },
-            //    };
-            //    foreach (var lectureResource in lectureResources)
-            //    {
-            //        await context.lectureResources.AddAsync(lectureResource);
-            //    }
-            //    await context.SaveChangesAsync();
-            //}
+            if (!context.courses.Any())
+            {
+                var course = new Course
+                {
+                    CourseID = 1,
+                    CourseName = "Astrology Course",
+                    Description = "A comprehensive course on the history, practices, and systems of astrology.",
+                    StartDate = new DateTime(2023, 1, 1),
+                    EndDate = new DateTime(2023, 12, 31),
+                    CategoryID = 1, // Assuming a category exists
+                    ImageURL = null
+                };
+                await context.courses.AddAsync(course);
+                await context.SaveChangesAsync();
+            }
+
+            // Seed the Lectures
+            if (!context.lectures.Any())
+            {
+                var lectures = new Lecture[]
+                {
+            new Lecture
+            {
+                LectureID = 1,
+                LectureName = "History and Cultural Significance of Astrology",
+                Description = "Explores the historical and cultural origins of astrology.",
+                CourseID = 1
+            },
+            new Lecture
+            {
+                LectureID = 2,
+                LectureName = "Modern Astrological Practices",
+                Description = "Covers modern applications and interpretations of astrology.",
+                CourseID = 1
+            },
+            new Lecture
+            {
+                LectureID = 3,
+                LectureName = "The Zodiac System",
+                Description = "Introduces the zodiac system and its components.",
+                CourseID = 1
+            }
+                };
+
+                foreach (var lecture in lectures)
+                {
+                    await context.lectureResources.AddAsync(lectures);
+                }
+                await context.SaveChangesAsync();
+            }
+
+            // Seed the LectureResources
+            if (!context.lectureResources.Any())
+            {
+                var lectureResources = new LectureResource[]
+                {
+            // Lecture 1: History and Cultural Significance of Astrology
+            new LectureResource
+            {
+                LectureID = 1,
+                FileUrl = "/AstrologyCourse/History and Cultural Significance of Astrology/ANCIENT STARGAZERS.pdf"
+            },
+            new LectureResource
+            {
+                LectureID = 1,
+                FileUrl = "/AstrologyCourse/History and Cultural Significance of Astrology/ASTROLOGY VS ASTRONOMY.pdf"
+            },
+            new LectureResource
+            {
+                LectureID = 1,
+                FileUrl = "/AstrologyCourse/History and Cultural Significance of Astrology/HOUSES AND ASPECTS.pdf"
+            },
+            new LectureResource
+            {
+                LectureID = 1,
+                FileUrl = "/AstrologyCourse/History and Cultural Significance of Astrology/THE 12 HOUSES.pdf"
+            },
+            // Lecture 2: Modern Astrological Practices
+            new LectureResource
+            {
+                LectureID = 2,
+                FileUrl = "/AstrologyCourse/Modern Astrological Practices/ASTROLOGY IN POPULAR CULTURE.pdf"
+            },
+            new LectureResource
+            {
+                LectureID = 2,
+                FileUrl = "/AstrologyCourse/Modern Astrological Practices/BEYOND SUN SIGNS.pdf"
+            },
+            new LectureResource
+            {
+                LectureID = 2,
+                FileUrl = "/AstrologyCourse/Modern Astrological Practices/PLANETS AND THEIR MEANINGS.pdf"
+            },
+            new LectureResource
+            {
+                LectureID = 2,
+                FileUrl = "/AstrologyCourse/Modern Astrological Practices/PLANETARY INFLUENCES.pdf"
+            },
+            new LectureResource
+            {
+                LectureID = 2,
+                FileUrl = "/AstrologyCourse/Modern Astrological Practices/READING A BIRTH CHART.pdf"
+            },
+            // Lecture 3: The Zodiac System
+            new LectureResource
+            {
+                LectureID = 3,
+                FileUrl = "/AstrologyCourse/The Zodiac System/THE FOUR ELEMENTS.pdf"
+            },
+            new LectureResource
+            {
+                LectureID = 3,
+                FileUrl = "/AstrologyCourse/The Zodiac System/UNDERSTANDING THE 12 SIGNS.pdf"
+            }
+                };
+
+                foreach (var lectureResource in lectureResources)
+                {
+                    await context.lectures.AddAsync(lectureResource);
+                }
+                await context.SaveChangesAsync();
+            }
         }
     }
 }
