@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GalacticUniversity.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250326121210_InitialSetup")]
+    [Migration("20250328062835_InitialSetup")]
     partial class InitialSetup
     {
         /// <inheritdoc />

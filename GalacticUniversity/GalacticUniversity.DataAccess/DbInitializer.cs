@@ -1,10 +1,12 @@
-﻿using GalacticUniversity.Models;
+﻿using CloudinaryDotNet.Actions;
+using GalacticUniversity.Models;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 namespace GalacticUniversity.DataAccess
 {
     public class DbInitializer
@@ -12,6 +14,8 @@ namespace GalacticUniversity.DataAccess
         public static async Task InitializeAsync(ApplicationDbContext context, UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
         {
             context.Database.EnsureCreated();
+
+            // Initialize roles
             var roles = new List<string> { "Admin", "User" };
             foreach (var role in roles)
             {
@@ -20,7 +24,8 @@ namespace GalacticUniversity.DataAccess
                     await roleManager.CreateAsync(new IdentityRole(role));
                 }
             }
-            //Ensure Admin User Exists
+
+            // Ensure Admin User Exists
             string adminEmail = "admin@gmail.com";
             var adminUser = await userManager.FindByEmailAsync(adminEmail);
             if (adminUser == null)
@@ -40,6 +45,8 @@ namespace GalacticUniversity.DataAccess
                     await userManager.AddToRoleAsync(user, "Admin");
                 }
             }
+
+            // Ensure Regular User Exists
             string userEmail = "tina@gmail.com";
             var userUser = await userManager.FindByEmailAsync(userEmail);
             if (userUser == null)
@@ -59,152 +66,274 @@ namespace GalacticUniversity.DataAccess
                     await userManager.AddToRoleAsync(user1, "User");
                 }
             }
-            // Remove the duplicate Database.EnsureCreated()
+
+            // Seed Categories
             if (!context.categories.Any())
             {
                 var categories = new Category[]
-                    {
-                        new Category
-                        {
-                            CategoryName="astronomy"
-                        },
-                        new Category
-                        {
-                            CategoryName="astrology"
-                        },
-                        new Category
-                        {
-                            CategoryName="physics"
-                        },
-                    };
+                {
+                    new Category { CategoryName = "astronomy" },
+                    new Category { CategoryName = "astrology" },
+                    new Category { CategoryName = "physics" }
+                };
+
                 foreach (var category in categories)
                 {
                     await context.categories.AddAsync(category);
                 }
                 await context.SaveChangesAsync();
             }
+
+            // Seed Courses
             if (!context.courses.Any())
             {
-                var course = new Course
+                var courses = new Course[]
                 {
-                    CourseID = 1,
-                    CourseName = "Astrology Course",
-                    Description = "A comprehensive course on the history, practices, and systems of astrology.",
-                    StartDate = new DateTime(2023, 1, 1),
-                    EndDate = new DateTime(2023, 12, 31),
-                    CategoryID = 1, // Assuming a category exists
-                    ImageURL = null
+                    new Course
+                    {
+                        CourseName = "Astrology Course",
+                        Description = "A comprehensive course on the history, practices, and systems of astrology.",
+                        StartDate = new DateTime(2023, 1, 1),
+                        EndDate = new DateTime(2023, 12, 31),
+                        CategoryID = context.categories.FirstOrDefault(c => c.CategoryName == "astrology")?.CategoryID ?? 1,
+                        ImageURL = "/images/courses/astrology.jpg"
+                    },
+                    new Course
+                    {
+                        CourseName = "Astronomy Course: Cosmic Explorations",
+                        Description = "Explore the universe, from neighboring planets to distant galaxies.",
+                        StartDate = new DateTime(2023, 2, 1),
+                        EndDate = new DateTime(2023, 12, 31),
+                        CategoryID = context.categories.FirstOrDefault(c => c.CategoryName == "astronomy")?.CategoryID ?? 1,
+                        ImageURL = "/images/courses/astronomy.jpg"
+                    },
+                    new Course
+                    {
+                        CourseName = "Physics Course: Everyday Physics Understanding",
+                        Description = "Understanding the physics principles that govern our daily lives.",
+                        StartDate = new DateTime(2023, 3, 1),
+                        EndDate = new DateTime(2023, 12, 31),
+                        CategoryID = context.categories.FirstOrDefault(c => c.CategoryName == "physics")?.CategoryID ?? 3,
+                        ImageURL = "/images/courses/physics.jpg"
+                    }
                 };
-                await context.courses.AddAsync(course);
+
+                foreach (var course in courses)
+                {
+                    await context.courses.AddAsync(course);
+                }
                 await context.SaveChangesAsync();
             }
 
-            // Seed the Lectures
+            // Seed Lectures - Get the CourseIDs from the database
             if (!context.lectures.Any())
             {
-                var lectures = new Lecture[]
+                // Get the CourseIDs from the database
+                var astrologyCourseId = context.courses.FirstOrDefault(c => c.CourseName == "Astrology Course")?.CourseID ?? 0;
+                var astronomyCourseId = context.courses.FirstOrDefault(c => c.CourseName == "Astronomy Course: Cosmic Explorations")?.CourseID ?? 0;
+                var physicsCourseId = context.courses.FirstOrDefault(c => c.CourseName == "Physics Course: Everyday Physics Understanding")?.CourseID ?? 0;
+
+                if (astrologyCourseId == 0 || astronomyCourseId == 0 || physicsCourseId == 0)
                 {
-            new Lecture
-            {
-                LectureID = 1,
-                LectureName = "History and Cultural Significance of Astrology",
-                Description = "Explores the historical and cultural origins of astrology.",
-                CourseID = 1
-            },
-            new Lecture
-            {
-                LectureID = 2,
-                LectureName = "Modern Astrological Practices",
-                Description = "Covers modern applications and interpretations of astrology.",
-                CourseID = 1
-            },
-            new Lecture
-            {
-                LectureID = 3,
-                LectureName = "The Zodiac System",
-                Description = "Introduces the zodiac system and its components.",
-                CourseID = 1
-            }
+                    // Log error or throw exception if courses are not found
+                    throw new Exception("One or more courses not found in the database.");
+                }
+
+                var lectures = new List<Lecture>
+                {
+                    // Astrology Course Lectures
+                    new Lecture
+                    {
+                        LectureName = "History and Cultural Significance of Astrology",
+                        Description = "Explores the historical and cultural origins of astrology.",
+                        CourseID = astrologyCourseId
+                    },
+                    new Lecture
+                    {
+                        LectureName = "Houses and Aspects",
+                        Description = "Learn about astrological houses and aspects in chart reading.",
+                        CourseID = astrologyCourseId
+                    },
+                    new Lecture
+                    {
+                        LectureName = "Modern Astrological Practices",
+                        Description = "Covers modern applications and interpretations of astrology.",
+                        CourseID = astrologyCourseId
+                    },
+                    new Lecture
+                    {
+                        LectureName = "Planets and Their Meanings",
+                        Description = "Understand the significance of planetary positions in astrology.",
+                        CourseID = astrologyCourseId
+                    },
+                    new Lecture
+                    {
+                        LectureName = "The Zodiac System",
+                        Description = "Introduces the zodiac system and its components.",
+                        CourseID = astrologyCourseId
+                    },
+
+                    // Astronomy Course Lectures
+                    new Lecture
+                    {
+                        LectureName = "Exoplanets and the Search for Life",
+                        Description = "Exploring planets beyond our solar system and the potential for extraterrestrial life.",
+                        CourseID = astronomyCourseId
+                    },
+                    new Lecture
+                    {
+                        LectureName = "Galaxies and Cosmic Structure",
+                        Description = "Understanding galaxy formation and the large-scale structure of the universe.",
+                        CourseID = astronomyCourseId
+                    },
+                    new Lecture
+                    {
+                        LectureName = "Space Exploration History",
+                        Description = "The journey of human space exploration from early missions to current endeavors.",
+                        CourseID = astronomyCourseId
+                    },
+                    new Lecture
+                    {
+                        LectureName = "Stars and Their Life Cycles",
+                        Description = "Understanding stellar evolution from formation to final stages.",
+                        CourseID = astronomyCourseId
+                    },
+                    new Lecture
+                    {
+                        LectureName = "The Solar System - Our Cosmic Neighborhood",
+                        Description = "Exploring the planets, moons, and other objects in our solar system.",
+                        CourseID = astronomyCourseId
+                    },
+
+                    // Physics Course Lectures
+                    new Lecture
+                    {
+                        LectureName = "Energy in Our World",
+                        Description = "Understanding different forms of energy and their transformations.",
+                        CourseID = physicsCourseId
+                    },
+                    new Lecture
+                    {
+                        LectureName = "Forces and Motion",
+                        Description = "Exploring Newton's laws and the fundamental forces of nature.",
+                        CourseID = physicsCourseId
+                    },
+                    new Lecture
+                    {
+                        LectureName = "Matter and Materials",
+                        Description = "Investigating the properties and behaviors of different materials.",
+                        CourseID = physicsCourseId
+                    },
+                    new Lecture
+                    {
+                        LectureName = "Waves and Light",
+                        Description = "Understanding wave phenomena and the electromagnetic spectrum.",
+                        CourseID = physicsCourseId
+                    }
                 };
 
                 foreach (var lecture in lectures)
                 {
-                    await context.lectureResources.AddAsync(lectures);
+                    await context.lectures.AddAsync(lecture);
                 }
                 await context.SaveChangesAsync();
+
+                // Verify that lectures were added successfully
+                if (!context.lectures.Any())
+                {
+                    throw new Exception("Failed to add lectures to the database.");
+                }
             }
 
-            // Seed the LectureResources
+            // Seed Lecture Resources
             if (!context.lectureResources.Any())
             {
-                var lectureResources = new LectureResource[]
-                {
-            // Lecture 1: History and Cultural Significance of Astrology
-            new LectureResource
-            {
-                LectureID = 1,
-                FileUrl = "/AstrologyCourse/History and Cultural Significance of Astrology/ANCIENT STARGAZERS.pdf"
-            },
-            new LectureResource
-            {
-                LectureID = 1,
-                FileUrl = "/AstrologyCourse/History and Cultural Significance of Astrology/ASTROLOGY VS ASTRONOMY.pdf"
-            },
-            new LectureResource
-            {
-                LectureID = 1,
-                FileUrl = "/AstrologyCourse/History and Cultural Significance of Astrology/HOUSES AND ASPECTS.pdf"
-            },
-            new LectureResource
-            {
-                LectureID = 1,
-                FileUrl = "/AstrologyCourse/History and Cultural Significance of Astrology/THE 12 HOUSES.pdf"
-            },
-            // Lecture 2: Modern Astrological Practices
-            new LectureResource
-            {
-                LectureID = 2,
-                FileUrl = "/AstrologyCourse/Modern Astrological Practices/ASTROLOGY IN POPULAR CULTURE.pdf"
-            },
-            new LectureResource
-            {
-                LectureID = 2,
-                FileUrl = "/AstrologyCourse/Modern Astrological Practices/BEYOND SUN SIGNS.pdf"
-            },
-            new LectureResource
-            {
-                LectureID = 2,
-                FileUrl = "/AstrologyCourse/Modern Astrological Practices/PLANETS AND THEIR MEANINGS.pdf"
-            },
-            new LectureResource
-            {
-                LectureID = 2,
-                FileUrl = "/AstrologyCourse/Modern Astrological Practices/PLANETARY INFLUENCES.pdf"
-            },
-            new LectureResource
-            {
-                LectureID = 2,
-                FileUrl = "/AstrologyCourse/Modern Astrological Practices/READING A BIRTH CHART.pdf"
-            },
-            // Lecture 3: The Zodiac System
-            new LectureResource
-            {
-                LectureID = 3,
-                FileUrl = "/AstrologyCourse/The Zodiac System/THE FOUR ELEMENTS.pdf"
-            },
-            new LectureResource
-            {
-                LectureID = 3,
-                FileUrl = "/AstrologyCourse/The Zodiac System/UNDERSTANDING THE 12 SIGNS.pdf"
-            }
-                };
+                // Dictionary to map lecture names to their IDs
+                var lectureIds = context.lectures.ToDictionary(l => l.LectureName, l => l.LectureID);
 
-                foreach (var lectureResource in lectureResources)
+                // Only proceed if we have lectures in the database
+                if (lectureIds.Count > 0)
                 {
-                    await context.lectures.AddAsync(lectureResource);
+                    var lectureResources = new List<LectureResource>();
+
+                    // Helper method to add resources safely
+                    void AddResource(string lectureName, string fileUrl)
+                    {
+                        if (lectureIds.ContainsKey(lectureName))
+                        {
+                            lectureResources.Add(new LectureResource
+                            {
+                                LectureID = lectureIds[lectureName],
+                                FileUrl = fileUrl
+                            });
+                        }
+                    }
+
+                    // Astrology Course - History and Cultural Significance of Astrology
+                    AddResource("History and Cultural Significance of Astrology", "/AstrologyCourse/History and Cultural Significance of Astrology/ANCIENT STARGAZERS.pdf");
+                    AddResource("History and Cultural Significance of Astrology", "/AstrologyCourse/History and Cultural Significance of Astrology/ASTROLOGY VS ASTRONOMY.pdf");
+
+                    // Astrology Course - Houses and Aspects
+                    AddResource("Houses and Aspects", "/AstrologyCourse/Houses and Aspects/PLANETARY RELATIONSHIPS.pdf");
+                    AddResource("Houses and Aspects", "/AstrologyCourse/Houses and Aspects/THE 12 HOUSES.pdf");
+
+                    // Astrology Course - Modern Astrological Practices
+                    AddResource("Modern Astrological Practices", "/AstrologyCourse/Modern Astrological Practices/ASTROLOGY IN POPULAR CULTURE.pdf");
+                    AddResource("Modern Astrological Practices", "/AstrologyCourse/Modern Astrological Practices/BEYOND SUN SIGNS.pdf");
+
+                    // Astrology Course - Planets and Their Meanings
+                    AddResource("Planets and Their Meanings", "/AstrologyCourse/Planets and Their Meanings/PLANETARY INFLUENCES.pdf");
+                    AddResource("Planets and Their Meanings", "/AstrologyCourse/Planets and Their Meanings/READING A BIRTH CHART.pdf");
+
+                    // Astrology Course - The Zodiac System
+                    AddResource("The Zodiac System", "/AstrologyCourse/The Zodiac System/THE FOUR ELEMENTS.pdf");
+                    AddResource("The Zodiac System", "/AstrologyCourse/The Zodiac System/UNDERSTANDING THE 12 SIGNS.pdf");
+
+                    // Astronomy Course - Exoplanets and the Search for Life
+                    AddResource("Exoplanets and the Search for Life", "/ASTRONOMY COURSE Cosmic Explorations/Exoplanets and the Search for Life/COULD WE BE ALONE.pdf");
+                    AddResource("Exoplanets and the Search for Life", "/ASTRONOMY COURSE Cosmic Explorations/Exoplanets and the Search for Life/DISCOVERING NEW WORLDS.pdf");
+
+                    // Astronomy Course - Galaxies and Cosmic Structure
+                    AddResource("Galaxies and Cosmic Structure", "/ASTRONOMY COURSE Cosmic Explorations/Galaxies and Cosmic Structure/GALAXY TYPES AND OUR MILKY WAY.pdf");
+                    AddResource("Galaxies and Cosmic Structure", "/ASTRONOMY COURSE Cosmic Explorations/Galaxies and Cosmic Structure/THE EXPANDING UNIVERSE.pdf");
+
+                    // Astronomy Course - Space Exploration History
+                    AddResource("Space Exploration History", "/ASTRONOMY COURSE Cosmic Explorations/Space Exploration History/FROM SPUTNIK TO WEBB.pdf");
+                    AddResource("Space Exploration History", "/ASTRONOMY COURSE Cosmic Explorations/Space Exploration History/FUTURE OF SPACE TRAVEL.pdf");
+
+                    // Astronomy Course - Stars and Their Life Cycles
+                    AddResource("Stars and Their Life Cycles", "/ASTRONOMY COURSE Cosmic Explorations/Stars and Their Life Cycles/HOW TO STARGAZE.pdf");
+                    AddResource("Stars and Their Life Cycles", "/ASTRONOMY COURSE Cosmic Explorations/Stars and Their Life Cycles/STAR BIRTH AND DEATH.pdf");
+
+                    // Astronomy Course - The Solar System
+                    AddResource("The Solar System - Our Cosmic Neighborhood", "/ASTRONOMY COURSE Cosmic Explorations/The Solar System - Our Cosmic Neighborhood/THE SUN.pdf");
+                    AddResource("The Solar System - Our Cosmic Neighborhood", "/ASTRONOMY COURSE Cosmic Explorations/The Solar System - Our Cosmic Neighborhood/TOUR OF THE PLANETS.pdf");
+
+                    // Physics Course - Energy in Our World
+                    AddResource("Energy in Our World", "/PHYSICS COURSE Everyday Physics Understanding/Energy in Our World/ENERGY TRANSFORMATIONS.pdf");
+                    AddResource("Energy in Our World", "/PHYSICS COURSE Everyday Physics Understanding/Energy in Our World/RENEWABLE ENERGY BASICS.pdf");
+
+                    // Physics Course - Forces and Motion
+                    AddResource("Forces and Motion", "/PHYSICS COURSE Everyday Physics Understanding/Forces and Motion/GRAVITY.pdf");
+                    AddResource("Forces and Motion", "/PHYSICS COURSE Everyday Physics Understanding/Forces and Motion/NEWTON.pdf");
+
+                    // Physics Course - Matter and Materials
+                    AddResource("Matter and Materials", "/PHYSICS COURSE Everyday Physics Understanding/Matter and Materials/AMAZING MATERIALS.pdf");
+                    AddResource("Matter and Materials", "/PHYSICS COURSE Everyday Physics Understanding/Matter and Materials/STATES OF MATTER.pdf");
+
+                    // Physics Course - Waves and Light
+                    AddResource("Waves and Light", "/PHYSICS COURSE Everyday Physics Understanding/Waves and Light/SOUND AND MUSIC.pdf");
+                    AddResource("Waves and Light", "/PHYSICS COURSE Everyday Physics Understanding/Waves and Light/THE ELECTROMAGNETIC SPECTRUM.pdf");
+
+                    foreach (var resource in lectureResources)
+                    {
+                        await context.lectureResources.AddAsync(resource);
+                    }
+                    await context.SaveChangesAsync();
                 }
-                await context.SaveChangesAsync();
             }
         }
     }
+               
 }
+    
