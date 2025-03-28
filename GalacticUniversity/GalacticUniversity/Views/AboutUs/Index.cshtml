@@ -1,4 +1,4 @@
-﻿@{
+﻿﻿@{
     ViewData["Title"] = "About Galactic University";
 }
 
@@ -237,34 +237,31 @@
     }
 
     @@media screen and (max-width: 992px) {
-        .timeline::after
-
-    {
-        left: 31px;
-    }
-
-    .timeline-container {
-        width: 100%;
-        padding-left: 70px;
-        padding-right: 25px;
-        left: 0;
-    }
-
-        .timeline-container::before {
-            left: 60px;
-            border: medium solid white;
-            border-width: 10px 10px 10px 0;
-            border-color: transparent white transparent transparent;
+        .timeline::after {
+            left: 31px;
         }
 
-    .left::after, .right::after {
-        left: 18px;
-    }
+        .timeline-container {
+            width: 100%;
+            padding-left: 70px;
+            padding-right: 25px;
+            left: 0;
+        }
 
-    .right {
-        left: 0%;
-    }
+            .timeline-container::before {
+                left: 60px;
+                border: medium solid white;
+                border-width: 10px 10px 10px 0;
+                border-color: transparent white transparent transparent;
+            }
 
+        .left::after, .right::after {
+            left: 18px;
+        }
+
+        .right {
+            left: 0%;
+        }
     }
 
     .galaxy-animation {
@@ -287,20 +284,17 @@
     }
 
     @@keyframes twinkle {
-        0%
+        0% {
+            opacity: 0.2;
+        }
 
-    {
-        opacity: 0.2;
-    }
+        50% {
+            opacity: 1;
+        }
 
-    50% {
-        opacity: 1;
-    }
-
-    100% {
-        opacity: 0.2;
-    }
-
+        100% {
+            opacity: 0.2;
+        }
     }
 
     .cta-section {

@@ -39,6 +39,7 @@ namespace GalacticUniversity.DataAccess
                     PhoneNumber = "0894712253",
                     EmailConfirmed = true
                 };
+
                 var createResult = await userManager.CreateAsync(user, "@dmIn25");
                 if (createResult.Succeeded)
                 {

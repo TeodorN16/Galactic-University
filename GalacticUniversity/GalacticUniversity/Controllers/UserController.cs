@@ -162,41 +162,59 @@ namespace GalacticUniversity.Controllers
             if (userCourse == null)
                 return NotFound("Course not found for this user");
 
+            // Check if certificate already exists for this user and course
+            var existingCertificate = await _userManager.Users
+                .Include(u => u.Certificates)
+                .Where(u => u.Id == user.Id)
+                .SelectMany(u => u.Certificates)
+                .FirstOrDefaultAsync(c => c.CourseID == courseId);
+
+            if (existingCertificate != null)
+            {
+                // Certificate already exists, return a message informing the user
+                TempData["Error"] = "You have already received a certificate for this course.";
+                return RedirectToAction("Learn", new { id = courseId });
+            }
+
+            // Generate a new certificate
             string certificateHtml = CertificateGenerator.GenerateCertificateHtml(
                 user.UserName,
                 userCourse.Course.CourseName,
                 DateTime.Now
             );
 
-            
-            var converter = new HtmlToPdf();
-            var pdfDoc = converter.ConvertHtmlString(certificateHtml);
-            byte[] bytes = pdfDoc.Save();
+            // Create a complete HTML document
+            certificateHtml = @"<!DOCTYPE html>
+                            <html>
+                            <head>
+                                    <title>Certificate for " + userCourse.Course.CourseName + @"</title>
+                                    <meta charset=""utf-8"">
+                                </head>
+                            <body>
+                            " + certificateHtml + @"
+                            </body>
+                            </html>";
 
-            // Create filename
-            string fileName = $"{userCourse.Course.CourseName}Certificate{user.UserName}.pdf";
-
-            // Create temporary file for Cloudinary upload
+            // Create a temporary file with HTML content
+            string fileName = $"{userCourse.Course.CourseName}Certificate{user.UserName}.html";
             string tempPath = Path.GetTempFileName();
-            await System.IO.File.WriteAllBytesAsync(tempPath, bytes);
+            await System.IO.File.WriteAllTextAsync(tempPath, certificateHtml);
 
-           
             string cloudinaryUrl;
-           
+
             using (var fileStream = new FileStream(tempPath, FileMode.Open))
             {
                 // Convert FileStream to IFormFile
                 var formFile = new FormFile(fileStream, 0, fileStream.Length, "certificate", fileName)
                 {
                     Headers = new HeaderDictionary(),
-                    ContentType = "application/pdf"
+                    ContentType = "text/html"
                 };
 
                 var uploadResult = await _cloudinaryService.UploadImageAsync(formFile);
-                cloudinaryUrl = uploadResult.ToString(); 
+                cloudinaryUrl = uploadResult.ToString();
             }
 
-           
             System.IO.File.Delete(tempPath);
 
             // Create and save certificate record
@@ -214,10 +232,14 @@ namespace GalacticUniversity.Controllers
 
             user.Certificates.Add(certificate);
             await _userManager.UpdateAsync(user);
-            
-            
-            return File(bytes, "application/pdf", fileName);
+
+            // Return the HTML file for download
+            byte[] bytes = System.Text.Encoding.UTF8.GetBytes(certificateHtml);
+            return File(bytes, "text/html", fileName);
         }
     }
-    
+
+
+
+
 }
