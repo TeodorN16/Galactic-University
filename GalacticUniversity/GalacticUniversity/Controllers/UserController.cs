@@ -212,7 +212,7 @@ namespace GalacticUniversity.Controllers
                 };
 
                 var uploadResult = await _cloudinaryService.UploadImageAsync(formFile);
-                cloudinaryUrl = uploadResult.ToString();
+               
             }
 
             System.IO.File.Delete(tempPath);
@@ -224,7 +224,7 @@ namespace GalacticUniversity.Controllers
                 CourseID = courseId,
                 Course = userCourse.Course,
                 IssueDate = DateTime.Now,
-                CertificateUrl = cloudinaryUrl ?? "URL not available"
+                CertificateUrl = "URL not available"
             };
 
             if (user.Certificates == null)
