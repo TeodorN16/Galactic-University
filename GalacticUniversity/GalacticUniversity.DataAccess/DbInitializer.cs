@@ -318,8 +318,8 @@ namespace GalacticUniversity.DataAccess
                     AddResource("Energy in Our World", "/PHYSICS%20COURSE%20Everyday%20Physics%20Understanding/Energy%20in%20Our%20World/RENEWABLE%20ENERGY%20BASICS.pdf");
 
                     // Physics Course - Forces and Motion
-                    AddResource("Forces and Motion", "/PHYSICS%20COURSE%20Everyday%20Physics%20Understanding/Forces%20and%20Motion/GRAVITY.pdf");
-                    AddResource("Forces and Motion", "/PHYSICS%20COURSE%20Everyday%20Physics%20Understanding/Forces%20and%20Motion/NEWTON.pdf");
+                    AddResource("Forces and Motion", "wwwroot/PHYSICS%20COURSE%20Everyday%20Physics%20Understanding/Forces%20and%20Motion/GRAVITY.pdf");
+                    AddResource("Forces and Motion", "wwwroot/PHYSICS%20COURSE%20Everyday%20Physics%20Understanding/Forces%20and%20Motion/NEWTON.pdf");
 
                     // Physics Course - Matter and Materials
                     AddResource("Matter and Materials", "/PHYSICS%20COURSE%20Everyday%20Physics%20Understanding/Matter%20and%20Materials/AMAZING%20MATERIALS.pdf");
