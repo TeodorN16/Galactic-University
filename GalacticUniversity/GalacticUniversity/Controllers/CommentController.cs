@@ -57,7 +57,7 @@ namespace GalacticUniversity.Controllers
             await _commentService.Add(comment);
 
             // Redirect back to the course details page
-            return RedirectToAction("Details", "Course", new { id = cvm.CourseID });
+            return RedirectToAction("Learn", "User", new { id = comment.CourseID });
         }
 
         [Authorize(Roles = "Admin")]
@@ -121,6 +121,11 @@ namespace GalacticUniversity.Controllers
             await _commentService.Delete(comment);
 
             return RedirectToAction("Details", "Course", new { id = courseId });
+        }
+        public async Task<IActionResult> GetCommentsForCourse(int id)
+        {
+            var comments = _commentService.GetAll().Where(co => co.CourseID == id);
+            return View(comments);
         }
     }
 }

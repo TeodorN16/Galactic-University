@@ -23,13 +23,14 @@
         color: var(--secondary-color);
     }
 
+    /* Updated header style to match About Us page */
     .tarot-header {
         background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
         border-radius: 16px;
-        padding: 40px;
-        margin-bottom: 30px;
+        padding: 60px 40px;
+        margin-bottom: 40px;
         color: white;
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        box-shadow: var(--card-shadow);
         position: relative;
         overflow: hidden;
     }
@@ -45,13 +46,51 @@
             background-position: top right;
             background-repeat: no-repeat;
             background-size: 50%;
-            opacity: 0.1;
+            opacity: 0.2;
             z-index: 0;
         }
 
     .tarot-header-content {
         position: relative;
         z-index: 1;
+        max-width: 800px;
+    }
+
+    /* Star Animation Styles */
+    .galaxy-animation {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 0;
+    }
+
+    .star {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: white;
+        border-radius: 50%;
+        animation: twinkle 2s infinite;
+    }
+
+    @@keyframes twinkle {
+        0%
+
+    {
+        opacity: 0.2;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.2;
+    }
+
     }
 
     .reading-type-container {
@@ -290,11 +329,12 @@
 </style>
 
 <div class="container mt-5">
-    <!-- Tarot Header -->
+    <!-- Tarot Header with Star Animation -->
     <div class="tarot-header">
+        <div class="galaxy-animation" id="stars-container"></div>
         <div class="tarot-header-content">
-            <h1 class="display-5 fw-bold mb-3">Cosmic Tarot Reading</h1>
-            <p class="mb-0 fs-5 opacity-90">Select a reading type to reveal the cosmic energies influencing your path.</p>
+            <h1 class="display-4 fw-bold mb-4">Cosmic Tarot Reading</h1>
+            <p class="fs-5 mb-0">Select a reading type to reveal the cosmic energies influencing your path.</p>
         </div>
     </div>
 
@@ -339,6 +379,19 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        // Create twinkling stars in the header
+        const starsContainer = document.getElementById('stars-container');
+        const starCount = 100;
+
+        for (let i = 0; i < starCount; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.animationDelay = `${Math.random() * 2}s`;
+            starsContainer.appendChild(star);
+        }
+
         const loveButton = document.getElementById('love-reading');
         const careerButton = document.getElementById('career-reading');
         const generalButton = document.getElementById('general-reading');

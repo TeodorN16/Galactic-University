@@ -39,6 +39,7 @@ namespace GalacticUniversity.Controllers
            
         }
         [Authorize(Roles = "User,Admin")]
+        [AllowAnonymous]
         public async Task<IActionResult> Index(CourseViewModel? filter)
         {
             var currentUser = await _userManager.GetUserAsync(User); // Get the current logged-in user
@@ -198,6 +199,7 @@ namespace GalacticUniversity.Controllers
                 .Include(c=>c.Lectures)
                 .ThenInclude(l=>l.LectureResources)
                 .Include(c=>c.Category)
+                .Include(c=>c.Comments).ThenInclude(comment=>comment.User)
                 .FirstOrDefaultAsync();
 
             return View(course);

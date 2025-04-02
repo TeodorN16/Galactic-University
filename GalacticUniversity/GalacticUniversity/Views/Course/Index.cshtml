@@ -21,18 +21,19 @@
         font-family: 'Poppins', sans-serif;
     }
 
-    .page-header {
+    /* Rename page-header to about-header to match exactly */
+    .about-header {
         background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
         border-radius: 16px;
-        padding: 40px;
-        margin-bottom: 30px;
+        padding: 60px 40px;
+        margin-bottom: 40px;
         color: white;
         box-shadow: var(--card-shadow);
         position: relative;
         overflow: hidden;
     }
 
-        .page-header::after {
+        .about-header::after {
             content: '';
             position: absolute;
             top: 0;
@@ -43,13 +44,63 @@
             background-position: top right;
             background-repeat: no-repeat;
             background-size: 50%;
-            opacity: 0.1;
+            opacity: 0.2;
             z-index: 0;
         }
 
-    .page-header-content {
+    .about-header-content {
         position: relative;
         z-index: 1;
+        max-width: 800px;
+    }
+
+        /* Exact display-4 styling from the About page */
+        .about-header-content h1.display-4 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        .about-header-content p.fs-5 {
+            font-size: 1.25rem;
+            line-height: 1.5;
+        }
+
+    /* Star Animation */
+    .galaxy-animation {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 0;
+    }
+
+    .star {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: white;
+        border-radius: 50%;
+        animation: twinkle 2s infinite;
+    }
+
+    @@keyframes twinkle {
+        0%
+
+    {
+        opacity: 0.2;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.2;
+    }
+
     }
 
     .filter-container {
@@ -97,7 +148,7 @@
         color: white;
         border: none;
         border-radius: 8px;
-       
+        padding: 10px 20px;
         font-weight: 600;
         transition: all 0.3s ease;
     }
@@ -254,11 +305,12 @@
 </style>
 
 <div class="container mt-5 mb-5">
-    <!-- Page Header -->
-    <div class="page-header">
-        <div class="page-header-content">
-            <h1 class="display-5 fw-bold mb-3">Нашите Курсове</h1>
-            <p class="mb-0 fs-5 opacity-90">Browse and discover our comprehensive course catalog</p>
+    <!-- Renamed to exactly match About Us -->
+    <div class="about-header">
+        <div class="galaxy-animation" id="stars-container"></div>
+        <div class="about-header-content">
+            <h1 class="display-4 fw-bold mb-4">Our Courses</h1>
+            <p class="fs-5 mb-0">Browse and discover our comprehensive course catalog</p>
         </div>
     </div>
 
@@ -278,12 +330,12 @@
 
                     <div class="filter-group">
                         <label asp-for="StartDate" class="form-label">Start Date</label>
-                        <input type="date" asp-for="StartDate" class="form-control" />
+                        <input type="date" asp-for="StartDate" class="form-control" culture="en-US" />
                     </div>
 
                     <div class="filter-group">
                         <label asp-for="EndDate" class="form-label">End Date</label>
-                        <input type="date" asp-for="EndDate" class="form-control" />
+                        <input type="date" asp-for="EndDate" class="form-control" culture="en-US" />
                     </div>
 
                     <div>
@@ -315,8 +367,8 @@
                         <tr>
                             <td>@item.CourseName</td>
                             <td>@item.Description</td>
-                            <td>@item.StartDate.ToString("yyyy-MM-dd")</td>
-                            <td>@item.EndDate.ToString("yyyy-MM-dd")</td>
+                            <td>@item.StartDate.ToString("MMMM d, yyyy", new System.Globalization.CultureInfo("en-US"))</td>
+                            <td>@item.EndDate.ToString("MMMM d, yyyy", new System.Globalization.CultureInfo("en-US"))</td>
                             <td>@item.Category.CategoryName</td>
                             <td>
                                 <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.CourseID">
@@ -339,29 +391,29 @@
     {
         @* USER VIEW *@
         <div class="filter-container">
-            <h2 class="section-title">Филтрирай курсове</h2>
+            <h2 class="section-title">Filter Courses</h2>
             <form asp-action="Index" method="get">
                 <div class="filter-form">
                     <div class="filter-group">
-                        <label asp-for="CategoryID" class="form-label">Категория</label>
+                        <label asp-for="CategoryID" class="form-label">Category</label>
                         <select asp-for="CategoryID" asp-items="@Model.Categories" class="form-select">
-                            <option value="">Всички категории</option>
+                            <option value="">All Categories</option>
                         </select>
                     </div>
 
                     <div class="filter-group">
-                        <label asp-for="StartDate" class="form-label">Начална дата</label>
-                        <input type="date" asp-for="StartDate" class="form-control" />
+                        <label asp-for="StartDate" class="form-label">Start Date</label>
+                        <input type="date" asp-for="StartDate" class="form-control" culture="en-US" />
                     </div>
 
                     <div class="filter-group">
-                        <label asp-for="EndDate" class="form-label">Крайна дата</label>
-                        <input type="date" asp-for="EndDate" class="form-control" />
+                        <label asp-for="EndDate" class="form-label">End Date</label>
+                        <input type="date" asp-for="EndDate" class="form-control" culture="en-US" />
                     </div>
 
                     <div>
                         <button type="submit" class="btn btn-primary">
-                            Филтрирай
+                            Filter
                         </button>
                     </div>
                 </div>
@@ -396,3 +448,20 @@
 
 <!-- Bootstrap Icons -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Create twinkling stars in the header
+        const starsContainer = document.getElementById('stars-container');
+        const starCount = 100;
+
+        for (let i = 0; i < starCount; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.animationDelay = `${Math.random() * 2}s`;
+            starsContainer.appendChild(star);
+        }
+    });
+</script>

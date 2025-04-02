@@ -648,6 +648,68 @@
         right: 20px;
         z-index: 0;
     }
+
+    .course-header {
+        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+        border-radius: 16px;
+        padding: 60px 40px;
+        margin-bottom: 30px;
+        color: white;
+        box-shadow: var(--card-shadow);
+        position: relative;
+        overflow: hidden;
+    }
+
+        .course-header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48cGF0aCBmaWxsPSIjZmZmZmZmIiBmaWxsLW9wYWNpdHk9IjAuMSIgZD0iTTEwMCwxMDBjMC01NS4yLDQ0LjgtMTAwLDEwMC0xMDBoMTAwdjEwMGMwLDU1LjItNDQuOCwxMDAtMTAwLDEwMGgtMTAwVjEwMHoiLz48L3N2Zz4=');
+            background-position: top right;
+            background-repeat: no-repeat;
+            background-size: 50%;
+            opacity: 0.2;
+            z-index: 0;
+        }
+
+    .galaxy-animation {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 0;
+    }
+
+    .star {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: white;
+        border-radius: 50%;
+        animation: twinkle 2s infinite;
+    }
+
+    @@keyframes twinkle {
+        0%
+
+    {
+        opacity: 0.2;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.2;
+    }
+
+    }
 </style>
 
 <div class="container mt-5">
@@ -876,7 +938,7 @@
                               placeholder="Share your cosmic experience with this course..." required></textarea>
                 </div>
 
-                <button type="submit" class="btn btn-comment">
+                <button type="submit" @*asp-action="Learn" asp-controller="User" asp-route-id="@Model.Course.CourseID"*@ class="btn btn-comment">
                     <i class="bi bi-rocket-takeoff me-2"></i>Launch Comment
                 </button>
             </form>
@@ -890,11 +952,6 @@
     }
 </div>
 
-<!-- CSS for Comments Section -->
-<style>
-   
-</style>
-
 <!-- Bootstrap Icons -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
@@ -907,5 +964,19 @@
                 e.stopPropagation();
             });
         });
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        // Create twinkling stars in the header
+        const starsContainer = document.getElementById('stars-container');
+        const starCount = 100;
+
+        for (let i = 0; i < starCount; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.animationDelay = `${Math.random() * 2}s`;
+            starsContainer.appendChild(star);
+        }
     });
 </script>

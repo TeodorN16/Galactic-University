@@ -3,57 +3,122 @@
 @{
     ViewData["Title"] = "Register";
 }
-<link rel="stylesheet" href="~/css/Register.css" asp-append-version="true" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Galactic University</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/register.css" asp-append-version="true" />
+</head>
+<body>
+    <!-- Background with stars and shooting stars -->
+    <section class="bg-stars">
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="shooting-star"></span>
+        <span class="shooting-star"></span>
 
-<!-- Background Stars (covers entire viewport) -->
-<section class="bg-stars">
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-</section>
+        <!-- Decorative planets -->
+        <div class="planet planet-1"></div>
+        <div class="planet planet-2"></div>
+        <div class="planet planet-3"></div>
+    </section>
 
-<div class="form-container">
-    <div class="d-flex justify-content-center align-items-center vh-100">
-        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" class="form" method="post">
-            <div class="form-title">
-                <span>Sign up to your</span>
-            </div>
-            <div class="title-2">
-                <span>SPACE</span>
-            </div>
-            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-            <div class="input-container">
-                <input asp-for="Input.Email" class="input-pwd form-control" type="email" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
-            </div>
-            <div class="input-container">
-                <input asp-for="Input.UserName" class="input-pwd form-control" type="text" autocomplete="username" aria-required="true" placeholder="mynickname" />
-                <span asp-validation-for="Input.UserName" class="text-danger"></span>
-            </div>
-            <div class="input-container">
-                <input asp-for="Input.Password" class="input-pwd form-control" type="password" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
-            </div>
-            <div class="input-container">
-                <input asp-for="Input.ConfirmPassword" class="input-pwd form-control" type="password" autocomplete="new-password" aria-required="true" placeholder="confirm password" />
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-            </div>
-            <div class="input-container">
-                <select asp-for="Input.Role" asp-items="@Model.Input.RoleList" class="form-select">
-                    <option disabled selected>-Select Role-</option>
-                </select>
-            </div>
-            <button id="registerSubmit" type="submit" class="submit">
-                <span class="sign-text">Register</span>
-            </button>
-            <p class="signup-link">
-                Already have an account? <a href="/Account/Login">Sign in</a>
-            </p>
-        </form>
+    <!-- Main content container -->
+    <div class="form-container">
+        <div class="d-flex justify-content-center align-items-center vh-100">
+            <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" class="form" method="post">
+                <div class="form-title">
+                    <span>Sign up to your</span>
+                </div>
+                <div class="title-2">
+                    <span>GALACTIC UNIVERSITY</span>
+                </div>
+                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                <div class="input-container">
+                    <input asp-for="Input.Email" class="form-control" type="email" autocomplete="username" aria-required="true" placeholder="Email address" />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="input-container">
+                    <input asp-for="Input.UserName" class="form-control" type="text" autocomplete="username" aria-required="true" placeholder="Username" />
+                    <span asp-validation-for="Input.UserName" class="text-danger"></span>
+                </div>
+                <div class="input-container">
+                    <input asp-for="Input.Password" class="form-control" type="password" autocomplete="new-password" aria-required="true" placeholder="Password" />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="input-container">
+                    <input asp-for="Input.ConfirmPassword" class="form-control" type="password" autocomplete="new-password" aria-required="true" placeholder="Confirm password" />
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
+               
+                <button id="registerSubmit" type="submit" class="submit">
+                    <span class="sign-text">Register</span>
+                </button>
+                <p class="signup-link">
+                    Already have an account? <a asp-page="./Login">Sign in</a>
+                </p>
+                <p class="signup-link mt-4">
+                    <a href="/" class="back-home">← Back to Home</a>
+                </p>
+            </form>
+        </div>
     </div>
-</div>
 
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Add more stars dynamically for a better effect
+                const starsContainer = document.querySelector('.bg-stars');
+                const starCount = 150; // Increased number of stars
+
+                for (let i = 0; i < starCount; i++) {
+                    const star = document.createElement('span');
+                    star.className = 'star';
+                    star.style.top = `${Math.random() * 100}%`;
+                    star.style.left = `${Math.random() * 100}%`;
+                    star.style.animationDelay = `${Math.random() * 5}s`;
+                    // Vary the size slightly
+                    const size = 1 + Math.random() * 2;
+                    star.style.width = `${size}px`;
+                    star.style.height = `${size}px`;
+                    starsContainer.appendChild(star);
+                }
+
+                // Add subtle entrance animations to form elements
+                const form = document.querySelector('.form');
+                const inputs = form.querySelectorAll('.form-control, .form-select');
+                const button = form.querySelector('.submit');
+
+                inputs.forEach((input, index) => {
+                    input.style.opacity = '0';
+                    input.style.transform = 'translateY(20px)';
+                    input.style.transition = 'all 0.3s ease';
+                    input.style.transitionDelay = `${0.1 + index * 0.1}s`;
+
+                    setTimeout(() => {
+                        input.style.opacity = '1';
+                        input.style.transform = 'translateY(0)';
+                    }, 100);
+                });
+
+                button.style.opacity = '0';
+                button.style.transform = 'translateY(20px)';
+                button.style.transition = 'all 0.3s ease';
+                button.style.transitionDelay = '0.6s';
+
+                setTimeout(() => {
+                    button.style.opacity = '1';
+                    button.style.transform = 'translateY(0)';
+                }, 100);
+            });
+        </script>
+    }
+</body>
+</html>
