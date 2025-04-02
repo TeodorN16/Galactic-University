@@ -287,7 +287,7 @@ namespace GalacticUniversity.DataAccess
                     AddResource("Planets and Their Meanings", "https://res.cloudinary.com/ddyzobtms/image/upload/v1743581389/READING_A_BIRTH_CHART_k54fkt.pdf");
 
                     // Astrology Course - The Zodiac System
-                    AddResource("The Zodiac System", "https://res.cloudinary.com/ddyzobtms/image/upload/v1743581585/THE_FOUR_ELEMENTS_ouphve.pdff");
+                    AddResource("The Zodiac System", "https://res.cloudinary.com/ddyzobtms/image/upload/v1743581585/THE_FOUR_ELEMENTS_ouphve.pdf");
                     AddResource("The Zodiac System", "https://res.cloudinary.com/ddyzobtms/image/upload/v1743581587/UNDERSTANDING_THE_12_SIGNS_ccsdvo.pdf");
 
                     // Astronomy Course - Exoplanets and the Search for Life
