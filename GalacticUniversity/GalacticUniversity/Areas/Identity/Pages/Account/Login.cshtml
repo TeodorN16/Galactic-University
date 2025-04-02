@@ -8,37 +8,37 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"]</title>
+    <title>@ViewData["Title"] - Galactic University</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/css/Login.css" asp-append-version="true" />
 </head>
 <body>
-  
-    <!-- Background stars: ensures the animation covers the full viewport -->
+
+    <!-- Background with stars and shooting stars -->
     <section class="bg-stars">
         <span class="star"></span>
         <span class="star"></span>
         <span class="star"></span>
         <span class="star"></span>
+        <span class="shooting-star"></span>
+        <span class="shooting-star"></span>
     </section>
 
     <!-- Main content container -->
-    <!-- The "page-container" wrapper can be used to adjust margins if needed -->
     <div class="page-container">
-        <!-- Adding inline margin-top to avoid overlap with the fixed navbar (adjust as needed) -->
-        <div class="d-flex justify-content-center align-items-center vh-100" style="margin-top: 60px;">
+        <div class="d-flex justify-content-center align-items-center vh-100">
             <form id="account" method="post" class="form">
                 <div class="form-title">
                     <span>Sign in to your</span>
                 </div>
                 <div class="title-2">
-                    <span>SPACE</span>
+                    <span>GALACTIC UNIVERSITY</span>
                 </div>
 
                 <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
 
                 <div class="input-container">
                     <input asp-for="Input.Email" class="input-mail form-control" autocomplete="username" aria-required="true" placeholder="Enter email" />
-                    <span></span>
                     <span asp-validation-for="Input.Email" class="text-danger"></span>
                 </div>
 
@@ -72,37 +72,26 @@
                 </p>
             </form>
         </div>
-
-        <!-- External login section (if applicable) -->
-        @* <div class="d-flex justify-content-center mt-3"> *@
-        @*     <section> *@
-        @*         <h3 class="text-center text-white">Use another service to log in</h3> *@
-        @*         <hr /> *@
-        @*         @if ((Model.ExternalLogins?.Count ?? 0) == 0) *@
-        @*         { *@
-        @*             <div> *@
-        @*                 <p class="text-white text-center"> *@
-        @*                     There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715" class="text-info">article</a>. *@
-        @*                 </p> *@
-        @*             </div> *@
-        @*         } *@
-        @*         else *@
-        @*         { *@
-        @*             <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal text-center"> *@
-        @*                 @foreach (var provider in Model.ExternalLogins!) *@
-        @*                 { *@
-        @*                     <button type="submit" class="btn btn-primary m-1" name="provider" value="@provider.Name" title="Log in using @provider.DisplayName"> *@
-        @*                         @provider.DisplayName *@
-        @*                     </button> *@
-        @*                 } *@
-        @*             </form> *@
-        @*         } *@
-        @*     </section> *@
-        @* </div> *@
     </div>
 
     @section Scripts {
         <partial name="_ValidationScriptsPartial" />
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Add more stars dynamically for a better effect
+                const starsContainer = document.querySelector('.bg-stars');
+                const starCount = 50;
+
+                for (let i = 0; i < starCount; i++) {
+                    const star = document.createElement('div');
+                    star.className = 'star';
+                    star.style.top = `${Math.random() * 100}%`;
+                    star.style.left = `${Math.random() * 100}%`;
+                    star.style.animationDelay = `${Math.random() * 3}s`;
+                    starsContainer.appendChild(star);
+                }
+            });
+        </script>
     }
 </body>
 </html>

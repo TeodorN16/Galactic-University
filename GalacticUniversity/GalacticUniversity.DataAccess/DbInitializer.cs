@@ -271,60 +271,60 @@ namespace GalacticUniversity.DataAccess
                     }
 
                     // Astrology Course - History and Cultural Significance of Astrology
-                    AddResource("History and Cultural Significance of Astrology", "/wwwroot/AstrologyCourse/History and Cultural Significance of Astrology/ANCIENT STARGAZERS.pdf");
-                    AddResource("History and Cultural Significance of Astrology", "/wwwroot/AstrologyCourse/History and Cultural Significance of Astrology/ASTROLOGY VS ASTRONOMY.pdf");
+                    AddResource("History and Cultural Significance of Astrology", "https://res.cloudinary.com/ddyzobtms/image/upload/v1743581065/ANCIENT_STARGAZERS_vin8hw.pdf");
+                    AddResource("History and Cultural Significance of Astrology", "https://res.cloudinary.com/ddyzobtms/image/upload/v1743581209/ASTROLOGY_VS_ASTRONOMY_kkrcs9.pdf");
 
                     // Astrology Course - Houses and Aspects
-                    AddResource("Houses and Aspects", "/wwwroot/AstrologyCourse/Houses and Aspects/PLANETARY RELATIONSHIPS.pdf");
-                    AddResource("Houses and Aspects", "/wwwroot/AstrologyCourse/Houses and Aspects/THE 12 HOUSES.pdf");
+                    AddResource("Houses and Aspects", "https://res.cloudinary.com/ddyzobtms/image/upload/v1743581250/PLANETARY_RELATIONSHIPS_sosola.pdf");
+                    AddResource("Houses and Aspects", "https://res.cloudinary.com/ddyzobtms/image/upload/v1743581284/THE_12_HOUSES_c6fa46.pdf");
 
                     // Astrology Course - Modern Astrological Practices
-                    AddResource("Modern Astrological Practices", "/wwwroot/AstrologyCourse/Modern Astrological Practices/ASTROLOGY IN POPULAR CULTURE.pdf");
-                    AddResource("Modern Astrological Practices", "/wwwroot/AstrologyCourse/Modern Astrological Practices/BEYOND SUN SIGNS.pdf");
+                    AddResource("Modern Astrological Practices", "https://res.cloudinary.com/ddyzobtms/image/upload/v1743581316/ASTROLOGY_IN_POPULAR_CULTURE_o3jr04.pdf");
+                    AddResource("Modern Astrological Practices", "https://res.cloudinary.com/ddyzobtms/image/upload/v1743581318/BEYOND_SUN_SIGNS_w0bgtb.pdf");
 
                     // Astrology Course - Planets and Their Meanings
-                    AddResource("Planets and Their Meanings", "/wwwroot/AstrologyCourse/Planets and Their Meanings/PLANETARY INFLUENCES.pdf");
-                    AddResource("Planets and Their Meanings", "/wwwroot/AstrologyCourse/Planets and Their Meanings/READING A BIRTH CHART.pdf");
+                    AddResource("Planets and Their Meanings", "https://res.cloudinary.com/ddyzobtms/image/upload/v1743581384/PLANETARY_INFLUENCES_iqhrcd.pdf");
+                    AddResource("Planets and Their Meanings", "https://res.cloudinary.com/ddyzobtms/image/upload/v1743581389/READING_A_BIRTH_CHART_k54fkt.pdf");
 
                     // Astrology Course - The Zodiac System
-                    AddResource("The Zodiac System", "/wwwroot/AstrologyCourse/The Zodiac System/THE FOUR ELEMENTS.pdf");
-                    AddResource("The Zodiac System", "/wwwroot/AstrologyCourse/The Zodiac System/UNDERSTANDING THE 12 SIGNS.pdf");
+                    AddResource("The Zodiac System", "https://res.cloudinary.com/ddyzobtms/image/upload/v1743581585/THE_FOUR_ELEMENTS_ouphve.pdff");
+                    AddResource("The Zodiac System", "https://res.cloudinary.com/ddyzobtms/image/upload/v1743581587/UNDERSTANDING_THE_12_SIGNS_ccsdvo.pdf");
 
                     // Astronomy Course - Exoplanets and the Search for Life
-                    AddResource("Exoplanets and the Search for Life", "/wwwroot/ASTRONOMY COURSE Cosmic Explorations Understanding Our Universe/Exoplanets and the Search for Life/COULD WE BE ALONE.pdf");
-                    AddResource("Exoplanets and the Search for Life", "/wwwroot/ASTRONOMY COURSE Cosmic Explorations Understanding Our Universe/Exoplanets and the Search for Life/DISCOVERING NEW WORLDS.pdf");
+                    AddResource("Exoplanets and the Search for Life", "https://res.cloudinary.com/ddyzobtms/image/upload/v1743581643/COULD_WE_BE_ALONE_ktvwof.pdf");
+                    AddResource("Exoplanets and the Search for Life", "https://res.cloudinary.com/ddyzobtms/image/upload/v1743581644/DISCOVERING_NEW_WORLDS_cevh8x.pdf");
 
                     // Astronomy Course - Galaxies and Cosmic Structure
-                    AddResource("Galaxies and Cosmic Structure", "/wwwroot/ASTRONOMY COURSE Cosmic Explorations Understanding Our Universe/Galaxies and Cosmic Structure/GALAXY TYPES AND OUR MILKY WAY.pdf");
-                    AddResource("Galaxies and Cosmic Structure", "/wwwroot/ASTRONOMY COURSE Cosmic Explorations Understanding Our Universe/Galaxies and Cosmic Structure/THE EXPANDING UNIVERSE.pdf");
+                    AddResource("Galaxies and Cosmic Structure", "https://res.cloudinary.com/ddyzobtms/image/upload/v1743581697/GALAXY_TYPES_AND_OUR_MILKY_WAY_uxtoch.pdf");
+                    AddResource("Galaxies and Cosmic Structure", "https://res.cloudinary.com/ddyzobtms/image/upload/v1743581699/THE_EXPANDING_UNIVERSE_z8l3me.pdf");
 
                     // Astronomy Course - Space Exploration History
-                    AddResource("Space Exploration History", "/wwwroot/ASTRONOMY COURSE Cosmic Explorations Understanding Our Universe/Space Exploration History/FROM SPUTNIK TO WEBB.pdf");
-                    AddResource("Space Exploration History", "/wwwroot/ASTRONOMY COURSE Cosmic Explorations Understanding Our Universe/Space Exploration History/FUTURE OF SPACE TRAVEL.pdf");
+                    AddResource("Space Exploration History", "https://res.cloudinary.com/ddyzobtms/image/upload/v1743581846/FROM_SPUTNIK_TO_WEBB_pvxtkp.pdf");
+                    AddResource("Space Exploration History", "https://res.cloudinary.com/ddyzobtms/image/upload/v1743581848/FUTURE_OF_SPACE_TRAVEL_cvaqmm.pdf");
 
                     // Astronomy Course - Stars and Their Life Cycles
-                    AddResource("Stars and Their Life Cycles", "/wwwroot/ASTRONOMY COURSE Cosmic Explorations Understanding Our Universe/Stars and Their Life Cycles/HOW TO STARGAZE.pdf");
-                    AddResource("Stars and Their Life Cycles", "/wwwroot/ASTRONOMY COURSE Cosmic Explorations Understanding Our Universe/Stars and Their Life Cycles/STAR BIRTH AND DEATH.pdf");
+                    AddResource("Stars and Their Life Cycles", "https://res.cloudinary.com/ddyzobtms/image/upload/v1743581857/HOW_TO_STARGAZE_ezmoha.pdf");
+                    AddResource("Stars and Their Life Cycles", "https://res.cloudinary.com/ddyzobtms/image/upload/v1743581863/STAR_BIRTH_AND_DEATH_zal7es.pdff");
 
                     // Astronomy Course - The Solar System
-                    AddResource("The Solar System - Our Cosmic Neighborhood", "/wwwroot/ASTRONOMY COURSE Cosmic Explorations Understanding Our Universe/The Solar System - Our Cosmic Neighborhood/THE SUN.pdf");
-                    AddResource("The Solar System - Our Cosmic Neighborhood", "/wwwroot/ASTRONOMY COURSE Cosmic Explorations Understanding Our Universe/The Solar System - Our Cosmic Neighborhood/TOUR OF THE PLANETS.pdf");
+                    AddResource("The Solar System - Our Cosmic Neighborhood", "https://res.cloudinary.com/ddyzobtms/image/upload/v1743581870/THE_SUN_ofvro1.pdf");
+                    AddResource("The Solar System - Our Cosmic Neighborhood", "https://res.cloudinary.com/ddyzobtms/image/upload/v1743581873/TOUR_OF_THE_PLANETS_kwhl6k.pdf");
 
                     // Physics Course - Energy in Our World
-                    AddResource("Energy in Our World", "/wwwroot/PHYSICS COURSE Everyday Physics Understanding Our Physical World/Energy in Our World/ENERGY TRANSFORMATIONS.pdf");
-                    AddResource("Energy in Our World", "/wwwroot/PHYSICS COURSE Everyday Physics Understanding Our Physical World/Energy in Our World/RENEWABLE ENERGY BASICS.pdf");
+                    AddResource("Energy in Our World", "https://res.cloudinary.com/ddyzobtms/image/upload/v1743581843/ENERGY_TRANSFORMATIONS_ogsjox.pdf");
+                    AddResource("Energy in Our World", "https://res.cloudinary.com/ddyzobtms/image/upload/v1743581857/RENEWABLE_ENERGY_BASICS_uuv3he.pdf");
 
                     // Physics Course - Forces and Motion
-                    AddResource("Forces and Motion", "/wwwroot/PHYSICS COURSE Everyday Physics Understanding Our Physical World/Forces and Motion/GRAVITY.pdf");
-                    AddResource("Forces and Motion", "/wwwroot/PHYSICS COURSE Everyday Physics Understanding Our Physical World/Forces and Motion/NEWTON.pdf");
+                    AddResource("Forces and Motion", "https://res.cloudinary.com/ddyzobtms/image/upload/v1743581852/GRAVITY_wq7ojo.pdf");
+                    AddResource("Forces and Motion", "https://res.cloudinary.com/ddyzobtms/image/upload/v1743581856/NEWTON_akfkrb.pdf");
 
                     // Physics Course - Matter and Materials
-                    AddResource("Matter and Materials", "/wwwroot/PHYSICS COURSE Everyday Physics Understanding Our Physical World/Matter and Materials/AMAZING MATERIALS.pdf");
-                    AddResource("Matter and Materials", "/wwwroot/PHYSICS COURSE Everyday Physics Understanding Our Physical World/Matter and Materials/STATES OF MATTER.pdf");
+                    AddResource("Matter and Materials", "https://res.cloudinary.com/ddyzobtms/image/upload/v1743581842/AMAZING_MATERIALS_a7q9n7.pdf");
+                    AddResource("Matter and Materials", "https://res.cloudinary.com/ddyzobtms/image/upload/v1743581864/STATES_OF_MATTER_wq7m6j.pdf");
 
                     // Physics Course - Waves and Light
-                    AddResource("Waves and Light", "/wwwroot/PHYSICS COURSE Everyday Physics Understanding Our Physical World/Waves and Light/SOUND AND MUSIC.pdf");
-                    AddResource("Waves and Light", "/wwwroot/PHYSICS COURSE Everyday Physics Understanding Our Physical World/Waves and Light/THE ELECTROMAGNETIC SPECTRUM.pdf");
+                    AddResource("Waves and Light", "https://res.cloudinary.com/ddyzobtms/image/upload/v1743581860/SOUND_AND_MUSIC_p91gti.pdf");
+                    AddResource("Waves and Light", "https://res.cloudinary.com/ddyzobtms/image/upload/v1743581866/THE_ELECTROMAGNETIC_SPECTRUM_gacjly.pdf");
 
                     foreach (var resource in lectureResources)
                     {
