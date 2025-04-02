@@ -1,5 +1,170 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model IEnumerable<GalacticUniversity.Models.ViewModels.CommentViewModels.CommentViewModel>
+
+<div class="container-fluid px-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm border-0 mt-4">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h2 class="mb-0">
+                        <i class="fas fa-comment-alt me-2"></i>Course Comments
+                    </h2>
+                    <a asp-action="Add" class="btn btn-light btn-sm">
+                        <i class="fas fa-plus me-1"></i>Add New Comment
+                    </a>
+                </div>
+                <div class="card-body">
+                    @if (Model.Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Comment ID</th>
+                                        <th>Comment Text</th>
+                                        <th>Date</th>
+                                        <th>Rating</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var comment in Model)
+                                    {
+                                        <tr>
+                                            <td>@comment.ID</td>
+                                            <td>
+                                                <div class="text-truncate" style="max-width: 250px;">
+                                                    @comment.CommentText
+                                                </div>
+                                            </td>
+                                            <td>@comment.CommentDate.ToString("dd MMM yyyy")</td>
+                                            <td>
+                                                @for (int i = 0; i < comment.Rating; i++)
+                                                {
+                                                    <i class="fas fa-star text-warning"></i>
+                                                }
+                                                @for (int i = comment.Rating; i < 5; i++)
+                                                {
+                                                    <i class="far fa-star text-warning"></i>
+                                                }
+                                            </td>
+                                            <td>
+                                                <div class="btn-group" role="group">
+                                                    <a asp-action="Edit" asp-route-id="@comment.ID" class="btn btn-sm btn-outline-primary">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
+                                                    <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal-@comment.ID">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </div>
+
+                                                <!-- Delete Confirmation Modal -->
+                                                <div class="modal fade" id="deleteModal-@comment.ID" tabindex="-1">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">Confirm Delete</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Are you sure you want to delete this comment?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                                <form asp-action="Delete" asp-route-id="@comment.ID" method="post">
+                                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-info text-center" role="alert">
+                            <i class="fas fa-info-circle me-2"></i>No comments available
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .container-fluid {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .card {
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        border: none;
+    }
+
+    .card-header {
+        background-color: #007bff;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px;
+    }
+
+    .table {
+        width: 100%;
+        margin-bottom: 1rem;
+        color: #212529;
+    }
+
+        .table th,
+        .table td {
+            padding: 0.75rem;
+            vertical-align: middle;
+        }
+
+    .table-hover tbody tr:hover {
+        background-color: rgba(0,123,255,0.075);
+    }
+
+    .btn-group .btn {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.875rem;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+
+    .btn-outline-primary {
+        color: #007bff;
+        border-color: #007bff;
+    }
+
+    .btn-outline-danger {
+        color: #dc3545;
+        border-color: #dc3545;
+    }
+
+    .fa-star {
+        color: #ffc107;
+    }
+
+        .fa-star.text-muted {
+            color: #6c757d;
+        }
+</style>
+
+

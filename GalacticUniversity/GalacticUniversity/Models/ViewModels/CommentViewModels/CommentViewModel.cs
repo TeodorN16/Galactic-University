@@ -9,5 +9,7 @@
         public DateTime CommentDate { get; set; } = DateTime.Now;
 
         public int Rating { get; set; }
+
+        public int CourseID { get; set; }
     }
 }

@@ -20,12 +20,11 @@ namespace GalacticUniversity.Models
         // Foreign Keys
         [ForeignKey("User")]
         public string UserID { get; set; }
+        public User User { get; set; }
 
         [ForeignKey("Course")]
         public int CourseID { get; set; }
-
-        // Navigation Properties
-        public User User { get; set; }
+      
         public Course Course { get; set; }
     }
 }

@@ -38,7 +38,7 @@ namespace GalacticUniversity.Controllers
             _userManager = userManager;
            
         }
-
+        [Authorize(Roles = "User,Admin")]
         public async Task<IActionResult> Index(CourseViewModel? filter)
         {
             var currentUser = await _userManager.GetUserAsync(User); // Get the current logged-in user
