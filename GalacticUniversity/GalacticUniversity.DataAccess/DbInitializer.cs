@@ -257,77 +257,74 @@ namespace GalacticUniversity.DataAccess
                 {
                     var lectureResources = new List<LectureResource>();
 
-                    // Helper method to add resources safely with URL encoding
+                    // Helper method to add resources safely
                     void AddResource(string lectureName, string fileUrl)
                     {
                         if (lectureIds.ContainsKey(lectureName))
                         {
-                            // Manually encode the URL: replace spaces with %20
-                            string encodedUrl = fileUrl.Replace(" ", "%20");
-
                             lectureResources.Add(new LectureResource
                             {
                                 LectureID = lectureIds[lectureName],
-                                FileUrl = encodedUrl
+                                FileUrl = fileUrl
                             });
                         }
                     }
 
                     // Astrology Course - History and Cultural Significance of Astrology
-                    AddResource("History and Cultural Significance of Astrology", "/AstrologyCourse/History%20and%20Cultural%20Significance%20of%20Astrology/ANCIENT%20STARGAZERS.pdf");
-                    AddResource("History and Cultural Significance of Astrology", "/AstrologyCourse/History%20and%20Cultural%20Significance%20of%20Astrology/ASTROLOGY%20VS%20ASTRONOMY.pdf");
+                    AddResource("History and Cultural Significance of Astrology", "/wwwroot/AstrologyCourse/History and Cultural Significance of Astrology/ANCIENT STARGAZERS.pdf");
+                    AddResource("History and Cultural Significance of Astrology", "/wwwroot/AstrologyCourse/History and Cultural Significance of Astrology/ASTROLOGY VS ASTRONOMY.pdf");
 
                     // Astrology Course - Houses and Aspects
-                    AddResource("Houses and Aspects", "/AstrologyCourse/Houses%20and%20Aspects/PLANETARY%20RELATIONSHIPS.pdf");
-                    AddResource("Houses and Aspects", "/AstrologyCourse/Houses%20and%20Aspects/THE%2012%20HOUSES.pdf");
+                    AddResource("Houses and Aspects", "/wwwroot/AstrologyCourse/Houses and Aspects/PLANETARY RELATIONSHIPS.pdf");
+                    AddResource("Houses and Aspects", "/wwwroot/AstrologyCourse/Houses and Aspects/THE 12 HOUSES.pdf");
 
                     // Astrology Course - Modern Astrological Practices
-                    AddResource("Modern Astrological Practices", "/AstrologyCourse/Modern%20Astrological%20Practices/ASTROLOGY%20IN%20POPULAR%20CULTURE.pdf");
-                    AddResource("Modern Astrological Practices", "/AstrologyCourse/Modern%20Astrological%20Practices/BEYOND%20SUN%20SIGNS.pdf");
+                    AddResource("Modern Astrological Practices", "/wwwroot/AstrologyCourse/Modern Astrological Practices/ASTROLOGY IN POPULAR CULTURE.pdf");
+                    AddResource("Modern Astrological Practices", "/wwwroot/AstrologyCourse/Modern Astrological Practices/BEYOND SUN SIGNS.pdf");
 
                     // Astrology Course - Planets and Their Meanings
-                    AddResource("Planets and Their Meanings", "/AstrologyCourse/Planets%20and%20Their%20Meanings/PLANETARY%20INFLUENCES.pdf");
-                    AddResource("Planets and Their Meanings", "/AstrologyCourse/Planets%20and%20Their%20Meanings/READING%20A%20BIRTH%20CHART.pdf");
+                    AddResource("Planets and Their Meanings", "/wwwroot/AstrologyCourse/Planets and Their Meanings/PLANETARY INFLUENCES.pdf");
+                    AddResource("Planets and Their Meanings", "/wwwroot/AstrologyCourse/Planets and Their Meanings/READING A BIRTH CHART.pdf");
 
                     // Astrology Course - The Zodiac System
-                    AddResource("The Zodiac System", "/AstrologyCourse/The%20Zodiac%20System/THE%20FOUR%20ELEMENTS.pdf");
-                    AddResource("The Zodiac System", "/AstrologyCourse/The%20Zodiac%20System/UNDERSTANDING%20THE%2012%20SIGNS.pdf");
+                    AddResource("The Zodiac System", "/wwwroot/AstrologyCourse/The Zodiac System/THE FOUR ELEMENTS.pdf");
+                    AddResource("The Zodiac System", "/wwwroot/AstrologyCourse/The Zodiac System/UNDERSTANDING THE 12 SIGNS.pdf");
 
                     // Astronomy Course - Exoplanets and the Search for Life
-                    AddResource("Exoplanets and the Search for Life", "/ASTRONOMY%20COURSE%20Cosmic%20Explorations/Exoplanets%20and%20the%20Search%20for%20Life/COULD%20WE%20BE%20ALONE.pdf");
-                    AddResource("Exoplanets and the Search for Life", "/ASTRONOMY%20COURSE%20Cosmic%20Explorations/Exoplanets%20and%20the%20Search%20for%20Life/DISCOVERING%20NEW%20WORLDS.pdf");
+                    AddResource("Exoplanets and the Search for Life", "/wwwroot/ASTRONOMY COURSE Cosmic Explorations Understanding Our Universe/Exoplanets and the Search for Life/COULD WE BE ALONE.pdf");
+                    AddResource("Exoplanets and the Search for Life", "/wwwroot/ASTRONOMY COURSE Cosmic Explorations Understanding Our Universe/Exoplanets and the Search for Life/DISCOVERING NEW WORLDS.pdf");
 
                     // Astronomy Course - Galaxies and Cosmic Structure
-                    AddResource("Galaxies and Cosmic Structure", "/ASTRONOMY%20COURSE%20Cosmic%20Explorations/Galaxies%20and%20Cosmic%20Structure/GALAXY%20TYPES%20AND%20OUR%20MILKY%20WAY.pdf");
-                    AddResource("Galaxies and Cosmic Structure", "/ASTRONOMY%20COURSE%20Cosmic%20Explorations/Galaxies%20and%20Cosmic%20Structure/THE%20EXPANDING%20UNIVERSE.pdf");
+                    AddResource("Galaxies and Cosmic Structure", "/wwwroot/ASTRONOMY COURSE Cosmic Explorations Understanding Our Universe/Galaxies and Cosmic Structure/GALAXY TYPES AND OUR MILKY WAY.pdf");
+                    AddResource("Galaxies and Cosmic Structure", "/wwwroot/ASTRONOMY COURSE Cosmic Explorations Understanding Our Universe/Galaxies and Cosmic Structure/THE EXPANDING UNIVERSE.pdf");
 
                     // Astronomy Course - Space Exploration History
-                    AddResource("Space Exploration History", "/ASTRONOMY%20COURSE%20Cosmic%20Explorations/Space%20Exploration%20History/FROM%20SPUTNIK%20TO%20WEBB.pdf");
-                    AddResource("Space Exploration History", "/ASTRONOMY%20COURSE%20Cosmic%20Explorations/Space%20Exploration%20History/FUTURE%20OF%20SPACE%20TRAVEL.pdf");
+                    AddResource("Space Exploration History", "/wwwroot/ASTRONOMY COURSE Cosmic Explorations Understanding Our Universe/Space Exploration History/FROM SPUTNIK TO WEBB.pdf");
+                    AddResource("Space Exploration History", "/wwwroot/ASTRONOMY COURSE Cosmic Explorations Understanding Our Universe/Space Exploration History/FUTURE OF SPACE TRAVEL.pdf");
 
                     // Astronomy Course - Stars and Their Life Cycles
-                    AddResource("Stars and Their Life Cycles", "/ASTRONOMY%20COURSE%20Cosmic%20Explorations/Stars%20and%20Their%20Life%20Cycles/HOW%20TO%20STARGAZE.pdf");
-                    AddResource("Stars and Their Life Cycles", "/ASTRONOMY%20COURSE%20Cosmic%20Explorations/Stars%20and%20Their%20Life%20Cycles/STAR%20BIRTH%20AND%20DEATH.pdf");
+                    AddResource("Stars and Their Life Cycles", "/wwwroot/ASTRONOMY COURSE Cosmic Explorations Understanding Our Universe/Stars and Their Life Cycles/HOW TO STARGAZE.pdf");
+                    AddResource("Stars and Their Life Cycles", "/wwwroot/ASTRONOMY COURSE Cosmic Explorations Understanding Our Universe/Stars and Their Life Cycles/STAR BIRTH AND DEATH.pdf");
 
                     // Astronomy Course - The Solar System
-                    AddResource("The Solar System - Our Cosmic Neighborhood", "/ASTRONOMY%20COURSE%20Cosmic%20Explorations/The%20Solar%20System%20-%20Our%20Cosmic%20Neighborhood/THE%20SUN.pdf");
-                    AddResource("The Solar System - Our Cosmic Neighborhood", "/ASTRONOMY%20COURSE%20Cosmic%20Explorations/The%20Solar%20System%20-%20Our%20Cosmic%20Neighborhood/TOUR%20OF%20THE%20PLANETS.pdf");
+                    AddResource("The Solar System - Our Cosmic Neighborhood", "/wwwroot/ASTRONOMY COURSE Cosmic Explorations Understanding Our Universe/The Solar System - Our Cosmic Neighborhood/THE SUN.pdf");
+                    AddResource("The Solar System - Our Cosmic Neighborhood", "/wwwroot/ASTRONOMY COURSE Cosmic Explorations Understanding Our Universe/The Solar System - Our Cosmic Neighborhood/TOUR OF THE PLANETS.pdf");
 
                     // Physics Course - Energy in Our World
-                    AddResource("Energy in Our World", "/PHYSICS%20COURSE%20Everyday%20Physics%20Understanding/Energy%20in%20Our%20World/ENERGY%20TRANSFORMATIONS.pdf");
-                    AddResource("Energy in Our World", "/PHYSICS%20COURSE%20Everyday%20Physics%20Understanding/Energy%20in%20Our%20World/RENEWABLE%20ENERGY%20BASICS.pdf");
+                    AddResource("Energy in Our World", "/wwwroot/PHYSICS COURSE Everyday Physics Understanding Our Physical World/Energy in Our World/ENERGY TRANSFORMATIONS.pdf");
+                    AddResource("Energy in Our World", "/wwwroot/PHYSICS COURSE Everyday Physics Understanding Our Physical World/Energy in Our World/RENEWABLE ENERGY BASICS.pdf");
 
                     // Physics Course - Forces and Motion
-                    AddResource("Forces and Motion", "wwwroot/PHYSICS%20COURSE%20Everyday%20Physics%20Understanding/Forces%20and%20Motion/GRAVITY.pdf");
-                    AddResource("Forces and Motion", "wwwroot/PHYSICS%20COURSE%20Everyday%20Physics%20Understanding/Forces%20and%20Motion/NEWTON.pdf");
+                    AddResource("Forces and Motion", "/wwwroot/PHYSICS COURSE Everyday Physics Understanding Our Physical World/Forces and Motion/GRAVITY.pdf");
+                    AddResource("Forces and Motion", "/wwwroot/PHYSICS COURSE Everyday Physics Understanding Our Physical World/Forces and Motion/NEWTON.pdf");
 
                     // Physics Course - Matter and Materials
-                    AddResource("Matter and Materials", "/PHYSICS%20COURSE%20Everyday%20Physics%20Understanding/Matter%20and%20Materials/AMAZING%20MATERIALS.pdf");
-                    AddResource("Matter and Materials", "/PHYSICS%20COURSE%20Everyday%20Physics%20Understanding/Matter%20and%20Materials/STATES%20OF%20MATTER.pdf");
+                    AddResource("Matter and Materials", "/wwwroot/PHYSICS COURSE Everyday Physics Understanding Our Physical World/Matter and Materials/AMAZING MATERIALS.pdf");
+                    AddResource("Matter and Materials", "/wwwroot/PHYSICS COURSE Everyday Physics Understanding Our Physical World/Matter and Materials/STATES OF MATTER.pdf");
 
                     // Physics Course - Waves and Light
-                    AddResource("Waves and Light", "/PHYSICS%20COURSE%20Everyday%20Physics%20Understanding/Waves%20and%20Light/SOUND%20AND%20MUSIC.pdf");
-                    AddResource("Waves and Light", "/PHYSICS%20COURSE%20Everyday%20Physics%20Understanding/Waves%20and%20Light/THE%20ELECTROMAGNETIC%20SPECTRUM.pdf");
+                    AddResource("Waves and Light", "/wwwroot/PHYSICS COURSE Everyday Physics Understanding Our Physical World/Waves and Light/SOUND AND MUSIC.pdf");
+                    AddResource("Waves and Light", "/wwwroot/PHYSICS COURSE Everyday Physics Understanding Our Physical World/Waves and Light/THE ELECTROMAGNETIC SPECTRUM.pdf");
 
                     foreach (var resource in lectureResources)
                     {
@@ -337,8 +334,5 @@ namespace GalacticUniversity.DataAccess
                 }
             }
         }
-
-                
     }
 }
-    
