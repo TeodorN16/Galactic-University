@@ -1,4 +1,9 @@
-﻿@model IEnumerable<GalacticUniversity.Models.ViewModels.CategoryViewModels.CategoryQueryViewModel>
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model IEnumerable<GalacticUniversity.Models.User>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -11,6 +16,7 @@
         --success-color: #10b981;
         --light-color: #f3f4f6;
         --dark-color: #1f2937;
+        --warning-color: #fbbf24;
         --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     }
 
@@ -119,13 +125,6 @@
             border-radius: 2px;
         }
 
-    .admin-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
-    }
-
     /* Admin Table Styling */
     .admin-table-container {
         background-color: white;
@@ -137,6 +136,7 @@
 
     .table {
         margin-bottom: 0;
+        width: 100%;
     }
 
         .table thead {
@@ -162,6 +162,34 @@
 
         .table tbody tr:hover {
             background-color: #f9fafb;
+        }
+
+    .badge {
+        padding: 5px 10px;
+        border-radius: 50rem;
+        font-size: 0.75rem;
+        font-weight: 500;
+    }
+
+    .badge-success {
+        background-color: rgba(16, 185, 129, 0.1);
+        color: var(--success-color);
+    }
+
+    .badge-warning {
+        background-color: rgba(251, 191, 36, 0.1);
+        color: var(--warning-color);
+    }
+
+    .email-link {
+        color: var(--primary-color);
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+        .email-link:hover {
+            color: var(--primary-hover);
+            text-decoration: underline;
         }
 
     .btn-primary {
@@ -194,29 +222,60 @@
             box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
         }
 
-    .btn-success {
-        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-        color: white;
-        border: none;
-        border-radius: 8px;
-        padding: 10px 20px;
-        font-weight: 600;
-        transition: all 0.3s ease;
+    .btn-sm {
+        padding: 8px 16px;
+        font-size: 0.875rem;
     }
 
-        .btn-success:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
-        }
+    .btn-group {
+        display: flex;
+        gap: 5px;
+    }
+
+    .alert-info {
+        background-color: rgba(99, 102, 241, 0.1);
+        color: var(--secondary-color);
+        border: none;
+        border-radius: 8px;
+        padding: 20px;
+    }
+
+    .user-stats {
+        background-color: var(--light-color);
+        border-radius: 16px;
+        padding: 20px;
+        margin-bottom: 30px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .stat-item {
+        text-align: center;
+        flex: 1;
+        min-width: 150px;
+    }
+
+    .stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 5px;
+    }
+
+    .stat-label {
+        font-size: 1rem;
+        color: var(--secondary-color);
+    }
 
     /* Responsive adjustments */
     @@media (max-width: 768px) {
-        .admin-header
+        .about-header-content h1.display-4
 
     {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
+        font-size: 2.5rem;
     }
 
     }
@@ -227,57 +286,87 @@
     <div class="about-header">
         <div class="galaxy-animation" id="stars-container"></div>
         <div class="about-header-content">
-            <h1 class="display-4 fw-bold mb-4">Course Categories</h1>
-            <p class="fs-5 mb-0">Browse and manage our educational categories</p>
+            <h1 class="display-4 fw-bold mb-4">Users Directory</h1>
+            <p class="fs-5 mb-0">View and manage users across the Galactic University platform</p>
         </div>
     </div>
 
-    <!-- Admin section with table and add button -->
-    <div class="admin-header">
-        <h2 class="section-title">Categories Management</h2>
-        @if (User.IsInRole("Admin"))
-        {
-            <a class="btn btn-success" asp-controller="Category" asp-action="Add">
-                <i class="bi bi-plus-circle me-2"></i>Add New Category
-            </a>
-        }
+    <!-- User stats section -->
+    <div class="user-stats">
+        <div class="stat-item">
+            <div class="stat-number">@Model.Count()</div>
+            <div class="stat-label">Total Users</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">@Model.Count(u => u.EmailConfirmed)</div>
+            <div class="stat-label">Verified Users</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">@Model.Sum(u => u.UserCourses?.Count ?? 0)</div>
+            <div class="stat-label">Course Enrollments</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">@Model.Sum(u => u.Certificates?.Count ?? 0)</div>
+            <div class="stat-label">Certificates Issued</div>
+        </div>
     </div>
 
+    <h2 class="section-title">User List</h2>
+
     <div class="admin-table-container">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Category Name</th>
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <th scope="col">Actions</th>
-                    }
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <th scope="row">@item.ID</th>
-                        <td>@item.Name</td>
-                        @if (User.IsInRole("Admin"))
+        @if (Model.Any())
+        {
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Username</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Phone</th>
+                            
+                            <th scope="col">Courses</th>
+                            <th scope="col">Comments</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in Model)
                         {
-                            <td>
-                                <a class="btn btn-primary" asp-action="Edit" asp-controller="Category" asp-route-id="@item.ID">
-                                    <i class="bi bi-pencil me-1"></i> Edit
-                                </a>
-                                <form asp-action="Delete" asp-controller="Category" asp-route-id="@item.ID" method="post" style="display:inline; margin-left: 5px;">
-                                    <button type="submit" class="btn btn-danger">
-                                        <i class="bi bi-trash me-1"></i> Delete
-                                    </button>
-                                </form>
-                            </td>
+                            <tr>
+                                <td>@user.UserName</td>
+                                <td>
+                                    <a href="mailto:@user.Email" class="email-link">@user.Email</a>
+                                </td>
+                                <td>@(string.IsNullOrEmpty(user.PhoneNumber) ? "Not provided" : user.PhoneNumber)</td>
+                               
+                                <td>@(user.UserCourses?.Count ?? 0)</td>
+                                <td>@(user.Comments?.Count ?? 0)</td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a class="btn btn-primary btn-sm" asp-controller="User" asp-action="Details" asp-route-id="@user.Id">
+                                            <i class="bi bi-eye-fill me-1"></i> View
+                                        </a>
+                                        <a>
+                                             <form asp-controller="User" asp-action="Delete" asp-route-id="@user.Id" method="post" style="display:inline;">
+                                                <button type="submit" class="btn btn-danger btn-sm">
+                                                     <i class="bi bi-trash-fill me-1"></i> Delete
+                                                </button>
+                                            </form>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
                         }
-                    </tr>
-                }
-            </tbody>
-        </table>
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-info text-center" role="alert">
+                <i class="bi bi-info-circle me-2"></i>No users found in the system.
+            </div>
+        }
     </div>
 </div>
 

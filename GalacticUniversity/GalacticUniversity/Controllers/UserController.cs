@@ -25,7 +25,8 @@ namespace GalacticUniversity.Controllers
         private readonly ICourseService _courseService;
         private readonly CloudinaryService _cloudinaryService;
 
-        public UserController(IUserCourseService userCourseService, IUserService<User> userService, UserManager<User> userManager, ICourseService courseService, CloudinaryService cloudinaryService)
+        public UserController(IUserCourseService userCourseService, IUserService<User> userService, 
+               UserManager<User> userManager, ICourseService courseService, CloudinaryService cloudinaryService)
         {
             _userCourseService = userCourseService;
             _userService = userService;
@@ -35,8 +36,63 @@ namespace GalacticUniversity.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            var users =  _userService.GetAll().Include(u => u.Comments)
+        .Include(u => u.UserCourses)
+        .Include(u => u.Certificates)
+        .ToList(); ;
+            return View(users);
         }
+        public async Task<IActionResult> Details(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return BadRequest("User ID is required.");
+            }
+
+            var user = await _userManager.Users
+                .Include(u => u.Comments)
+                .Include(u => u.UserCourses)
+                    .ThenInclude(uc => uc.Course)
+                .Include(u => u.Certificates)
+                    .ThenInclude(c => c.Course)
+                .FirstOrDefaultAsync(u => u.Id == id);
+
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
+
+            // Get user roles
+            var roles = await _userManager.GetRolesAsync(user);
+
+            var viewModel = new UserDetailsViewModel
+            {
+                User = user,
+                Roles = roles.ToList()
+            };
+
+            return View(viewModel);
+        }
+        [HttpPost]
+
+        public async Task<IActionResult> Delete(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return BadRequest("User ID is required.");
+            }
+
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
+            await _userManager.DeleteAsync(user);
+            TempData["success"] = "Succesfully deleted the user";
+            return RedirectToAction("Index");
+        }
+
+    
 
         public async Task<IActionResult> MyProfile(UserViewModel? uvm)
         {

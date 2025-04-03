@@ -1,145 +1,1044 @@
-﻿﻿
-<link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
-<section>
-    <div class="titlecontainer">
-        <!-- Нов контейнер, който държи заглавието и ракетата -->
-        <h1 class="titlecontainer">Открий чудесата на космоса</h1>
-        <div class=" titlecontainer description">
-            Влез в света на астрономията, астрологията и физиката. Научи повече за Вселената и всичко, което тя крие.
+﻿@{
+    ViewData["Title"] = "Galactic University - Home";
+}
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+    :root {
+        --primary-color: #6366f1;
+        --primary-hover: #4f46e5;
+        --secondary-color: #2d3748;
+        --accent-color: #8b5cf6;
+        --light-color: #f3f4f6;
+        --dark-color: #1f2937;
+        --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    body {
+        background-color: #f8f9fa;
+        color: var(--secondary-color);
+        font-family: 'Poppins', sans-serif;
+        overflow-x: hidden;
+    }
+
+    /* Hero Section */
+    .hero-section {
+        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+        position: relative;
+        padding: 80px 0;
+        margin-bottom: 60px;
+        overflow: hidden;
+        border-radius: 0 0 16px 16px;
+    }
+
+    .stars-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 0;
+    }
+
+    .star {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: white;
+        border-radius: 50%;
+        animation: twinkle 2s infinite;
+    }
+
+    @@keyframes twinkle {
+        0%
+
+    {
+        opacity: 0.2;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.2;
+    }
+
+    }
+
+    .title-container {
+        position: relative;
+        z-index: 2;
+        color: white;
+        text-align: left;
+        padding: 0 20px;
+        max-width: 600px;
+        margin-left: 10%;
+    }
+
+        .title-container h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+    .description {
+        font-size: 1.25rem;
+        margin-bottom: 30px;
+        opacity: 0.9;
+    }
+
+    .styled-button {
+        background-color: white;
+        color: var(--primary-color);
+        border: none;
+        padding: 12px 30px;
+        border-radius: 30px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+        .styled-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            color: var(--primary-hover);
+        }
+
+    /* Rocket Animation */
+    .rocket-container {
+        position: absolute;
+        right: 10%;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 2;
+        height: 300px;
+        width: 300px;
+    }
+
+    .dot {
+        position: relative;
+        z-index: 5;
+        animation: rocket-move 8s infinite ease-in-out;
+    }
+
+        .dot i {
+            font-size: 60px;
+            color: white;
+            transform: rotate(45deg);
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.7));
+        }
+
+    @@keyframes rocket-move {
+        0%, 100%
+
+    {
+        transform: translateY(0) rotate(45deg);
+    }
+
+    50% {
+        transform: translateY(-30px) rotate(45deg);
+    }
+
+    }
+
+    .clouds {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+
+        .clouds i {
+            position: absolute;
+            font-size: 30px;
+            color: rgba(255, 255, 255, 0.7);
+            animation: cloud-move 10s infinite linear;
+        }
+
+        .clouds.behind i {
+            opacity: 0.5;
+        }
+
+        .clouds.front i {
+            opacity: 0.8;
+        }
+
+    @@keyframes cloud-move {
+        0%
+
+    {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+
+    }
+
+    /* Features Section */
+    .features-section {
+        padding: 60px 20px;
+    }
+
+    .section-title {
+        text-align: center;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 50px;
+        color: var(--secondary-color);
+        position: relative;
+    }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            border-radius: 2px;
+        }
+
+    .card-container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 30px;
+        margin-bottom: 60px;
+    }
+
+    .card {
+        background: white;
+        border-radius: 16px;
+        width: 300px;
+        height: 200px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: var(--card-shadow);
+        transition: all 0.5s ease;
+    }
+
+    .card__text {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        text-align: center;
+        font-weight: 600;
+        font-size: 1.2rem;
+        color: var(--secondary-color);
+        z-index: 2;
+        background: white;
+        transition: all 0.5s ease;
+    }
+
+    .card__content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+        color: white;
+        padding: 20px;
+        transform: translateY(100%);
+        transition: all 0.5s ease;
+        overflow-y: auto;
+    }
+
+    .card:hover .card__text {
+        opacity: 0;
+    }
+
+    .card:hover .card__content {
+        transform: translateY(0);
+    }
+
+    .card__description {
+        font-size: 0.9rem;
+        line-height: 1.6;
+    }
+
+    /* Course Preview Section */
+    .course-preview {
+        padding: 60px 0;
+        background-color: var(--light-color);
+        border-radius: 16px;
+        margin: 60px 20px;
+    }
+
+    .course-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .course-card {
+        background: white;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: var(--card-shadow);
+        transition: all 0.3s ease;
+    }
+
+        .course-card:hover {
+            transform: translateY(-10px);
+        }
+
+    .course-image {
+        height: 180px;
+        overflow: hidden;
+        position: relative;
+    }
+
+        .course-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s ease;
+        }
+
+    .course-card:hover .course-image img {
+        transform: scale(1.1);
+    }
+
+    .course-badge {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: var(--accent-color);
+        color: white;
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 500;
+    }
+
+    .course-content {
+        padding: 20px;
+    }
+
+    .course-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: var(--secondary-color);
+    }
+
+    .course-description {
+        font-size: 0.9rem;
+        color: #666;
+        margin-bottom: 15px;
+        line-height: 1.6;
+    }
+
+    .course-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.9rem;
+        color: #666;
+        border-top: 1px solid #eee;
+        padding-top: 15px;
+    }
+
+    .course-rating {
+        display: flex;
+        align-items: center;
+    }
+
+        .course-rating i {
+            color: #ffc107;
+            margin-right: 5px;
+        }
+
+    .view-all-container {
+        text-align: center;
+        margin-top: 40px;
+    }
+
+    /* Statistics Section */
+    .stats-section {
+        padding: 60px 20px;
+        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+        color: white;
+        border-radius: 16px;
+        margin: 60px 20px;
+    }
+
+    .stats-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .stat-item {
+        flex: 0 0 200px;
+        text-align: center;
+        margin: 20px;
+    }
+
+    .stat-icon {
+        font-size: 3rem;
+        margin-bottom: 15px;
+    }
+
+    .stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .stat-text {
+        font-size: 1.1rem;
+        opacity: 0.9;
+    }
+
+    /* Testimonials Section */
+    .testimonials-section {
+        padding: 60px 20px;
+    }
+
+    .testimonials-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+    }
+
+    .testimonial-card {
+        background: white;
+        border-radius: 16px;
+        box-shadow: var(--card-shadow);
+        padding: 30px;
+        max-width: 350px;
+        position: relative;
+    }
+
+        .testimonial-card::before {
+            content: '\f10d';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            font-size: 2rem;
+            color: var(--primary-color);
+            opacity: 0.2;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+    .testimonial-content {
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 20px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .testimonial-author {
+        display: flex;
+        align-items: center;
+    }
+
+    .testimonial-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-right: 15px;
+    }
+
+        .testimonial-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+    .testimonial-info h4 {
+        margin: 0;
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--secondary-color);
+    }
+
+    .testimonial-info p {
+        margin: 5px 0 0;
+        font-size: 0.9rem;
+        color: #666;
+    }
+
+    /* Quote Section */
+    .quote-section {
+        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+        padding: 60px 20px;
+        margin: 60px 0;
+        border-radius: 16px;
+        color: white;
+    }
+
+    .quote-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 16px;
+        padding: 40px;
+        max-width: 800px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        box-shadow: var(--card-shadow);
+    }
+
+    .quote-image {
+        flex: 0 0 120px;
+    }
+
+        .quote-image img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+
+    .quote-text {
+        font-size: 1.2rem;
+        font-style: italic;
+        line-height: 1.6;
+    }
+
+    /* Newsletter Section */
+    .newsletter-section {
+        padding: 60px 20px;
+        background-color: var(--light-color);
+        border-radius: 16px;
+        margin: 60px 20px;
+    }
+
+    .newsletter-container {
+        max-width: 600px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .newsletter-title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        color: var(--secondary-color);
+    }
+
+    .newsletter-description {
+        font-size: 1rem;
+        color: #666;
+        margin-bottom: 30px;
+        line-height: 1.6;
+    }
+
+    .newsletter-form {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .newsletter-input {
+        flex: 1 1 300px;
+        padding: 15px;
+        border: none;
+        border-radius: 30px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .newsletter-button {
+        padding: 15px 30px;
+        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+        color: white;
+        border: none;
+        border-radius: 30px;
+        font-weight: 600;
+        cursor: pointer;
+        font-family: 'Poppins', sans-serif;
+        transition: all 0.3s ease;
+    }
+
+        .newsletter-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+    /* FAQ Section */
+    .faq-section {
+        padding: 60px 20px;
+    }
+
+    .faq-container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .faq-item {
+        background: white;
+        border-radius: 16px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+    }
+
+    .faq-question {
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        font-weight: 600;
+        color: var(--secondary-color);
+    }
+
+        .faq-question i {
+            transition: all 0.3s ease;
+        }
+
+    .faq-answer {
+        padding: 0 20px;
+        max-height: 0;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .faq-item.active .faq-question i {
+        transform: rotate(180deg);
+    }
+
+    .faq-item.active .faq-answer {
+        padding: 0 20px 20px;
+        max-height: 1000px;
+    }
+
+    /* Scroll Button */
+    .scroll-button {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+        border: none;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 100;
+        box-shadow: var(--card-shadow);
+        transition: all 0.3s ease;
+        opacity: 0;
+    }
+
+        .scroll-button:hover {
+            transform: translateY(-5px);
+        }
+
+    .svgIcon {
+        width: 24px;
+        height: 24px;
+        fill: white;
+    }
+
+    /* Footer */
+    footer {
+        background: var(--dark-color);
+        color: white;
+        padding: 60px 20px;
+        margin-top: 60px;
+        border-radius: 16px 16px 0 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .footer-left {
+        flex: 0 0 300px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .astronaut {
+        position: relative;
+        width: 150px;
+        height: 200px;
+    }
+
+    .head {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 60px;
+        background: white;
+        border-radius: 50%;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+
+    .body {
+        position: absolute;
+        top: 60px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 100px;
+        background: white;
+        border-radius: 10px;
+    }
+
+    .panel {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 40px;
+        height: 50px;
+        background: var(--primary-color);
+        border-radius: 5px;
+    }
+
+    .arm {
+        position: absolute;
+        width: 20px;
+        height: 60px;
+        background: white;
+        border-radius: 10px;
+    }
+
+    .arm-left {
+        top: 70px;
+        left: 15px;
+        transform: rotate(-20deg);
+    }
+
+    .arm-right {
+        top: 70px;
+        right: 15px;
+        transform: rotate(20deg);
+    }
+
+    .leg {
+        position: absolute;
+        width: 25px;
+        height: 70px;
+        background: white;
+        border-radius: 10px;
+        bottom: 0;
+    }
+
+    .leg-left {
+        left: 40px;
+        transform: rotate(-10deg);
+    }
+
+    .leg-right {
+        right: 40px;
+        transform: rotate(10deg);
+    }
+
+    .schoolbag {
+        position: absolute;
+        top: 70px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 70px;
+        background: var(--accent-color);
+        border-radius: 10px;
+        z-index: -1;
+    }
+
+    .footer-right {
+        flex: 0 0 60%;
+        text-align: right;
+    }
+
+        .footer-right p {
+            margin-bottom: 20px;
+        }
+
+        .footer-right a {
+            color: var(--accent-color);
+            margin-left: 20px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+            .footer-right a:hover {
+                color: white;
+            }
+
+    /* Responsive Design */
+    @@media (max-width: 992px) {
+        .hero-section
+
+    {
+        padding: 60px 0;
+    }
+
+    .title-container {
+        text-align: center;
+        margin: 0 auto;
+    }
+
+        .title-container h1 {
+            font-size: 2.5rem;
+        }
+
+    .rocket-container {
+        position: relative;
+        right: auto;
+        top: auto;
+        transform: none;
+        margin: 40px auto 0;
+    }
+
+    .quote-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-left, .footer-right {
+        flex: 0 0 100%;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+        .footer-right a {
+            display: inline-block;
+            margin: 10px;
+        }
+
+    }
+</style>
+
+<div class="hero-section">
+    <div class="stars-container" id="stars-container"></div>
+    <div class="title-container">
+        <h1>Discover the Wonders of Space</h1>
+        <div class="description">
+            Enter the world of astronomy, astrophysics, and the cosmos. Learn more about the Universe and all it has to offer.
         </div>
-        <div class="primary-button">
-            <a class="styled-button" asp-action="Index" asp-controller="Course">Започни</a>
-        </div>
+        <a class="styled-button" asp-action="Index" asp-controller="Course">Get Started</a>
     </div>
-    <div class="rocket">
+    <div class="rocket-container">
         <!-- Clouds Behind Rocket -->
-        <div class="clouds behind" style="z-index: 1">
+        <div class="clouds behind">
             <i class="fas fa-cloud" style="left:61%; top:25%"></i>
             <i class="fas fa-cloud" style="left:9%; top:75%"></i>
         </div>
-
         <!-- Rocket Icon -->
-        <div class="dot" style="z-index: 2; margin-top: 10vh;">
+        <div class="dot">
             <i class="fas fa-rocket"></i>
         </div>
-
         <!-- Clouds In Front of Rocket -->
-        <div class="clouds front" style="z-index: 3">
-            <i class="fas fa-cloud fa-cloud-front" style="left:50%; top:50%"></i>
-            <i class="fas fa-cloud fa-cloud-front" style="left:9%; top:50%"></i>
+        <div class="clouds front">
+            <i class="fas fa-cloud" style="left:50%; top:50%"></i>
+            <i class="fas fa-cloud" style="left:9%; top:30%"></i>
         </div>
     </div>
-</section>
+</div>
 
-<section style="display:flex">
-    <div class="choose-us-title">
-        Научете, Изследвайте, Открийте
-    </div>
-    <div class="choose-us-card">
+<div class="features-section">
+    <h2 class="section-title">Learn, Explore, Discover</h2>
+    <div class="card-container">
         <div class="card">
-            <p class="card__text">Достъп до висококачествени курсове</p> <!-- Center text before hover -->
+            <p class="card__text">Access to High-Quality Courses</p>
             <div class="card__content">
-
-                <p class="card__description">Нашите курсове са създадени от експерти в областта на астрономията, астрологията, физиката и космоса. Всяка лекция е внимателно структурирана, за да осигури максимално разбиране и практически знания. Независимо дали сте начинаещ или напреднал, ще намерите полезно и вдъхновяващо съдържание.</p>
+                <p class="card__description">Our courses are created by experts in astronomy, astrophysics, and space science. Each lecture is carefully structured to provide maximum understanding and practical knowledge. Whether you're a beginner or advanced, you'll find useful and inspiring content.</p>
             </div>
         </div>
         <div class="card">
-            <p class="card__text">Интерактивно и увлекателно обучение</p> <!-- Center text before hover -->
+            <p class="card__text">Interactive and Engaging Learning</p>
             <div class="card__content">
-
-                <p class="card__description">Нашите лекции включват разнообразие от текстови и визуални материали, като презентации, изображения и документи, които ще улеснят разбирането на сложните концепции в астрономията и физиката. Чрез тези ресурси ще можете да преглеждате ключови моменти от лекциите и да се запознаете с теми, които няма да намерите  в традиционните учебници.</p>
+                <p class="card__description">Our lectures include a variety of text and visual materials, such as presentations, images, and documents, which will facilitate understanding of complex concepts in astronomy and physics. Through these resources, you can review key moments from lectures and learn about topics you won't find in traditional textbooks.</p>
             </div>
         </div>
         <div class="card">
-            <p class="card__text">Гъвкавост и достъпност</p> <!-- Center text before hover -->
+            <p class="card__text">Flexibility and Accessibility</p>
             <div class="card__content">
+                <p class="card__description">Learning with us is tailored to your time and preferences. You can study from anywhere, anytime, at your own pace. Whether you're a student or simply a science enthusiast, our courses are designed to be convenient and easily accessible for you.</p>
+            </div>
+        </div>
+    </div>
+</div>
 
-                <p class="card__description">Обучението при нас е съобразено с вашето време и предпочитания. Можете да учите от всяко място, по всяко време, със собствено темпо. Независимо дали сте ученик, студент или просто любител на науката, нашите курсове са създадени, за да бъдат удобни и лесно достъпни за вас.</p>
+<!-- Featured Courses Section -->
+<div class="course-preview">
+    <h2 class="section-title">Featured Courses</h2>
+    <div class="course-grid">
+        <div class="course-card">
+            <div class="course-image">
+                <img src="/api/placeholder/600/400" alt="Introduction to Astronomy">
+                <span class="course-badge">Beginner</span>
             </div>
-        </div>
-    </div>
-    </div>
-    <button class="button">
-        <svg class="svgIcon" viewBox="0 0 384 512">
-            <path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"></path>
-        </svg>
-    </button>
-
-    <div class="qoute-card shadow">
-        <div class="card-content">
-            <div class="image">
-                <img src="img/albert-removebg-preview.png" alt="Image" />
-            </div>
-            <div class="text">
-                <p>"Погледнете нагоре към звездите, а не надолу към краката си. Опитвайте се да разберете това, което виждате, и се чудете защо Вселената съществува. Бъдете любопитни."</p>
-            </div>
-        </div>
-    </div>
-    <div class="FAQ" style="  margin-top: -850px;margin-bottom:100px;">
-        <h2>Често задавани въпроси</h2>
-        <div class="faq-container">
-            <div class="faq-item">
-                <div class="faq-question">
-                    <span>Как да започна с курсовете?</span>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    <p>Просто кликнете върху бутона "Започни" в горната част на страницата и следвайте инструкциите.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">
-                    <span>Има ли безплатни курсове?</span>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    <p>Да, всички курсове, които предоставяме са безплатни. Можете да ги намерите в секцията "Курсове".</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">
-                    <span>Мога ли да получа сертификат?</span>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    <p>Не, нашето обучение не предоставя сертификати.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">
-                    <span>Как да се свържа с поддръжката?</span>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    <p>Можете да ни пишете на galacticuniversity@gmail.com или да използвате формата за контакт.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <footer>
-        <div class="footer-left">
-            <div class="footer-left">
-                <div class="astronaut">
-                    <div class="head"></div>
-                    <div class="arm arm-left"></div>
-                    <div class="arm arm-right"></div>
-                    <div class="body">
-                        <div class="panel"></div>
+            <div class="course-content">
+                <h3 class="course-title">Introduction to Astronomy</h3>
+                <p class="course-description">Explore the fundamentals of astronomy, from planets and stars to galaxies and the expanding universe.</p>
+                <div class="course-meta">
+                    <div class="course-rating">
+                        <i class="fas fa-star"></i>
+                        <span>4.9 (246 reviews)</span>
                     </div>
-                    <div class="leg leg-left"></div>
-                    <div class="leg leg-right"></div>
-                    <div class="schoolbag"></div>
+                    <div class="course-length">
+                        <i class="fas fa-clock"></i>
+                        <span>12 weeks</span>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="footer-right">
-            <p>&copy; 2025 GalacticUniversity. All rights reserved.</p>
-            <a asp-action="Index" asp-controller="PrivacyPolicy">Privacy Policy</a>
-            <a asp-action="Index" asp-controller="TermsOfService">Terms of Service</a>
-            <a asp-action="Index" asp-controller="Contact">Contact</a>
+        <div class="course-card">
+            <div class="course-image">
+                <img src="/api/placeholder/600/400" alt="Quantum Physics Fundamentals">
+                <span class="course-badge">Intermediate</span>
+            </div>
+            <div class="course-content">
+                <h3 class="course-title">Quantum Physics Fundamentals</h3>
+                <p class="course-description">Discover the strange world of quantum mechanics and how it shapes our understanding of the universe.</p>
+                <div class="course-meta">
+                    <div class="course-rating">
+                        <i class="fas fa-star"></i>
+                        <span>4.8 (189 reviews)</span>
+                    </div>
+                    <div class="course-length">
+                        <i class="fas fa-clock"></i>
+                        <span>10 weeks</span>
+                    </div>
+                </div>
+            </div>
         </div>
-    </footer>
+        <div class="course-card">
+            <div class="course-image">
+                <img src="/api/placeholder/600/400" alt="Exoplanet Discovery">
+                <span class="course-badge">Advanced</span>
+            </div>
+            <div class="course-content">
+                <h3 class="course-title">Exoplanet Discovery</h3>
+                <p class="course-description">Learn about the cutting-edge techniques used to find planets around distant stars and their potential for life.</p>
+                <div class="course-meta">
+                    <div class="course-rating">
+                        <i class="fas fa-star"></i>
+                        <span>4.7 (132 reviews)</span>
+                    </div>
+                    <div class="course-length">
+                        <i class="fas fa-clock"></i>
+                        <span>8 weeks</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="view-all-container">
+        <a href="#" class="styled-button">View All Courses</a>
+    </div>
+</div>
 
-</section>
-<script src="~/js/scrollButton.js"></script>
-<script src="~/js/FAQ.js"></script>
+<!-- Statistics Section -->
+<div class="stats-section">
+    <h2 class="section-title" style="color: white;">Our Impact</h2>
+    <div class="stats-container">
+        <div class="stat-item">
+            <div class="stat-icon">
+                <i class="fas fa-user-graduate"></i>
+            </div>
+            <div class="stat-number">50,000+</div>
+            <div class="stat-text">Students</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-icon">
+                <i class="fas fa-book-open"></i>
+            </div>
+            <div class="stat-number">200+</div>
+            <div class="stat-text">Courses</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-icon">
+                <i class="fas fa-globe"></i>
+            </div>
+            <div class="stat-number">15+</div>
+            <div class="stat-text">Planetary Campuses</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-icon">
+                <i class="fas fa-award"></i>
+            </div>
+            <div class="stat-number">98%</div>
+            <div class="stat-text">Satisfaction Rate</div>
+        </div>
+    </div>
+</div>
+
+<!-- Testimonials Section -->
+<div class="testimonials-section">
+    <h2 class="section-title">Student Testimonials</h2>
+    <div class="testimonials-container">
+        <div class="testimonial-card">
+            <p class="testimonial-content">The astronomy course at Galactic University completely changed my perspective on space. The instructors are knowledgeable and the content is presented in a way that's easy to understand yet deeply informative.</p>
+            <div class="testimonial-author">
+                <div class="testimonial-avatar">
+                    <img src="/api/placeholder/100/100" alt="Alex Chen">
+                </div>
+                <div class="testimonial-info">
+                    <h4>Alex Chen</h4>
+                    <p>Astronomy Student</p>
+                </div>
+            </div>
+        </div>
+        <div class="testimonial-card">
+            <p class="testimonial-content">As someone who's always been fascinated by space but never had a formal education in it, Galactic University provided the perfect learning environment. The virtual laboratories and interactive simulations helped me grasp complex concepts that I struggled with before.</p>
+            <div class="testimonial-author">
+                <div class="testimonial-avatar">
+                    <img src="/api/placeholder/100/100" alt="Sarah Johnson">
+                </div>
+                <div class="testimonial-info">
+                    <h4>Sarah Johnson</h4>
+                    <p>Physics Enthusiast</p>
+                </div>
+            </div>
+        </div>
+        <div class="testimonial-card">
+            <p class="testimonial-content">The quantum physics course exceeded all my expectations. The professors explain complex theories in a way that makes them accessible while still maintaining their depth. The community of learners is incredibly supportive too!</p>
+            <div class="testimonial-author">
+                <div class="testimonial-avatar">
+                    <img src="/api/placeholder/100/100" alt="Marcus Wei">
+                </div>
+                <div class="testimonial-info">
+                    <h4>Marcus Wei</h4>
+                    <p>Graduate Student</p>
+                </div>
+            </div>
+</div>

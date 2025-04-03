@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - GalacticUniversity</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/Body.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/navbar.css" asp-append-version="true" />
+
+    @*<link rel="stylesheet" href="~/css/Body.css" asp-append-version="true" /> *@
+    <link rel="stylesheet" href="~/css/navbar.css" asp-append-version="true" /> 
     <link rel="stylesheet" href="~/css/rocket.css" />
+
     @* Toaster *@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" asp-append-version="true" />
     <!-- Font Awesome for Rocket Icon -->
@@ -56,7 +57,7 @@
                     </span>
                     <span class="link-title" style="white-space: nowrap;">Tarot</span>
                 </a>
-                
+
                 <a asp-controller="AboutUs" asp-action="Index" class="link">
                     <span class="link-icon">
                         <svg viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>about</title> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="about-white" fill="#000000" transform="translate(42.666667, 42.666667)"> <path d="M213.333333,3.55271368e-14 C95.51296,3.55271368e-14 3.55271368e-14,95.51168 3.55271368e-14,213.333333 C3.55271368e-14,331.153707 95.51296,426.666667 213.333333,426.666667 C331.154987,426.666667 426.666667,331.153707 426.666667,213.333333 C426.666667,95.51168 331.154987,3.55271368e-14 213.333333,3.55271368e-14 Z M213.333333,384 C119.227947,384 42.6666667,307.43872 42.6666667,213.333333 C42.6666667,119.227947 119.227947,42.6666667 213.333333,42.6666667 C307.44,42.6666667 384,119.227947 384,213.333333 C384,307.43872 307.44,384 213.333333,384 Z M240.04672,128 C240.04672,143.46752 228.785067,154.666667 213.55008,154.666667 C197.698773,154.666667 186.713387,143.46752 186.713387,127.704107 C186.713387,112.5536 197.99616,101.333333 213.55008,101.333333 C228.785067,101.333333 240.04672,112.5536 240.04672,128 Z M192.04672,192 L234.713387,192 L234.713387,320 L192.04672,320 L192.04672,192 Z" id="Shape"> </path> </g> </g> </g></svg>
@@ -87,6 +88,47 @@
                     <span class="link-title">My profile</span>
                 </a>
             }
+            @if (User.IsInRole("Admin"))
+            {
+               
+                <a asp-controller="Category" asp-action="Index" class="link">
+                    <span class="link-icon">
+                        <svg fill="#000000" viewBox="-7.5 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>category</title> <path d="M2.594 4.781l-1.719 1.75h15.5l-1.719-1.75h-12.063zM17.219 13.406h-17.219v-6.031h17.219v6.031zM12.063 11.688v-1.719h-6.875v1.719h0.844v-0.875h5.156v0.875h0.875zM17.219 20.313h-17.219v-6.031h17.219v6.031zM12.063 18.594v-1.75h-6.875v1.75h0.844v-0.875h5.156v0.875h0.875zM17.219 27.188h-17.219v-6h17.219v6zM12.063 25.469v-1.719h-6.875v1.719h0.844v-0.875h5.156v0.875h0.875z"></path> </g></svg>
+                    </span>
+                    <span class="link-title">Categories</span>
+                </a>
+                <a asp-controller="Comment" asp-action="Index" class="link">
+                    <span class="link-icon">
+                        <svg viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>comment 2</title> <desc>Created with Sketch Beta.</desc> <defs> </defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage"> <g id="Icon-Set-Filled" sketch:type="MSLayerGroup" transform="translate(-154.000000, -257.000000)" fill="#000000"> <path d="M177,270 L163,270 C162.448,270 162,269.553 162,269 C162,268.448 162.448,268 163,268 L177,268 C177.552,268 178,268.448 178,269 C178,269.553 177.552,270 177,270 L177,270 Z M175,276 L165,276 C164.448,276 164,275.553 164,275 C164,274.447 164.448,274 165,274 L175,274 C175.552,274 176,274.447 176,275 C176,275.553 175.552,276 175,276 L175,276 Z M170,257 C161.164,257 154,263.269 154,271 C154,275.419 156.345,279.354 160,281.919 L160,289 L167.009,284.747 C167.979,284.907 168.977,285 170,285 C178.836,285 186,278.732 186,271 C186,263.269 178.836,257 170,257 L170,257 Z" id="comment-2" sketch:type="MSShapeGroup"> </path> </g> </g> </g></svg>
+                    </span>
+                    <span class="link-title">Comments</span>
+                </a>
+                <a asp-controller="Lecture" asp-action="Index" class="link">
+                    <span class="link-icon">
+                        <svg fill="#000000" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 31.979 31.979" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <circle cx="13.479" cy="4.501" r="4.501"></circle> <path d="M27.248,20.753c-1.396-0.655-2.814-0.925-4.292-1.303c-0.536-0.138,1.149-0.476,1.36-0.521 c0.629-0.13,1.252-0.271,1.862-0.475c0.563-0.188,1.234-0.618,1.044-1.312c-0.097-0.348-0.393-0.562-0.762-0.711 c0.122-0.113,0.219-0.25,0.262-0.44c0.063-0.29-0.044-0.541-0.287-0.706c-0.504-0.34-1.168-0.404-1.838-0.44 c0.088-0.077,0.182-0.149,0.258-0.249c0.141-0.186,0.084-0.442,0-0.632c-0.189-0.419-0.559-0.538-0.984-0.635 c-0.372-0.084-0.786-0.087-1.16-0.141c0.186,0.026,0.607-0.155,0.831-0.339c1.394-1.14-0.718-1.889-1.61-1.995 c-0.799-0.096-0.789,1.155,0,1.25c0.875,0.104,0.385-0.038-0.162,0.239c-0.17,0.086-0.356,0.26-0.453,0.423 c-0.229,0.391-0.127,0.751,0.09,1.101c0.271,0.437,0.904,0.518,1.359,0.582c0.029,0.004,0.047,0.006,0.073,0.01 c-0.142,0.07-0.28,0.146-0.411,0.246c-0.42,0.324-0.408,0.965,0.149,1.143c0.388,0.123,0.87,0.142,1.36,0.158 c-0.002,0.001-0.008,0.003-0.01,0.004c-0.529,0.256-0.312,0.975,0.149,1.143c0.362,0.132,0.739,0.217,1.116,0.298 c-0.279,0.073-0.562,0.137-0.844,0.198c-0.861,0.189-2.222,0.336-2.771,1.119c-0.493,0.701-0.206,1.358,0.537,1.707 c1.416,0.664,3.053,0.676,4.5,1.357C27.341,22.174,27.977,21.098,27.248,20.753z"></path> <path d="M29.904,11.48V7.814h-2.957V6.896h-1.893c0.016-0.069,0.043-0.134,0.043-0.208c0-0.574-0.484-1.041-1.082-1.041 c-0.599,0-1.084,0.467-1.084,1.041c0,0.074,0.028,0.139,0.043,0.208h-1.82v0.918h-3.416v1.87L17.65,9.68h-2.534l-1.716,1.99 l-1.66-1.99l-3.643,0.492l-2.739,6.225l-1.8-1.892l-2.723-1.276l0.962,2.888l4.395,4.628L6.19,20.748l1.41,1.479l1.74-1.658 L7.93,19.09l-0.002,0.003l-1.242-1.304l2.559-5.371l0.244,7.71h0.236v1.026v0.755v8.014H9.414l-1.807,0.392v1.664h1.539 l1.796-0.293l0.016,0.293h1.988v-1.854v-0.2V21.91h1.133v8.014v0.2v1.854h1.99l0.015-0.293l1.795,0.293h1.539v-1.664l-1.807-0.392 h-0.31v-8.014v-0.755v-1.026h0.286l0.152-2.969v6.987h12.166v-9.167h1.236V11.48H29.904z M2.838,15.445L2.173,15.31l-0.027,0.864 l-0.144-0.15l-0.548-1.648l0.431-0.41l1.527,0.711l0.199,0.209l-0.91-0.076L2.838,15.445z M8.184,20.007l0.522,0.548l-1.092,1.039 l-0.521-0.547L8.184,20.007z M24.025,6.298c0.242,0,0.438,0.195,0.438,0.438c0,0.243-0.196,0.438-0.438,0.438 c-0.241,0-0.438-0.195-0.438-0.438C23.588,6.493,23.785,6.298,24.025,6.298z M28.904,11.48h-0.791v3.499h0.791v8.167H18.738V8.814 h2.418v0.708h5.791V8.814h1.959v2.666H28.904z"></path> </g> </g></svg>
+                    </span>
+                    <span class="link-title">Lectures</span>
+                </a>
+                <a asp-controller="LectureResource" asp-action="Index" class="link">
+                    <span class="link-icon">
+                        <svg viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M162.889143 102.838857h-4.973714c-42.422857 0-76.8 34.377143-76.8 76.8v628.150857c0 42.422857 34.377143 76.8 76.8 76.8h635.026285c42.422857 0 76.8-34.377143 76.8-76.8V179.638857c0-42.422857-34.377143-76.8-76.8-76.8h-8.850285V404.48c0 55.954286-45.348571 101.229714-101.229715 101.229714H264.118857c-55.954286 0-101.229714-45.348571-101.229714-101.229714V102.838857z m62.829714 0V404.48c0 21.211429 17.188571 38.4 38.4 38.4h418.742857c21.211429 0 38.4-17.188571 38.4-38.4V102.838857H225.718857zM157.915429 40.009143h635.026285c77.092571 0 139.629714 62.537143 139.629715 139.629714v628.150857a139.629714 139.629714 0 0 1-139.629715 139.629715H157.988571A139.629714 139.629714 0 0 1 18.285714 807.789714V179.638857c0-77.092571 62.464-139.629714 139.629715-139.629714z m420.278857 114.468571c19.236571 0 34.889143 15.579429 34.889143 34.889143V365.714286a34.889143 34.889143 0 1 1-69.778286 0V189.44c0-19.309714 15.579429-34.889143 34.889143-34.889143z" fill="#000000"></path></g></svg>
+                    </span>
+                    <span class="link-title">Resources</span>
+                </a>
+                <a asp-controller="User" asp-action="Index" class="link">
+                    <span class="link-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M11 15C10.1183 15 9.28093 14.8098 8.52682 14.4682C8.00429 14.2315 7.74302 14.1131 7.59797 14.0722C7.4472 14.0297 7.35983 14.0143 7.20361 14.0026C7.05331 13.9914 6.94079 14 6.71575 14.0172C6.6237 14.0242 6.5425 14.0341 6.46558 14.048C5.23442 14.2709 4.27087 15.2344 4.04798 16.4656C4 16.7306 4 17.0485 4 17.6841V19.4C4 19.9601 4 20.2401 4.10899 20.454C4.20487 20.6422 4.35785 20.7951 4.54601 20.891C4.75992 21 5.03995 21 5.6 21H8.4M15 7C15 9.20914 13.2091 11 11 11C8.79086 11 7 9.20914 7 7C7 4.79086 8.79086 3 11 3C13.2091 3 15 4.79086 15 7ZM12.5898 21L14.6148 20.595C14.7914 20.5597 14.8797 20.542 14.962 20.5097C15.0351 20.4811 15.1045 20.4439 15.1689 20.399C15.2414 20.3484 15.3051 20.2848 15.4324 20.1574L19.5898 16C20.1421 15.4477 20.1421 14.5523 19.5898 14C19.0376 13.4477 18.1421 13.4477 17.5898 14L13.4324 18.1574C13.3051 18.2848 13.2414 18.3484 13.1908 18.421C13.1459 18.4853 13.1088 18.5548 13.0801 18.6279C13.0478 18.7102 13.0302 18.7985 12.9948 18.975L12.5898 21Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                    </span>
+                    <span class="link-title">Users</span>
+                </a>
+                <a asp-controller="Certificate" asp-action="Index" class="link">
+                    <span class="link-icon">
+                        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <rect width="48" height="48" fill="white" fill-opacity="0.01"></rect> <path d="M42 6H6C4.89543 6 4 6.89543 4 8V34C4 35.1046 4.89543 36 6 36H42C43.1046 36 44 35.1046 44 34V8C44 6.89543 43.1046 6 42 6Z" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M12 14L36 14" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M12 21H18" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M12 28H16" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path> <circle cx="30" cy="27" r="6" fill="#2F88FF" stroke="#000000" stroke-width="4"></circle> <path d="M30 40L34 42V31.4722C34 31.4722 32.8594 33 30 33C27.1406 33 26 31.5 26 31.5V42L30 40Z" fill="#2F88FF" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                    </span>
+                    <span class="link-title">Certificates</span>
+                </a>
+                
+            }
         </nav>
     </header>
 
@@ -98,11 +140,416 @@
         </main>
     </div>
 
-  @*   <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - GalacticUniversity - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer class="galactic-footer">
+        <div class="footer-stars-container" id="footer-stars-container"></div>
+        <div class="footer-content container">
+            <div class="footer-grid">
+                <div class="footer-logo-section">
+                    <div class="astronaut">
+                        <div class="head"></div>
+                        <div class="arm arm-left"></div>
+                        <div class="arm arm-right"></div>
+                        <div class="body">
+                            <div class="panel"></div>
+                        </div>
+                        <div class="leg leg-left"></div>
+                        <div class="leg leg-right"></div>
+                        <div class="schoolbag"></div>
+                    </div>
+                    <h3>Galactic University</h3>
+                    <p class="footer-tagline">Expanding minds across the universe since 2120</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li><a asp-area="" asp-controller="Course" asp-action="Index">Courses</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="About">About Us</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Learning Materials</a></li>
+                        <li><a href="#">Student Portal</a></li>
+                        <li><a href="#">Research Database</a></li>
+                        <li><a href="#">Interplanetary Exchange</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy Policy</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Terms">Terms of Service</a></li>
+                        <li><a href="#">Accessibility</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 - Galactic University - All rights reserved</p>
+                <p class="footer-credit">Made with <i class="fas fa-heart"></i> across the solar system</p>
+            </div>
         </div>
-    </footer> *@
+    </footer>
+
+    <style>
+        .galactic-footer {
+            background: linear-gradient(to top, #1f2937 0%, #374151 100%);
+            color: white;
+            position: relative;
+            padding: 60px 0 30px;
+            margin-top: 80px;
+            overflow: hidden;
+            border-top-left-radius: 30px;
+            border-top-right-radius: 30px;
+        }
+
+        .footer-stars-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .footer-star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: twinkle 3s infinite;
+        }
+
+        @@keyframes twinkle {
+            0%
+
+        {
+            opacity: 0.1;
+        }
+
+        50% {
+            opacity: 0.5;
+        }
+
+        100% {
+            opacity: 0.1;
+        }
+
+        }
+
+        .footer-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo-section {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+            .footer-logo-section h3 {
+                font-size: 1.8rem;
+                font-weight: 700;
+                margin: 20px 0 10px;
+                background: linear-gradient(90deg, #6366f1, #8b5cf6);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+
+        .footer-tagline {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+            .social-icon:hover {
+                background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+                transform: translateY(-5px);
+            }
+
+        .footer-links h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+            .footer-links h4::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 40px;
+                height: 3px;
+                background: linear-gradient(90deg, #6366f1, #8b5cf6);
+                border-radius: 3px;
+            }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 15px;
+        }
+
+            .footer-links a::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 6px;
+                height: 6px;
+                background: #6366f1;
+                border-radius: 50%;
+                opacity: 0.7;
+                transition: all 0.3s ease;
+            }
+
+            .footer-links a:hover {
+                color: white;
+                padding-left: 20px;
+            }
+
+                .footer-links a:hover::before {
+                    opacity: 1;
+                    background: #8b5cf6;
+                }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .footer-credit {
+            display: flex;
+            align-items: center;
+        }
+
+            .footer-credit i {
+                color: #ff4d6d;
+                margin: 0 5px;
+                animation: heartbeat 1.5s infinite;
+            }
+
+        @@keyframes heartbeat {
+            0%
+
+        {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.2);
+        }
+
+        100% {
+            transform: scale(1);
+        }
+
+        }
+
+        /* Astronaut styling */
+        .astronaut {
+            position: relative;
+            width: 100px;
+            height: 120px;
+        }
+
+        .head {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .body {
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 60px;
+            background: white;
+            border-radius: 10px;
+        }
+
+        .panel {
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 25px;
+            height: 30px;
+            background: #6366f1;
+            border-radius: 5px;
+        }
+
+        .arm {
+            position: absolute;
+            width: 12px;
+            height: 35px;
+            background: white;
+            border-radius: 10px;
+        }
+
+        .arm-left {
+            top: 45px;
+            left: 17px;
+            transform: rotate(-20deg);
+        }
+
+        .arm-right {
+            top: 45px;
+            right: 17px;
+            transform: rotate(20deg);
+        }
+
+        .leg {
+            position: absolute;
+            width: 15px;
+            height: 40px;
+            background: white;
+            border-radius: 10px;
+            bottom: 0;
+        }
+
+        .leg-left {
+            left: 30px;
+            transform: rotate(-10deg);
+        }
+
+        .leg-right {
+            right: 30px;
+            transform: rotate(10deg);
+        }
+
+        .schoolbag {
+            position: absolute;
+            top: 45px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 35px;
+            height: 40px;
+            background: #8b5cf6;
+            border-radius: 6px;
+            z-index: -1;
+        }
+
+        /* Responsive design */
+        @@media (max-width: 992px) {
+            .footer-grid
+
+        {
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .footer-logo-section {
+            grid-column: span 2;
+            align-items: center;
+            text-align: center;
+        }
+
+        }
+
+        @@media (max-width: 576px) {
+            .footer-grid
+
+        {
+            grid-template-columns: 1fr;
+        }
+
+        .footer-logo-section {
+            grid-column: span 1;
+        }
+
+        .footer-bottom {
+            flex-direction: column;
+            gap: 10px;
+            text-align: center;
+        }
+
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create twinkling stars in the footer
+            const starsContainer = document.getElementById('footer-stars-container');
+            const starCount = 50;
+
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'footer-star';
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 3}s`;
+                starsContainer.appendChild(star);
+            }
+        });
+    </script>
     <partial name="_Notification"></partial>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

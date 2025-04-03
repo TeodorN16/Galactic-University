@@ -119,7 +119,7 @@ namespace GalacticUniversity.Controllers
             int courseId = comment.CourseID;
 
             await _commentService.Delete(comment);
-
+            TempData["success"] = "Succesfully deleted comment";
             return RedirectToAction("Details", "Course", new { id = courseId });
         }
         public async Task<IActionResult> GetCommentsForCourse(int id)
