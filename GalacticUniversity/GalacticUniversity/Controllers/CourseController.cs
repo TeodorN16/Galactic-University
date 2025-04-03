@@ -153,6 +153,7 @@ namespace GalacticUniversity.Controllers
                 Description = course.Description,
                 StartDate = course.StartDate,
                 EndDate = course.EndDate,
+                ImageURL=course.ImageURL,
                 CategoryID = course.CategoryID,
                 Categories = categories.Select(c => new SelectListItem
                 {
@@ -168,6 +169,15 @@ namespace GalacticUniversity.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(CourseQueryViewModel cvm)
         {
+            // Get the existing course to preserve image if no new one is uploaded
+            var existingCourse = await _courseService.Get(cvm.ID);
+
+            string uploadedImageURL = null;
+            if (cvm.Image != null)
+            {
+                uploadedImageURL = await _cloudinaryService.UploadImageAsync(cvm.Image);
+            }
+
             var course = new Course
             {
                 CourseID = cvm.ID,
@@ -176,9 +186,11 @@ namespace GalacticUniversity.Controllers
                 StartDate = cvm.StartDate,
                 EndDate = cvm.EndDate,
                 CategoryID = cvm.CategoryID,
+                ImageURL = uploadedImageURL ?? cvm.ImageURL ?? existingCourse.ImageURL
             };
+
             await _courseService.Update(course);
-            TempData["success"] = "Succesfully edited course!";
+            TempData["success"] = "Successfully edited course!";
             return RedirectToAction("Index");
         }
         [Authorize(Roles = "Admin")]

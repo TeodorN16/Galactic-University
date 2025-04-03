@@ -14,7 +14,7 @@ namespace GalacticUniversity.Controllers
         {
             _categoryService = categoryService;
         }
-        [Authorize(Roles = "User,Admin")]
+        [Authorize(Roles = "Admin")]
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
@@ -43,6 +43,7 @@ namespace GalacticUniversity.Controllers
 
             };
             await _categoryService.Add(category);
+            TempData["success"] = "Successfully added a category";
             return RedirectToAction("Index");
         }
         [Authorize(Roles = "Admin")]
@@ -68,6 +69,7 @@ namespace GalacticUniversity.Controllers
                 CategoryName = ctvm.Name
             };
             await _categoryService.Update(category);
+            TempData["success"] = "Successfully edited category";
             return RedirectToAction("Index");
         }
         [HttpPost]
@@ -75,6 +77,7 @@ namespace GalacticUniversity.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             await _categoryService.Delete(await _categoryService.Get(id));
+            TempData["success"] = "Successfully deleted category";
             return RedirectToAction("Index");
         }
     }
