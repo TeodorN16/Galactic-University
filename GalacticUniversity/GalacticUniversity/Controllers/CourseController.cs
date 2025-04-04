@@ -169,27 +169,33 @@ namespace GalacticUniversity.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(CourseQueryViewModel cvm)
         {
-            // Get the existing course to preserve image if no new one is uploaded
+           
             var existingCourse = await _courseService.Get(cvm.ID);
 
-            string uploadedImageURL = null;
+            // Update the properties of the existing entity
+            existingCourse.CourseName = cvm.CourseName;
+            existingCourse.Description = cvm.Description;
+            existingCourse.StartDate = cvm.StartDate;
+            existingCourse.EndDate = cvm.EndDate;
+            existingCourse.CategoryID = cvm.CategoryID;
+
+            
             if (cvm.Image != null)
             {
-                uploadedImageURL = await _cloudinaryService.UploadImageAsync(cvm.Image);
+                // Upload new image
+                string uploadedImageURL = await _cloudinaryService.UploadImageAsync(cvm.Image);
+                existingCourse.ImageURL = uploadedImageURL;
             }
-
-            var course = new Course
+            else if (!string.IsNullOrEmpty(cvm.ImageURL))
             {
-                CourseID = cvm.ID,
-                CourseName = cvm.CourseName,
-                Description = cvm.Description,
-                StartDate = cvm.StartDate,
-                EndDate = cvm.EndDate,
-                CategoryID = cvm.CategoryID,
-                ImageURL = uploadedImageURL ?? cvm.ImageURL ?? existingCourse.ImageURL
-            };
+              
+                existingCourse.ImageURL = cvm.ImageURL;
+            }
+            
 
-            await _courseService.Update(course);
+            
+            await _courseService.Update(existingCourse);
+
             TempData["success"] = "Successfully edited course!";
             return RedirectToAction("Index");
         }

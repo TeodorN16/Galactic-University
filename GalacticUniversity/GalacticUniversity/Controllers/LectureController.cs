@@ -28,7 +28,8 @@ namespace GalacticUniversity.Controllers
                 ID = l.LectureID,
                 Name = l.LectureName,
                 Description = l.Description,
-                
+                CourseID = l.CourseID ?? 0
+
             });
             return View(model);
         }
@@ -56,21 +57,28 @@ namespace GalacticUniversity.Controllers
 
             };
             await _lectureService.Add(lecture);
+            TempData["success"] = "Succesfully added lecture";
             return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> Edit(int id)
         {
             Lecture lecture = await _lectureService.Get(id);
+            var courses = _courseService.GetAll();
 
             var model = new LectureViewModel
             {
                 ID = lecture.LectureID,
                 Name = lecture.LectureName,
                 Description = lecture.Description,
-                
+                Courses = courses.Select(c => new SelectListItem
+                {
+                    Value = c.CourseID.ToString(),
+                    Text = c.CourseName,
+                }).ToList()
+
             };
-            return View(lecture);
+            return View(model);
         }
 
         [HttpPost]
@@ -78,11 +86,13 @@ namespace GalacticUniversity.Controllers
         {
             var lecture = new Lecture
             {
+                LectureID=lvm.ID,
                 LectureName = lvm.Name,
                 Description = lvm.Description,
                 CourseID = lvm.CourseID,
             };
             await _lectureService.Update(lecture);
+            TempData["success"] = "Succesfully edited lecture";
             return RedirectToAction("Index");
         }
 
@@ -90,6 +100,7 @@ namespace GalacticUniversity.Controllers
         public async Task<IActionResult> Delete(int id) 
         {
             await _lectureService.Delete(await _lectureService.Get(id));
+            TempData["success"] = "Succesfully deleted lecture";
             return RedirectToAction("Index");
         }
 

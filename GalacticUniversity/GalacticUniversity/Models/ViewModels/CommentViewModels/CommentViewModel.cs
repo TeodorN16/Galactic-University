@@ -1,4 +1,6 @@
-﻿namespace GalacticUniversity.Models.ViewModels.CommentViewModels
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+
+namespace GalacticUniversity.Models.ViewModels.CommentViewModels
 {
     public class CommentViewModel
     {
@@ -11,5 +13,7 @@
         public int Rating { get; set; }
 
         public int CourseID { get; set; }
+
+        public List<SelectListItem> Courses { get; set; }
     }
 }

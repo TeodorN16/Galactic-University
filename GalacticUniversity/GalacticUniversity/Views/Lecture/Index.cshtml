@@ -274,6 +274,7 @@
                             <th scope="col">ID</th>
                             <th scope="col">Lecture Name</th>
                             <th scope="col">Description</th>
+                            <th scope="col">CourseID</th>
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
@@ -284,6 +285,7 @@
                                 <th scope="row">@item.ID</th>
                                 <td>@item.Name</td>
                                 <td>@item.Description</td>
+                                <td>@item.CourseID</td>
                                 <td>
                                     <div class="btn-group">
                                         <a class="btn btn-primary btn-sm" asp-action="Edit" asp-controller="Lecture" asp-route-id="@item.ID">

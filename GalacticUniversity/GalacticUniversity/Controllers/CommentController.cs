@@ -1,21 +1,25 @@
 ﻿using GalacticUniversity.Core.CommentService;
+using GalacticUniversity.Core.CourseService;
 using GalacticUniversity.Models;
 using GalacticUniversity.Models.ViewModels.CommentViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GalacticUniversity.Controllers
 {
     public class CommentController : Controller
     {
         private readonly ICommentService _commentService;
+        private readonly ICourseService _courseService;
         private readonly UserManager<User> _userManager;
 
-        public CommentController(ICommentService commentService, UserManager<User> userManager)
+        public CommentController(ICommentService commentService, UserManager<User> userManager,ICourseService courseService)
         {
             _commentService = commentService;
             _userManager = userManager;
+            _courseService = courseService;
         }
 
         [Authorize(Roles = "Admin")]
@@ -33,37 +37,73 @@ namespace GalacticUniversity.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> Add()
+        {
+            var courses = _courseService.GetAll();
+
+            CommentViewModel cvm = new CommentViewModel
+            {
+                Courses = courses.Select(c => new SelectListItem
+                {
+                    Value = c.CourseID.ToString(),
+                    Text = c.CourseName
+                }).ToList()
+
+            };
+            return View(cvm);
+        }
+
         [HttpPost]
         [Authorize(Roles = "User,Admin")]
         public async Task<IActionResult> Add(CommentViewModel cvm)
         {
             var currentUser = await _userManager.GetUserAsync(User);
 
-            if (!ModelState.IsValid)
+            if (cvm.CourseID != 0 && string.IsNullOrEmpty(cvm.CommentText) == false)
             {
-                return RedirectToAction("Details", "Course", new { id = cvm.CourseID });
+             
+
+                var comment = new Comment
+                {
+                    CommentID = cvm.ID,
+                    CommentText = cvm.CommentText,
+                    CommentDate = DateTime.Now,
+                    Rating = cvm.Rating > 0 ? cvm.Rating : 1, 
+                    UserID = currentUser.Id,
+                    CourseID = cvm.CourseID
+                };
+
+                await _commentService.Add(comment);
+                TempData["success"] = "Comment added successfully!";
+
+                if (User.IsInRole("Admin"))
+                {
+                    return RedirectToAction("Index", "Comment");
+                }
+                return RedirectToAction("Learn", "User", new { id = comment.CourseID });
             }
-
-            var comment = new Comment
+            if (!ModelState.IsValid || cvm.CourseID == 0 || string.IsNullOrEmpty(cvm.CommentText))
             {
-                CommentID = cvm.ID,
-                CommentText = cvm.CommentText,
-                CommentDate = DateTime.Now,
-                Rating = cvm.Rating,
-                UserID = currentUser.Id,
-                CourseID = cvm.CourseID
-            };
+                // Repopulate the courses dropdown
+                var courses = _courseService.GetAll();
+                cvm.Courses = courses.Select(c => new SelectListItem
+                {
+                    Value = c.CourseID.ToString(),
+                    Text = c.CourseName
+                }).ToList();
 
-            await _commentService.Add(comment);
-
-            // Redirect back to the course details page
-            return RedirectToAction("Learn", "User", new { id = comment.CourseID });
+                TempData["error"] = "Please check your inputs and try again.";
+                return View(cvm);
+            }
+            TempData["success"] = "Comment added!";
+            return RedirectToAction("Index", "Home");
         }
 
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id)
         {
             var comment = await _commentService.Get(id);
+            var courses = _commentService.GetAll(); 
 
             if (comment == null)
             {
@@ -76,7 +116,13 @@ namespace GalacticUniversity.Controllers
                 CommentText = comment.CommentText,
                 CommentDate = comment.CommentDate,
                 Rating = comment.Rating,
-                CourseID = comment.CourseID
+                CourseID = comment.CourseID,
+                Courses = courses.Select(c => new SelectListItem
+                {
+                    Value = c.CourseID.ToString(),
+                    Text = c.Course.CourseName,
+                }).ToList()
+
             };
 
             return View(viewModel);
@@ -119,7 +165,12 @@ namespace GalacticUniversity.Controllers
             int courseId = comment.CourseID;
 
             await _commentService.Delete(comment);
-            TempData["success"] = "Succesfully deleted comment";
+            if (User.IsInRole("Admin"))
+            {
+                TempData["success"] = "Succesfully deleted comment";
+                return RedirectToAction("Index","Comment");
+            }
+            
             return RedirectToAction("Details", "Course", new { id = courseId });
         }
         public async Task<IActionResult> GetCommentsForCourse(int id)

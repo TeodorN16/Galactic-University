@@ -310,7 +310,7 @@
     <!-- Admin section with table and add button -->
     <div class="admin-header">
         <h2 class="section-title">Comments Management</h2>
-        <a class="btn btn-success" asp-action="Add">
+        <a class="btn btn-success" asp-controller="Comment" asp-action="Add">
             <i class="bi bi-plus-circle me-2"></i>Add New Comment
         </a>
     </div>
@@ -354,9 +354,7 @@
                                 </td>
                                 <td>
                                     <div class="btn-group">
-                                        <a asp-action="Edit" asp-route-id="@comment.ID" class="btn btn-primary btn-sm">
-                                            <i class="bi bi-pencil-fill me-1"></i> Edit
-                                        </a>
+                                       
                                         <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal-@comment.ID">
                                             <i class="bi bi-trash-fill me-1"></i> Delete
                                         </button>
@@ -376,7 +374,7 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                                    <form asp-action="Delete" asp-route-id="@comment.ID" method="post">
+                                                    <form asp-controller="Comment" asp-action="Delete" asp-route-id="@comment.ID" method="post">
                                                         <button type="submit" class="btn btn-danger">Delete</button>
                                                     </form>
                                                 </div>

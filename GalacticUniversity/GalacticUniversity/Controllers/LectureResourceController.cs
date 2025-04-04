@@ -88,11 +88,18 @@ namespace GalacticUniversity.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(LectureResourceQueryViewModel lrvm)
         {
+            var uploadedImage = _cloudinaryService.UploadImageAsync(lrvm.File);
+            var currentLecture = await _lectureResourceService.Get(lrvm.ID);
+
+            var currentImage = currentLecture.FileUrl;
+
+            
             var model = new LectureResource
             {
                 ResourceID = lrvm.ID,
-                FileUrl= lrvm.FileUrl,
+                FileUrl= uploadedImage.ToString() ?? lrvm.FileUrl,
                 LectureID = lrvm.LectureId,
+                
                
             };
             await _lectureResourceService.Update(model);
