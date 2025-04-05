@@ -14,6 +14,7 @@ using System.Net.Mime;
 using SelectPdf;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GalacticUniversity.Controllers
 {
@@ -73,8 +74,61 @@ namespace GalacticUniversity.Controllers
 
             return View(viewModel);
         }
-        [HttpPost]
+       
+        public async Task<IActionResult> Edit(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return BadRequest("User ID is required.");
+            }
 
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
+
+            var model = new UserEditViewModel
+            {
+                Id = user.Id,
+                Email = user.Email,
+                UserName = user.UserName,
+                PhoneNumber = user.PhoneNumber
+            };
+
+            return View(model);
+        }
+
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(UserEditViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByIdAsync(model.Id);
+                if (user == null)
+                {
+                    return NotFound("User not found.");
+                }
+
+                user.UserName = model.UserName;
+                user.Email = model.Email;
+                user.PhoneNumber = model.PhoneNumber;
+                
+                var result = await _userManager.UpdateAsync(user);
+                TempData["success"] = "Profile updated successfully";
+                return RedirectToAction("MyProfile");
+                
+
+               
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(string id)
         {
             if (string.IsNullOrEmpty(id))

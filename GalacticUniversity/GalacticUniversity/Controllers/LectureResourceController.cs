@@ -64,6 +64,7 @@ namespace GalacticUniversity.Controllers
 
             };
             await _lectureResourceService.Add(lectureResource);
+            TempData["success"] = "Succesfuly added resource";
             return RedirectToAction("Index");
         }
         public async Task<IActionResult> Edit(int id)
@@ -88,27 +89,35 @@ namespace GalacticUniversity.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(LectureResourceQueryViewModel lrvm)
         {
-            var uploadedImage = _cloudinaryService.UploadImageAsync(lrvm.File);
-            var currentLecture = await _lectureResourceService.Get(lrvm.ID);
-
-            var currentImage = currentLecture.FileUrl;
+           
+            var currentLectureResource = await _lectureResourceService.Get(lrvm.ID);
 
             
-            var model = new LectureResource
+            if (lrvm.File != null)
             {
-                ResourceID = lrvm.ID,
-                FileUrl= uploadedImage.ToString() ?? lrvm.FileUrl,
-                LectureID = lrvm.LectureId,
                 
-               
-            };
-            await _lectureResourceService.Update(model);
+                string uploadedFileURL = await _cloudinaryService.UploadImageAsync(lrvm.File);
+                currentLectureResource.FileUrl = uploadedFileURL;
+            }
+            else if (!string.IsNullOrEmpty(lrvm.FileUrl))
+            {
+                
+                currentLectureResource.FileUrl = lrvm.FileUrl;
+            }
+
+            // Update the lecture ID
+            currentLectureResource.LectureID = lrvm.LectureId;
+
+          
+            await _lectureResourceService.Update(currentLectureResource);
+            TempData["success"] = "Succesfuly edited resource";
             return RedirectToAction("Index");
         }
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
             await _lectureResourceService.Delete(await _lectureResourceService.Get(id));
+            TempData["success"] = "Succesfuly deleted resource";
             return RedirectToAction("Index");
         }
     }

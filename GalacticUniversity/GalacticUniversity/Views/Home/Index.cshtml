@@ -1,10 +1,12 @@
-﻿@{
+﻿@model List<GalacticUniversity.Models.Course>
+@{
     ViewData["Title"] = "Galactic University - Home";
 }
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+<!-- Styles remain the same - styles section is here but omitted for brevity -->
 <style>
     :root {
         --primary-color: #6366f1;
@@ -53,20 +55,17 @@
     }
 
     @@keyframes twinkle {
-        0%
+        0% {
+            opacity: 0.2;
+        }
 
-    {
-        opacity: 0.2;
-    }
+        50% {
+            opacity: 1;
+        }
 
-    50% {
-        opacity: 1;
-    }
-
-    100% {
-        opacity: 0.2;
-    }
-
+        100% {
+            opacity: 0.2;
+        }
     }
 
     .title-container {
@@ -136,16 +135,13 @@
         }
 
     @@keyframes rocket-move {
-        0%, 100%
+        0%, 100% {
+            transform: translateY(0) rotate(45deg);
+        }
 
-    {
-        transform: translateY(0) rotate(45deg);
-    }
-
-    50% {
-        transform: translateY(-30px) rotate(45deg);
-    }
-
+        50% {
+            transform: translateY(-30px) rotate(45deg);
+        }
     }
 
     .clouds {
@@ -170,20 +166,17 @@
         }
 
     @@keyframes cloud-move {
-        0%
+        0% {
+            transform: translateY(0);
+        }
 
-    {
-        transform: translateY(0);
-    }
+        50% {
+            transform: translateY(-20px);
+        }
 
-    50% {
-        transform: translateY(-20px);
-    }
-
-    100% {
-        transform: translateY(0);
-    }
-
+        100% {
+            transform: translateY(0);
+        }
     }
 
     /* Features Section */
@@ -224,7 +217,7 @@
         background: white;
         border-radius: 16px;
         width: 300px;
-        height: 200px;
+        height: 240px; /* Increased height to fit content better */
         position: relative;
         overflow: hidden;
         box-shadow: var(--card-shadow);
@@ -258,10 +251,12 @@
         bottom: 0;
         background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
         color: white;
-        padding: 20px;
+        padding: 25px; /* Increased padding */
         transform: translateY(100%);
         transition: all 0.5s ease;
-        overflow-y: auto;
+        display: flex;
+        align-items: center; /* Center content vertically */
+        overflow: hidden; /* Remove scrollbar */
     }
 
     .card:hover .card__text {
@@ -273,7 +268,7 @@
     }
 
     .card__description {
-        font-size: 0.9rem;
+        font-size: 0.95rem; /* Slightly larger font */
         line-height: 1.6;
     }
 
@@ -804,45 +799,42 @@
 
     /* Responsive Design */
     @@media (max-width: 992px) {
-        .hero-section
-
-    {
-        padding: 60px 0;
-    }
-
-    .title-container {
-        text-align: center;
-        margin: 0 auto;
-    }
-
-        .title-container h1 {
-            font-size: 2.5rem;
+        .hero-section {
+            padding: 60px 0;
         }
 
-    .rocket-container {
-        position: relative;
-        right: auto;
-        top: auto;
-        transform: none;
-        margin: 40px auto 0;
-    }
-
-    .quote-card {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .footer-left, .footer-right {
-        flex: 0 0 100%;
-        text-align: center;
-        margin-bottom: 30px;
-    }
-
-        .footer-right a {
-            display: inline-block;
-            margin: 10px;
+        .title-container {
+            text-align: center;
+            margin: 0 auto;
         }
 
+            .title-container h1 {
+                font-size: 2.5rem;
+            }
+
+        .rocket-container {
+            position: relative;
+            right: auto;
+            top: auto;
+            transform: none;
+            margin: 40px auto 0;
+        }
+
+        .quote-card {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .footer-left, .footer-right {
+            flex: 0 0 100%;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+            .footer-right a {
+                display: inline-block;
+                margin: 10px;
+            }
     }
 </style>
 
@@ -879,19 +871,19 @@
         <div class="card">
             <p class="card__text">Access to High-Quality Courses</p>
             <div class="card__content">
-                <p class="card__description">Our courses are created by experts in astronomy, astrophysics, and space science. Each lecture is carefully structured to provide maximum understanding and practical knowledge. Whether you're a beginner or advanced, you'll find useful and inspiring content.</p>
+                <p class="card__description">Expert-led courses in astronomy and space science, carefully structured for maximum understanding. Content suitable for beginners through advanced students.</p>
             </div>
         </div>
         <div class="card">
             <p class="card__text">Interactive and Engaging Learning</p>
             <div class="card__content">
-                <p class="card__description">Our lectures include a variety of text and visual materials, such as presentations, images, and documents, which will facilitate understanding of complex concepts in astronomy and physics. Through these resources, you can review key moments from lectures and learn about topics you won't find in traditional textbooks.</p>
+                <p class="card__description">Rich multimedia content including presentations, images, and documents to help you grasp complex concepts in astronomy and physics.</p>
             </div>
         </div>
         <div class="card">
             <p class="card__text">Flexibility and Accessibility</p>
             <div class="card__content">
-                <p class="card__description">Learning with us is tailored to your time and preferences. You can study from anywhere, anytime, at your own pace. Whether you're a student or simply a science enthusiast, our courses are designed to be convenient and easily accessible for you.</p>
+                <p class="card__description">Learn at your own pace, anywhere and anytime. Perfect for both students and science enthusiasts with any schedule.</p>
             </div>
         </div>
     </div>
@@ -901,72 +893,75 @@
 <div class="course-preview">
     <h2 class="section-title">Featured Courses</h2>
     <div class="course-grid">
-        <div class="course-card">
-            <div class="course-image">
-                <img src="/api/placeholder/600/400" alt="Introduction to Astronomy">
-                <span class="course-badge">Beginner</span>
-            </div>
-            <div class="course-content">
-                <h3 class="course-title">Introduction to Astronomy</h3>
-                <p class="course-description">Explore the fundamentals of astronomy, from planets and stars to galaxies and the expanding universe.</p>
-                <div class="course-meta">
-                    <div class="course-rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.9 (246 reviews)</span>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var course in Model)
+            {
+                // Calculate average rating if there are comments
+                double avgRating = 0;
+                int reviewCount = 0;
+
+                if (course.Comments != null && course.Comments.Any())
+                {
+                    avgRating = course.Comments.Average(c => c.Rating);
+                    reviewCount = course.Comments.Count;
+                }
+
+                // Removed difficulty badge logic
+
+                <div class="course-card">
+                    <div class="course-image">
+                        <img src="@(string.IsNullOrEmpty(course.ImageURL) ? "/api/placeholder/600/400" : course.ImageURL)" alt="@course.CourseName">
                     </div>
-                    <div class="course-length">
-                        <i class="fas fa-clock"></i>
-                        <span>12 weeks</span>
+                    <div class="course-content">
+                        <h3 class="course-title">@course.CourseName</h3>
+                        <p class="course-description">@(course.Description?.Length > 100 ? course.Description.Substring(0, 97) + "..." : course.Description)</p>
+                        <div class="course-meta">
+                            <div class="course-rating">
+                                <i class="fas fa-tags"></i>
+                                <span>@course.Category.CategoryName</span>
+                                
+                            </div>
+                            <div class="course-length">
+                                <i class="fas fa-book"></i>
+                                <span>@(course.Lectures?.Count ?? 0) lectures</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <!-- Fallback courses if no courses are available -->
+            <div class="course-card">
+                <div class="course-image">
+                    <img src="/api/placeholder/600/400" alt="Introduction to Astronomy">
+                </div>
+                <div class="course-content">
+                    <h3 class="course-title">Introduction to Astronomy</h3>
+                    <p class="course-description">Explore the fundamentals of astronomy, from planets and stars to galaxies and the expanding universe.</p>
+                    <div class="course-meta">
+                        <div class="course-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.9 (246 reviews)</span>
+                        </div>
+                        <div class="course-length">
+                            <i class="fas fa-clock"></i>
+                            <span>12 weeks</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="course-card">
-            <div class="course-image">
-                <img src="/api/placeholder/600/400" alt="Quantum Physics Fundamentals">
-                <span class="course-badge">Intermediate</span>
-            </div>
-            <div class="course-content">
-                <h3 class="course-title">Quantum Physics Fundamentals</h3>
-                <p class="course-description">Discover the strange world of quantum mechanics and how it shapes our understanding of the universe.</p>
-                <div class="course-meta">
-                    <div class="course-rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.8 (189 reviews)</span>
-                    </div>
-                    <div class="course-length">
-                        <i class="fas fa-clock"></i>
-                        <span>10 weeks</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="course-card">
-            <div class="course-image">
-                <img src="/api/placeholder/600/400" alt="Exoplanet Discovery">
-                <span class="course-badge">Advanced</span>
-            </div>
-            <div class="course-content">
-                <h3 class="course-title">Exoplanet Discovery</h3>
-                <p class="course-description">Learn about the cutting-edge techniques used to find planets around distant stars and their potential for life.</p>
-                <div class="course-meta">
-                    <div class="course-rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.7 (132 reviews)</span>
-                    </div>
-                    <div class="course-length">
-                        <i class="fas fa-clock"></i>
-                        <span>8 weeks</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <!-- Additional fallback courses here -->
+        }
     </div>
     <div class="view-all-container">
-        <a href="#" class="styled-button">View All Courses</a>
+        <a asp-controller="Course" asp-action="Index" class="styled-button">View All Courses</a>
     </div>
 </div>
 
+<!-- Rest of the original content -->
 <!-- Statistics Section -->
 <div class="stats-section">
     <h2 class="section-title" style="color: white;">Our Impact</h2>
@@ -1041,4 +1036,33 @@
                     <p>Graduate Student</p>
                 </div>
             </div>
+        </div>
+    </div>
 </div>
+
+<script>
+    // Create stars for the hero section
+    document.addEventListener('DOMContentLoaded', function() {
+        const starsContainer = document.getElementById('stars-container');
+        const starsCount = 100;
+
+        for (let i = 0; i < starsCount; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+
+            // Random position
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = `${Math.random() * 100}%`;
+
+            // Random size
+            const size = Math.random() * 3 + 1;
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+
+            // Random animation delay
+            star.style.animationDelay = `${Math.random() * 2}s`;
+
+            starsContainer.appendChild(star);
+        }
+    });
+</script>
