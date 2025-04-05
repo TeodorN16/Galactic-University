@@ -171,26 +171,25 @@
                     <ul>
                         <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                         <li><a asp-area="" asp-controller="Course" asp-action="Index">Courses</a></li>
-                        <li><a asp-area="" asp-controller="Home" asp-action="About">About Us</a></li>
-                        <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                        <li><a asp-area="" asp-controller="AboutUs" asp-action="Index">About Us</a></li>
+                        <li><a asp-area="" asp-controller="Contact" asp-action="Index">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer-links">
                     <h4>Resources</h4>
                     <ul>
-                        <li><a href="#">Learning Materials</a></li>
-                        <li><a href="#">Student Portal</a></li>
-                        <li><a href="#">Research Database</a></li>
-                        <li><a href="#">Interplanetary Exchange</a></li>
+                        <li><a asp-controller="Course" asp-action="Details" asp-route-id="1">Astrology Course</a></li>
+                        <li><a asp-controller="Course" asp-action="Details" asp-route-id="2">Astronomy Course</a></li>
+                        <li><a asp-controller="Course" asp-action="Details" asp-route-id="1">Physics Course</a></li>
+                        
                     </ul>
                 </div>
                 <div class="footer-links">
                     <h4>Legal</h4>
                     <ul>
-                        <li><a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy Policy</a></li>
-                        <li><a asp-area="" asp-controller="Home" asp-action="Terms">Terms of Service</a></li>
-                        <li><a href="#">Accessibility</a></li>
-                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a asp-area="" asp-controller="PrivacyPolicy" asp-action="Index">Privacy Policy</a></li>
+                        <li><a asp-area="" asp-controller="TermsOfService" asp-action="Index">Terms of Service</a></li>
+                        
                     </ul>
                 </div>
             </div>
