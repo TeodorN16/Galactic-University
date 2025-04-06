@@ -21,6 +21,7 @@ using GalacticUniversity.Core.UserCourseService;
 using GalacticUniversity.Core.UserService;
 using GalacticUniversity.DataAccess.UserRepository;
 using GalacticUniversity.Core.TarotCardService;
+using GalacticUniversity.Core.FeedbackService;
 
 
 
@@ -81,6 +82,7 @@ builder.Services.AddScoped<ILectureService, LectureService>();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
 builder.Services.AddScoped<IUserCourseService, UserCourseService>();
 builder.Services.AddScoped<IUserService<User>, UserService>();
+builder.Services.AddScoped<IFeedbackService, FeedbackService>();
 
 
 

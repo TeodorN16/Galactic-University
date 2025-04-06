@@ -171,6 +171,29 @@ namespace GalacticUniversity.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Feedback",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserID = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Feedback", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Feedback_AspNetUsers_UserID",
+                        column: x => x.UserID,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "courses",
                 columns: table => new
                 {
@@ -399,6 +422,11 @@ namespace GalacticUniversity.DataAccess.Migrations
                 column: "CourseID1");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Feedback_UserID",
+                table: "Feedback",
+                column: "UserID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_lectureResources_LectureID",
                 table: "lectureResources",
                 column: "LectureID");
@@ -447,6 +475,9 @@ namespace GalacticUniversity.DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "comments");
+
+            migrationBuilder.DropTable(
+                name: "Feedback");
 
             migrationBuilder.DropTable(
                 name: "lectureResources");

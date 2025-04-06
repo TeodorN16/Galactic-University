@@ -1,6 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Contact Us";
 }
+@model GalacticUniversity.Models.ViewModels.FeedbackViewModels.FeedbackViewModel
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -289,18 +290,15 @@
         }
 
     @@keyframes fadeIn {
-        0%
+        0% {
+            opacity: 0;
+            transform: translateY(10px);
+        }
 
-    {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 
     /* Animation for stars */
@@ -314,20 +312,17 @@
     }
 
     @@keyframes twinkle {
-        0%
+        0% {
+            opacity: 0.2;
+        }
 
-    {
-        opacity: 0.2;
-    }
+        50% {
+            opacity: 1;
+        }
 
-    50% {
-        opacity: 1;
-    }
-
-    100% {
-        opacity: 0.2;
-    }
-
+        100% {
+            opacity: 0.2;
+        }
     }
 
     .department-badge {
@@ -361,45 +356,28 @@
                 <!-- Success Message -->
                 <div class="success-message" id="successMessage">
                     <h5 class="text-success mb-2"><i class="bi bi-check-circle me-2"></i>Message Sent Successfully!</h5>
-                    <p class="mb-0">Thank you for contacting Galactic University. We've received your message and will respond shortly.</p>
+                    <p class="mb-0">Thank you for contacting Galactic University. We've received your message!</p>
                 </div>
 
-                <form id="contactForm">
+                <form id="contactForm" asp-controller="Contact" asp-action="Add" method="post">
+                    @Html.AntiForgeryToken()
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="fullName" class="form-label">Full Name</label>
-                            <input type="text" class="form-control" id="fullName" required>
+                            <label for="UserName" class="form-label">Full Name</label>
+                            <input asp-for="UserName" type="text" class="form-control" required>
+                            <span asp-validation-for="UserName" class="text-danger"></span>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="email" class="form-label">Email Address</label>
-                            <input type="email" class="form-control" id="email" required>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="department" class="form-label">Department</label>
-                            <select class="form-select" id="department" required>
-                                <option value="" selected disabled>Select a department</option>
-                                <option value="Admissions">Admissions</option>
-                                <option value="Academic Affairs">Academic Affairs</option>
-                                <option value="Financial Aid">Financial Aid</option>
-                                <option value="Student Services">Student Services</option>
-                                <option value="IT Support">IT Support</option>
-                                <option value="Career Services">Career Services</option>
-                                <option value="Research">Research Opportunities</option>
-                                <option value="Other">Other</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="subject" class="form-label">Subject</label>
-                            <input type="text" class="form-control" id="subject" required>
+                            <label for="Email" class="form-label">Email Address</label>
+                            <input asp-for="Email" type="email" class="form-control" required>
+                            <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
                     </div>
 
                     <div class="mb-3">
-                        <label for="message" class="form-label">Your Message</label>
-                        <textarea class="form-control" id="message" rows="5" required></textarea>
+                        <label for="Text" class="form-label">Your Message</label>
+                        <textarea asp-for="Text" class="form-control" rows="5" required></textarea>
+                        <span asp-validation-for="Text" class="text-danger"></span>
                     </div>
 
                     <div class="form-check mb-4">
@@ -453,16 +431,9 @@
                         <p>Earth Direct: +1-800-GALACTIC</p>
                     </div>
                 </div>
-
-               
-
-               
             </div>
         </div>
     </div>
-
-    
-    
 </div>
 
 <!-- Bootstrap Icons -->
@@ -485,7 +456,7 @@
             }
         }
 
-        // Contact form submission
+        // Contact form submission with AJAX
         const contactForm = document.getElementById('contactForm');
         const successMessage = document.getElementById('successMessage');
 
@@ -493,36 +464,42 @@
             contactForm.addEventListener('submit', function(e) {
                 e.preventDefault();
 
-                // In a real application, you would send the form data to your server here
-                // For demonstration purposes, we'll just show the success message
+                // Get form data
+                const formData = new FormData(contactForm);
 
-                // Simulate form submission
-                setTimeout(function() {
-                    if (successMessage) {
-                        successMessage.classList.add('show');
-                        contactForm.reset();
-
-                        // Hide success message after 5 seconds
-                        setTimeout(function() {
-                            successMessage.classList.remove('show');
-                        }, 5000);
+                // Send AJAX request
+                fetch(contactForm.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
                     }
-                }, 1000);
-            });
-        }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        if (successMessage) {
+                            successMessage.classList.add('show');
+                            contactForm.reset();
 
-        // Campus selector
-        const campusSelect = document.getElementById('campusSelect');
-        if (campusSelect) {
-            campusSelect.addEventListener('change', function() {
-                // In a real application, you would update the map based on the selected campus
-                // For demonstration purposes, we'll keep the same map
-
-                const selectedCampus = this.value;
-                console.log(`Selected campus: ${selectedCampus}`);
-
-                // You would typically update the iframe src or load a different map here
+                            // Hide success message after 5 seconds
+                            setTimeout(function() {
+                                successMessage.classList.remove('show');
+                            }, 5000);
+                        }
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while sending your message. Please try again later.');
+                });
             });
         }
     });
 </script>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

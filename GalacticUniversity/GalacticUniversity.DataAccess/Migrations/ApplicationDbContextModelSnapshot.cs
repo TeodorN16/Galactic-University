@@ -144,6 +144,40 @@ namespace GalacticUniversity.DataAccess.Migrations
                     b.ToTable("courses");
                 });
 
+            modelBuilder.Entity("GalacticUniversity.Models.Feedback", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("Feedback");
+                });
+
             modelBuilder.Entity("GalacticUniversity.Models.Lecture", b =>
                 {
                     b.Property<int>("LectureID")
@@ -492,6 +526,15 @@ namespace GalacticUniversity.DataAccess.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("GalacticUniversity.Models.Feedback", b =>
+                {
+                    b.HasOne("GalacticUniversity.Models.User", null)
+                        .WithMany("Feedbacks")
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("GalacticUniversity.Models.Lecture", b =>
                 {
                     b.HasOne("GalacticUniversity.Models.Course", "Course")
@@ -612,6 +655,8 @@ namespace GalacticUniversity.DataAccess.Migrations
                     b.Navigation("Certificates");
 
                     b.Navigation("Comments");
+
+                    b.Navigation("Feedbacks");
 
                     b.Navigation("UserCourses");
                 });

@@ -12,6 +12,12 @@ namespace GalacticUniversity.Core.Services
     public class Service<T> : IService<T> where T : class
     {
         private readonly IRepository<T> repo;
+
+        public Service(IRepository<T> repository)
+        {
+            repo = repository;
+        }
+
         public async Task Add(T obj)
         {
             await repo.Add(obj);
