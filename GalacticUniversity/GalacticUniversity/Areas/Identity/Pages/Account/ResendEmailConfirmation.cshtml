@@ -3,24 +3,111 @@
 @{
     ViewData["Title"] = "Resend email confirmation";
 }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Galactic University</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
+</head>
+<body>
+    <!-- Background with stars and shooting stars -->
+    <section class="bg-stars">
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="shooting-star"></span>
+        <span class="shooting-star"></span>
 
-<h1>@ViewData["Title"]</h1>
-<h2>Enter your email.</h2>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="All" class="text-danger" role="alert"></div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Email" class="form-control" aria-required="true" placeholder="name@example.com" />
-                <label asp-for="Input.Email" class="form-label"></label>
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
-            </div>
-            <button type="submit" class="w-100 btn btn-lg btn-primary">Resend</button>
-        </form>
+        <!-- Decorative planets -->
+        <div class="planet planet-1"></div>
+        <div class="planet planet-2"></div>
+    </section>
+
+    <!-- Main content container -->
+    <div class="page-container">
+        <div class="d-flex justify-content-center align-items-center vh-100">
+            <form method="post" class="form">
+                <div class="form-title">
+                    <span>Resend confirmation</span>
+                </div>
+                <div class="title-2">
+                    <span>GALACTIC UNIVERSITY</span>
+                </div>
+                <div class="form-subtitle">
+                    <span>Enter your email to receive a new confirmation link</span>
+                </div>
+                <div asp-validation-summary="All" class="text-danger" role="alert"></div>
+                <div class="input-container">
+                    <input asp-for="Input.Email" class="input-mail form-control" aria-required="true" placeholder="Enter email" />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <button type="submit" class="submit">
+                    <span class="sign-text">Resend Confirmation</span>
+                </button>
+                <p class="signup-link mt-4">
+                    <a asp-page="./Login" class="back-home">← Back to Login</a>
+                </p>
+                <p class="signup-link">
+                    <a href="/" class="back-home">← Back to Home</a>
+                </p>
+            </form>
+        </div>
     </div>
-</div>
 
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Add more stars dynamically for a better effect
+                const starsContainer = document.querySelector('.bg-stars');
+                const starCount = 150; // Increased number of stars
+
+                for (let i = 0; i < starCount; i++) {
+                    const star = document.createElement('span');
+                    star.className = 'star';
+                    star.style.top = `${Math.random() * 100}%`;
+                    star.style.left = `${Math.random() * 100}%`;
+                    star.style.animationDelay = `${Math.random() * 5}s`;
+                    // Vary the size slightly
+                    const size = 1 + Math.random() * 2;
+                    star.style.width = `${size}px`;
+                    star.style.height = `${size}px`;
+                    starsContainer.appendChild(star);
+                }
+
+                // Add subtle entrance animations to form elements
+                const form = document.querySelector('.form');
+                const inputs = form.querySelectorAll('.form-control');
+                const button = form.querySelector('.submit');
+
+                inputs.forEach((input, index) => {
+                    input.style.opacity = '0';
+                    input.style.transform = 'translateY(20px)';
+                    input.style.transition = 'all 0.3s ease';
+                    input.style.transitionDelay = `${0.2 + index * 0.1}s`;
+
+                    setTimeout(() => {
+                        input.style.opacity = '1';
+                        input.style.transform = 'translateY(0)';
+                    }, 100);
+                });
+
+                button.style.opacity = '0';
+                button.style.transform = 'translateY(20px)';
+                button.style.transition = 'all 0.3s ease';
+                button.style.transitionDelay = '0.4s';
+
+                setTimeout(() => {
+                    button.style.opacity = '1';
+                    button.style.transform = 'translateY(0)';
+                }, 100);
+            });
+        </script>
+    }
+</body>
+</html>

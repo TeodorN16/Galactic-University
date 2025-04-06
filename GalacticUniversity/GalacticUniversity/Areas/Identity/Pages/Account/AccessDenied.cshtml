@@ -3,8 +3,154 @@
 @{
     ViewData["Title"] = "Access denied";
 }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Galactic University</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
+    <style>
+        .error-icon {
+            font-size: 60px;
+            color: #ff4757;
+            margin-bottom: 20px;
+        }
 
-<header>
-    <h1 class="text-danger">@ViewData["Title"]</h1>
-    <p class="text-danger">You do not have access to this resource.</p>
-</header>
+        .text-danger {
+            color: #ff4757 !important;
+        }
+
+        .error-container {
+            text-align: center;
+            animation: pulse 2s infinite;
+        }
+
+        @@keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+
+        .form-title.error {
+            color: #ff4757;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background with stars and shooting stars -->
+    <section class="bg-stars">
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="shooting-star"></span>
+        <span class="shooting-star"></span>
+
+        <!-- Decorative planets -->
+        <div class="planet planet-1"></div>
+        <div class="planet planet-2"></div>
+    </section>
+
+    <!-- Main content container -->
+    <div class="page-container">
+        <div class="d-flex justify-content-center align-items-center vh-100">
+            <div class="form">
+                <div class="error-container">
+                    <div class="error-icon">⚠️</div>
+                </div>
+                <div class="form-title error">
+                    <span>Access Denied</span>
+                </div>
+                <div class="title-2">
+                    <span>GALACTIC UNIVERSITY</span>
+                </div>
+                <div class="confirmation-message">
+                    <p class="text-danger">You do not have access to this resource.</p>
+                    <p>Your security clearance is insufficient for this sector.</p>
+                </div>
+                <p class="signup-link mt-4">
+                    <a asp-page="./Login" class="back-home">← Back to Login</a>
+                </p>
+                <p class="signup-link">
+                    <a href="/" class="back-home">← Back to Home</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add more stars dynamically for a better effect
+            const starsContainer = document.querySelector('.bg-stars');
+            const starCount = 150; // Increased number of stars
+
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('span');
+                star.className = 'star';
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                // Vary the size slightly
+                const size = 1 + Math.random() * 2;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                starsContainer.appendChild(star);
+            }
+
+            // Add subtle entrance animations to elements
+            const errorIcon = document.querySelector('.error-icon');
+            const errorTitle = document.querySelector('.form-title.error');
+            const messageContainer = document.querySelector('.confirmation-message');
+            const links = document.querySelectorAll('.signup-link');
+
+            // Animation for error icon
+            errorIcon.style.opacity = '0';
+            errorIcon.style.transform = 'scale(0.8)';
+            errorIcon.style.transition = 'all 0.5s ease';
+
+            setTimeout(() => {
+                errorIcon.style.opacity = '1';
+                errorIcon.style.transform = 'scale(1)';
+            }, 100);
+
+            // Animation for error title
+            errorTitle.style.opacity = '0';
+            errorTitle.style.transform = 'translateY(-20px)';
+            errorTitle.style.transition = 'all 0.3s ease';
+            errorTitle.style.transitionDelay = '0.2s';
+
+            setTimeout(() => {
+                errorTitle.style.opacity = '1';
+                errorTitle.style.transform = 'translateY(0)';
+            }, 200);
+
+            // Animation for message
+            messageContainer.style.opacity = '0';
+            messageContainer.style.transform = 'translateY(20px)';
+            messageContainer.style.transition = 'all 0.3s ease';
+            messageContainer.style.transitionDelay = '0.3s';
+
+            setTimeout(() => {
+                messageContainer.style.opacity = '1';
+                messageContainer.style.transform = 'translateY(0)';
+            }, 300);
+
+            // Animation for links
+            links.forEach((link, index) => {
+                link.style.opacity = '0';
+                link.style.transform = 'translateY(20px)';
+                link.style.transition = 'all 0.3s ease';
+                link.style.transitionDelay = `${0.4 + index * 0.1}s`;
+
+                setTimeout(() => {
+                    link.style.opacity = '1';
+                    link.style.transform = 'translateY(0)';
+                }, 400);
+            });
+        });
+    </script>
+</body>
+</html>
