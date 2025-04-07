@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GalacticUniversity.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250406154334_Setup")]
+    [Migration("20250407032407_Setup")]
     partial class Setup
     {
         /// <inheritdoc />
@@ -531,11 +531,13 @@ namespace GalacticUniversity.DataAccess.Migrations
 
             modelBuilder.Entity("GalacticUniversity.Models.Feedback", b =>
                 {
-                    b.HasOne("GalacticUniversity.Models.User", null)
+                    b.HasOne("GalacticUniversity.Models.User", "User")
                         .WithMany("Feedbacks")
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("GalacticUniversity.Models.Lecture", b =>

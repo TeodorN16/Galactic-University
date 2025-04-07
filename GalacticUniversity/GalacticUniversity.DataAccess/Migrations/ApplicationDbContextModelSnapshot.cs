@@ -528,11 +528,13 @@ namespace GalacticUniversity.DataAccess.Migrations
 
             modelBuilder.Entity("GalacticUniversity.Models.Feedback", b =>
                 {
-                    b.HasOne("GalacticUniversity.Models.User", null)
+                    b.HasOne("GalacticUniversity.Models.User", "User")
                         .WithMany("Feedbacks")
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("GalacticUniversity.Models.Lecture", b =>
