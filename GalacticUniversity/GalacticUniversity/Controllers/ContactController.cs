@@ -28,7 +28,11 @@ namespace GalacticUniversity.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(FeedbackViewModel feedbackVM)
         {
-           
+            if (!ModelState.IsValid)
+            {
+                return View(feedbackVM);   
+            }
+                
                 var feedback = new Feedback
                 {
                     UserName = feedbackVM.UserName,

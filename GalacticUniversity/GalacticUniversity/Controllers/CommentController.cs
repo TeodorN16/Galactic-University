@@ -39,6 +39,7 @@ namespace GalacticUniversity.Controllers
 
         public async Task<IActionResult> Add()
         {
+
             var courses = _courseService.GetAll();
 
             CommentViewModel cvm = new CommentViewModel
@@ -57,6 +58,10 @@ namespace GalacticUniversity.Controllers
         [Authorize(Roles = "User,Admin")]
         public async Task<IActionResult> Add(CommentViewModel cvm)
         {
+            if (!ModelState.IsValid)
+            { 
+                return View(cvm)
+            }
             var currentUser = await _userManager.GetUserAsync(User);
 
             if (cvm.CourseID != 0 && string.IsNullOrEmpty(cvm.CommentText) == false)
@@ -107,7 +112,7 @@ namespace GalacticUniversity.Controllers
 
             if (comment == null)
             {
-                return NotFound();
+                return NotFound("Comment not found");
             }
 
             var viewModel = new CommentViewModel
@@ -141,7 +146,7 @@ namespace GalacticUniversity.Controllers
 
             if (existingComment == null)
             {
-                return NotFound();
+                return NotFound("Comment not found");
             }
 
             existingComment.CommentText = cvm.CommentText;

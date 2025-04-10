@@ -37,6 +37,10 @@ namespace GalacticUniversity.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Add(CategoryViewModel ctvm)
         {
+            if (!ModelState.IsValid)
+            { 
+                return View(ctvm);
+            }
             var category = new Category
             {
                 CategoryName = ctvm.Name,
@@ -50,6 +54,10 @@ namespace GalacticUniversity.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             Category ct = await _categoryService.Get(id);
+            if (ct.CategoryID==null)
+            {
+                return NotFound("Category is not found");
+            }
             var model = new CategoryViewModel
             {
                 ID = ct.CategoryID,
@@ -62,6 +70,10 @@ namespace GalacticUniversity.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(CategoryViewModel ctvm)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(ctvm);
+            }
 
             var category = new Category
             {
@@ -76,7 +88,12 @@ namespace GalacticUniversity.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _categoryService.Delete(await _categoryService.Get(id));
+            var category = await _categoryService.Get(id);
+            if (category==null)
+            {
+                return NotFound("Category not found");
+            }
+            await _categoryService.Delete(category);
             TempData["success"] = "Successfully deleted category";
             return RedirectToAction("Index");
         }

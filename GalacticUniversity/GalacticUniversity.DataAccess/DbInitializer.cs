@@ -68,6 +68,47 @@ namespace GalacticUniversity.DataAccess
                 }
             }
 
+            // Add two more users
+            string user2Email = "alex@gmail.com";
+            var user2 = await userManager.FindByEmailAsync(user2Email);
+            if (user2 == null)
+            {
+                var user2Obj = new User
+                {
+                    UserName = "Alex",
+                    Email = user2Email,
+                    NormalizedEmail = user2Email.ToUpper(),
+                    NormalizedUserName = "ALEX",
+                    PhoneNumber = "0899994444",
+                    EmailConfirmed = true
+                };
+                var createResult = await userManager.CreateAsync(user2Obj, "Al3x@2023");
+                if (createResult.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(user2Obj, "User");
+                }
+            }
+
+            string user3Email = "sarah@gmail.com";
+            var user3 = await userManager.FindByEmailAsync(user3Email);
+            if (user3 == null)
+            {
+                var user3Obj = new User
+                {
+                    UserName = "Sarah",
+                    Email = user3Email,
+                    NormalizedEmail = user3Email.ToUpper(),
+                    NormalizedUserName = "SARAH",
+                    PhoneNumber = "0899995555",
+                    EmailConfirmed = true
+                };
+                var createResult = await userManager.CreateAsync(user3Obj, "S@rah2023");
+                if (createResult.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(user3Obj, "User");
+                }
+            }
+
             // Seed Categories
             if (!context.categories.Any())
             {
@@ -97,7 +138,7 @@ namespace GalacticUniversity.DataAccess
                         StartDate = new DateTime(2023, 1, 1),
                         EndDate = new DateTime(2023, 12, 31),
                         CategoryID = context.categories.FirstOrDefault(c => c.CategoryName == "astrology")?.CategoryID ?? 1,
-                        ImageURL = "/images/courses/astrology.jpg"
+                        ImageURL = "/img/astrology (2).png"
                     },
                     new Course
                     {
@@ -106,7 +147,7 @@ namespace GalacticUniversity.DataAccess
                         StartDate = new DateTime(2023, 2, 1),
                         EndDate = new DateTime(2023, 12, 31),
                         CategoryID = context.categories.FirstOrDefault(c => c.CategoryName == "astronomy")?.CategoryID ?? 1,
-                        ImageURL = "/images/courses/astronomy.jpg"
+                        ImageURL = "/img/astronomy.png"
                     },
                     new Course
                     {
@@ -115,7 +156,7 @@ namespace GalacticUniversity.DataAccess
                         StartDate = new DateTime(2023, 3, 1),
                         EndDate = new DateTime(2023, 12, 31),
                         CategoryID = context.categories.FirstOrDefault(c => c.CategoryName == "physics")?.CategoryID ?? 3,
-                        ImageURL = "/images/courses/physics.jpg"
+                        ImageURL = "/img/physics.png"
                     }
                 };
 
@@ -332,6 +373,117 @@ namespace GalacticUniversity.DataAccess
                     }
                     await context.SaveChangesAsync();
                 }
+            }
+
+            // Seed Comments - one unique comment per regular user (no admin) for each course
+            if (!context.Set<Comment>().Any())
+            {
+                // Get email-to-id mapping for users (excluding admin)
+                var tinaUser = await userManager.FindByEmailAsync("tina@gmail.com");
+                var alexUser = await userManager.FindByEmailAsync("alex@gmail.com");
+                var sarahUser = await userManager.FindByEmailAsync("sarah@gmail.com");
+
+                var comments = new List<Comment>();
+
+                if (tinaUser != null)
+                {
+                    // Tina's comments - one for each course
+                    comments.Add(new Comment
+                    {
+                        CommentText = "I've always been fascinated by astrology, and this course really deepened my understanding of the zodiac signs and their meanings.",
+                        CommentDate = DateTime.Now.AddDays(-45),
+                        Rating = 5,
+                        UserID = tinaUser.Id,
+                        CourseID = 1
+                    });
+
+                    comments.Add(new Comment
+                    {
+                        CommentText = "I loved learning about the solar system in detail. The resources provided were excellent and very informative.",
+                        CommentDate = DateTime.Now.AddDays(-25),
+                        Rating = 5,
+                        UserID = tinaUser.Id,
+                        CourseID = 2
+                    });
+
+                    comments.Add(new Comment
+                    {
+                        CommentText = "The lectures on waves and light were particularly helpful. I now understand so much more about the electromagnetic spectrum!",
+                        CommentDate = DateTime.Now.AddDays(-10),
+                        Rating = 4,
+                        UserID = tinaUser.Id,
+                        CourseID = 3
+                    });
+                }
+
+                if (alexUser != null)
+                {
+                    // Alex's comments - one for each course
+                    comments.Add(new Comment
+                    {
+                        CommentText = "The historical perspective on astrology was eye-opening. I never realized how ancient civilizations used star patterns to make predictions.",
+                        CommentDate = DateTime.Now.AddDays(-30),
+                        Rating = 4,
+                        UserID = alexUser.Id,
+                        CourseID = 1
+                    });
+
+                    comments.Add(new Comment
+                    {
+                        CommentText = "The lectures on exoplanets were mind-blowing! I never imagined there could be so many Earth-like planets out there.",
+                        CommentDate = DateTime.Now.AddDays(-60),
+                        Rating = 5,
+                        UserID = alexUser.Id,
+                        CourseID = 2
+                    });
+
+                    comments.Add(new Comment
+                    {
+                        CommentText = "I particularly enjoyed the sections on energy transformations. It's fascinating to see how energy works in our daily lives.",
+                        CommentDate = DateTime.Now.AddDays(-20),
+                        Rating = 4,
+                        UserID = alexUser.Id,
+                        CourseID = 3
+                    });
+                }
+
+                if (sarahUser != null)
+                {
+                    // Sarah's comments - one for each course
+                    comments.Add(new Comment
+                    {
+                        CommentText = "I was skeptical at first, but the course presented astrology in a way that made me appreciate its cultural significance.",
+                        CommentDate = DateTime.Now.AddDays(-15),
+                        Rating = 4,
+                        UserID = sarahUser.Id,
+                        CourseID = 1
+                    });
+
+                    comments.Add(new Comment
+                    {
+                        CommentText = "The section on black holes and neutron stars was particularly fascinating. I'll never look at the night sky the same way again.",
+                        CommentDate = DateTime.Now.AddDays(-18),
+                        Rating = 5,
+                        UserID = sarahUser.Id,
+                        CourseID = 2
+                    });
+
+                    comments.Add(new Comment
+                    {
+                        CommentText = "The way this course breaks down complex physics concepts made it much easier to understand. Great teaching approach!",
+                        CommentDate = DateTime.Now.AddDays(-50),
+                        Rating = 5,
+                        UserID = sarahUser.Id,
+                        CourseID = 3
+                    });
+                }
+
+                foreach (var comment in comments)
+                {
+                    await context.AddAsync(comment);
+                }
+                await context.SaveChangesAsync();
+                Console.WriteLine("Successfully added unique comments for regular users");
             }
         }
     }

@@ -50,6 +50,10 @@ namespace GalacticUniversity.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(LectureResourceQueryViewModel lrvm)
         {
+            if (!ModelState.IsValid)
+            { 
+                return View(lrvm);
+            }
             string uploadedImageURL = null;
 
             if (lrvm.File != null)
@@ -71,7 +75,10 @@ namespace GalacticUniversity.Controllers
         {
           
              LectureResource lectureResource = await _lectureResourceService.Get(id);
-
+            if (lectureResource==null)
+            {
+                return NotFound();
+            }
             
             var model = new LectureResourceQueryViewModel
             {
@@ -89,7 +96,10 @@ namespace GalacticUniversity.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(LectureResourceQueryViewModel lrvm)
         {
-           
+            if (!ModelState.IsValid)
+            { 
+                return View(lrvm);
+            }
             var currentLectureResource = await _lectureResourceService.Get(lrvm.ID);
 
             
@@ -116,7 +126,12 @@ namespace GalacticUniversity.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
-            await _lectureResourceService.Delete(await _lectureResourceService.Get(id));
+            var lectureResource = await _lectureResourceService.Get(id);
+            if (lectureResource == null)
+            {
+                return NotFound();
+            }
+            await _lectureResourceService.Delete(lectureResource);
             TempData["success"] = "Succesfuly deleted resource";
             return RedirectToAction("Index");
         }

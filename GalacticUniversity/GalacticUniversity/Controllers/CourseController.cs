@@ -25,18 +25,18 @@ namespace GalacticUniversity.Controllers
         private readonly IUserService<User> _userService;
         private readonly UserManager<User> _userManager;
 
-        
 
-        public CourseController(ICourseService courseService,ICategoryService categoryService,ILectureService lectureService, CloudinaryService cloudinaryService,IUserCourseService userCourseService,IUserService<User> userService, UserManager<User> userManager)
-        { 
-            _categoryService= categoryService;
-            _courseService = courseService; 
+
+        public CourseController(ICourseService courseService, ICategoryService categoryService, ILectureService lectureService, CloudinaryService cloudinaryService, IUserCourseService userCourseService, IUserService<User> userService, UserManager<User> userManager)
+        {
+            _categoryService = categoryService;
+            _courseService = courseService;
             _lectureService = lectureService;
             _cloudinaryService = cloudinaryService;
             _userCourseService = userCourseService;
             _userService = userService;
             _userManager = userManager;
-           
+
         }
         [Authorize(Roles = "User,Admin")]
         [AllowAnonymous]
@@ -83,7 +83,7 @@ namespace GalacticUniversity.Controllers
 
             return View(model);
         }
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Add()
         {
 
@@ -106,14 +106,17 @@ namespace GalacticUniversity.Controllers
 
             };
 
-            
+
             return View(model);
         }
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
-        public async Task<IActionResult> Add(CourseQueryViewModel cvm,string ImagePath)
+        public async Task<IActionResult> Add(CourseQueryViewModel cvm, string ImagePath)
         {
-         
+            if (!ModelState.IsValid)
+            { 
+                return View(cvm);
+            }
 
             string uploadedImageURL = null;
 
@@ -141,9 +144,14 @@ namespace GalacticUniversity.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(int id) 
-        { 
+        public async Task<IActionResult> Edit(int id)
+        {
+
             Course course = await _courseService.Get(id);
+            if (course==null)
+            {
+                return NotFound();
+            }
             var categories = _categoryService.GetAll();
 
             var model = new CourseQueryViewModel
@@ -153,7 +161,7 @@ namespace GalacticUniversity.Controllers
                 Description = course.Description,
                 StartDate = course.StartDate,
                 EndDate = course.EndDate,
-                ImageURL=course.ImageURL,
+                ImageURL = course.ImageURL,
                 CategoryID = course.CategoryID,
                 Categories = categories.Select(c => new SelectListItem
                 {
@@ -169,7 +177,11 @@ namespace GalacticUniversity.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(CourseQueryViewModel cvm)
         {
-           
+            if (!ModelState.IsValid)
+            {
+                return View(cvm);
+            }
+
             var existingCourse = await _courseService.Get(cvm.ID);
 
             // Update the properties of the existing entity
@@ -179,7 +191,7 @@ namespace GalacticUniversity.Controllers
             existingCourse.EndDate = cvm.EndDate;
             existingCourse.CategoryID = cvm.CategoryID;
 
-            
+
             if (cvm.Image != null)
             {
                 // Upload new image
@@ -188,12 +200,12 @@ namespace GalacticUniversity.Controllers
             }
             else if (!string.IsNullOrEmpty(cvm.ImageURL))
             {
-              
+
                 existingCourse.ImageURL = cvm.ImageURL;
             }
-            
 
-            
+
+
             await _courseService.Update(existingCourse);
 
             TempData["success"] = "Successfully edited course!";
@@ -203,7 +215,14 @@ namespace GalacticUniversity.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
-            await _courseService.Delete(await _courseService.Get(id));
+
+            var course = await _courseService.Get(id);
+            if (course==null)
+            {
+                return NotFound();
+            }
+
+            await _courseService.Delete(course);
             TempData["success"] = "Succesfully deleted course!";
             return RedirectToAction("Index");
         }
@@ -212,23 +231,23 @@ namespace GalacticUniversity.Controllers
         [HttpGet]
 
         public async Task<IActionResult> Details(int id)
-        {   
-            Course course = await _courseService.GetAll().Where(c=>c.CourseID==id)
-                .Include(c=>c.Lectures)
-                .ThenInclude(l=>l.LectureResources)
-                .Include(c=>c.Category)
-                .Include(c=>c.Comments).ThenInclude(comment=>comment.User)
+        {
+            Course course = await _courseService.GetAll().Where(c => c.CourseID == id)
+                .Include(c => c.Lectures)
+                .ThenInclude(l => l.LectureResources)
+                .Include(c => c.Category)
+                .Include(c => c.Comments).ThenInclude(comment => comment.User)
                 .FirstOrDefaultAsync();
 
             return View(course);
         }
-       
+
         public async Task<IActionResult> JoinCourse(int courseId)
         {
 
-            
+
             var userID = _userManager.GetUserId(User);
-            
+
 
             await _userCourseService.JoinCourse(userID, courseId);
             TempData["success"] = "Check your profile!";
