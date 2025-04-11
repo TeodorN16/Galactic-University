@@ -58,10 +58,7 @@ namespace GalacticUniversity.Controllers
         [Authorize(Roles = "User,Admin")]
         public async Task<IActionResult> Add(CommentViewModel cvm)
         {
-            if (!ModelState.IsValid)
-            { 
-                return View(cvm)
-            }
+           
             var currentUser = await _userManager.GetUserAsync(User);
 
             if (cvm.CourseID != 0 && string.IsNullOrEmpty(cvm.CommentText) == false)
@@ -87,9 +84,9 @@ namespace GalacticUniversity.Controllers
                 }
                 return RedirectToAction("Learn", "User", new { id = comment.CourseID });
             }
-            if (!ModelState.IsValid || cvm.CourseID == 0 || string.IsNullOrEmpty(cvm.CommentText))
+            if ( cvm.CourseID == 0 || string.IsNullOrEmpty(cvm.CommentText))
             {
-                // Repopulate the courses dropdown
+             
                 var courses = _courseService.GetAll();
                 cvm.Courses = courses.Select(c => new SelectListItem
                 {
@@ -112,7 +109,8 @@ namespace GalacticUniversity.Controllers
 
             if (comment == null)
             {
-                return NotFound("Comment not found");
+                TempData["error"] = "Comment not found";
+                return RedirectToAction("Index");
             }
 
             var viewModel = new CommentViewModel
@@ -137,16 +135,14 @@ namespace GalacticUniversity.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(CommentViewModel cvm)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(cvm);
-            }
+           
 
             var existingComment = await _commentService.Get(cvm.ID);
 
             if (existingComment == null)
             {
-                return NotFound("Comment not found");
+                TempData["error"] = "Comment not found";
+                return RedirectToAction("Index");
             }
 
             existingComment.CommentText = cvm.CommentText;
@@ -164,7 +160,8 @@ namespace GalacticUniversity.Controllers
 
             if (comment == null)
             {
-                return NotFound();
+                TempData["error"] = "Comment not found";
+                return RedirectToAction("Index");
             }
 
             int courseId = comment.CourseID;
@@ -180,7 +177,9 @@ namespace GalacticUniversity.Controllers
         }
         public async Task<IActionResult> GetCommentsForCourse(int id)
         {
+            
             var comments = _commentService.GetAll().Where(co => co.CourseID == id);
+        
             return View(comments);
         }
     }

@@ -42,12 +42,12 @@ namespace GalacticUniversity.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Index(CourseViewModel? filter)
         {
-            var currentUser = await _userManager.GetUserAsync(User); // Get the current logged-in user
+            var currentUser = await _userManager.GetUserAsync(User);
             var userId = currentUser?.Id;
 
             var query = _courseService.GetAll().AsQueryable();
 
-            // Apply filters
+            
             if (filter.CategoryID != null)
             {
                 query = query.Where(c => c.CategoryID == filter.CategoryID);
@@ -61,13 +61,13 @@ namespace GalacticUniversity.Controllers
                 query = query.Where(c => c.EndDate <= filter.EndDate);
             }
 
-            // Get all courses the user has joined
+          
             var joinedCourses = _userCourseService.GetAll()
                                                    .Where(u => u.UserID == userId)
                                                    .Select(u => u.CourseID)
                                                    .ToList();
 
-            // Filter out the courses the user has already joined
+           
             var availableCourses = query.Where(c => !joinedCourses.Contains(c.CourseID)).ToList();
 
             var categories = _categoryService.GetAll();
@@ -78,7 +78,7 @@ namespace GalacticUniversity.Controllers
                 StartDate = filter.StartDate,
                 EndDate = filter.EndDate,
                 Categories = new SelectList(categories, "CategoryID", "CategoryName"),
-                Courses = availableCourses // Only courses the user hasn't joined yet
+                Courses = availableCourses 
             };
 
             return View(model);
@@ -113,10 +113,7 @@ namespace GalacticUniversity.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(CourseQueryViewModel cvm, string ImagePath)
         {
-            if (!ModelState.IsValid)
-            { 
-                return View(cvm);
-            }
+           
 
             string uploadedImageURL = null;
 
@@ -135,7 +132,7 @@ namespace GalacticUniversity.Controllers
                 Lectures = _lectureService.GetAll()
                               .Where(l => l.LectureID == cvm.SelectedLecturesID)
                               .ToList(),
-                ImageURL = uploadedImageURL ?? cvm.ImageURL // Ensure it saves the correct URL
+                ImageURL = uploadedImageURL ?? cvm.ImageURL 
             };
 
             await _courseService.Add(course);
@@ -150,7 +147,8 @@ namespace GalacticUniversity.Controllers
             Course course = await _courseService.Get(id);
             if (course==null)
             {
-                return NotFound();
+                TempData["error"] = "Course not found";
+                return RedirectToAction("Index");
             }
             var categories = _categoryService.GetAll();
 
@@ -176,15 +174,11 @@ namespace GalacticUniversity.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Edit(CourseQueryViewModel cvm)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(cvm);
-            }
+        { 
 
             var existingCourse = await _courseService.Get(cvm.ID);
 
-            // Update the properties of the existing entity
+           
             existingCourse.CourseName = cvm.CourseName;
             existingCourse.Description = cvm.Description;
             existingCourse.StartDate = cvm.StartDate;
@@ -194,7 +188,7 @@ namespace GalacticUniversity.Controllers
 
             if (cvm.Image != null)
             {
-                // Upload new image
+                
                 string uploadedImageURL = await _cloudinaryService.UploadImageAsync(cvm.Image);
                 existingCourse.ImageURL = uploadedImageURL;
             }
@@ -219,7 +213,8 @@ namespace GalacticUniversity.Controllers
             var course = await _courseService.Get(id);
             if (course==null)
             {
-                return NotFound();
+                TempData["error"] = "Course not found";
+                return RedirectToAction("Index");
             }
 
             await _courseService.Delete(course);

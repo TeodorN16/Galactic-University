@@ -47,7 +47,8 @@ namespace GalacticUniversity.Controllers
         {
             if (string.IsNullOrEmpty(id))
             {
-                return BadRequest("User ID is required.");
+                TempData["error"] = "User not found";
+                return RedirectToAction("Index");
             }
 
             var user = await _userManager.Users
@@ -79,7 +80,8 @@ namespace GalacticUniversity.Controllers
         {
             if (string.IsNullOrEmpty(id))
             {
-                return BadRequest("User ID is required.");
+                TempData["error"] = "User not found";
+                return RedirectToAction("Index");
             }
 
             var user = await _userManager.FindByIdAsync(id);
@@ -99,33 +101,31 @@ namespace GalacticUniversity.Controllers
             return View(model);
         }
 
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(UserEditViewModel model)
         {
-            if (ModelState.IsValid)
+
+            var user = await _userManager.FindByIdAsync(model.Id);
+            if (user == null)
             {
-                var user = await _userManager.FindByIdAsync(model.Id);
-                if (user == null)
-                {
-                    return NotFound("User not found.");
-                }
-
-                user.UserName = model.UserName;
-                user.Email = model.Email;
-                user.PhoneNumber = model.PhoneNumber;
-                
-                var result = await _userManager.UpdateAsync(user);
-                TempData["success"] = "Profile updated successfully";
-                return RedirectToAction("MyProfile");
-                
-
-               
+                return NotFound("User not found.");
             }
 
-            return View(model);
+            user.UserName = model.UserName;
+            user.Email = model.Email;
+            user.PhoneNumber = model.PhoneNumber;
+
+            var result = await _userManager.UpdateAsync(user);
+            TempData["success"] = "Profile updated successfully";
+            return RedirectToAction("MyProfile");
+
+
+
         }
+
+        
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
@@ -133,7 +133,8 @@ namespace GalacticUniversity.Controllers
         {
             if (string.IsNullOrEmpty(id))
             {
-                return BadRequest("User ID is required.");
+                TempData["error"] = "User not found";
+                return RedirectToAction("Index");
             }
 
             var user = await _userManager.FindByIdAsync(id);
@@ -153,16 +154,17 @@ namespace GalacticUniversity.Controllers
             var currentUser = await _userManager.GetUserAsync(User);
             if (currentUser == null)
             {
-                return NotFound("User not found.");
+                TempData["error"] = "User not found";
+                return RedirectToAction("Index");
             }
 
             var courses = _userCourseService
                 .GetAll()
                 .Where(u => u.UserID == currentUser.Id)
-                .Include(u => u.Course) // Include the Course entity
-                    .ThenInclude(c => c.Lectures) // Include Lectures for each Course
-                    .ThenInclude(l => l.LectureResources) // Include LectureResources for each Lecture
-                .Select(u => u.Course) // Select the Course data
+                .Include(u => u.Course) 
+                    .ThenInclude(c => c.Lectures) 
+                    .ThenInclude(l => l.LectureResources)
+                .Select(u => u.Course) 
                 .ToList();
 
             var model = new UserViewModel
@@ -177,71 +179,71 @@ namespace GalacticUniversity.Controllers
         }
         public async Task<IActionResult> Learn(int id)
         {
-            // Check if ID is provided
+          
             if (id == 0)
             {
                 return BadRequest("Invalid course ID.");
             }
 
-            // Get the current user from UserManager
+           
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
                 return Unauthorized();
             }
 
-            // Get the user's enrolled courses and include necessary data
+           
             var userCourses = _userCourseService
                 .GetAll()
                 .Where(u => u.UserID == user.Id)
-                .Include(u => u.Course) // Include the Course entity
-                    .ThenInclude(c => c.Lectures) // Include Lectures for each Course
-                    .ThenInclude(l => l.LectureResources) // Include LectureResources for each Lecture
-                .Select(u => u.Course) // Select the Course data
+                .Include(u => u.Course) 
+                    .ThenInclude(c => c.Lectures) 
+                    .ThenInclude(l => l.LectureResources) 
+                .Select(u => u.Course)
                 .ToList();
 
-            // Find the specific course for the user
+            
             var course = userCourses.FirstOrDefault(c => c.CourseID == id);
             if (course == null)
             {
                 return NotFound("Course not found.");
             }
 
-            // Retrieve the user's last selected lecture (if any)
+           
             var userCourse = _userCourseService.GetAll()
                 .FirstOrDefault(u => u.UserID == user.Id && u.CourseID == id);
 
-            // If a UserCourse record exists, fetch the last selected lecture ID
+            
             int? lastLectureId = userCourse?.LectureID;
 
-            // If the lastLectureId is null, default to the first lecture
+           
             var firstLecture = course.Lectures.FirstOrDefault();
             if (lastLectureId == null && firstLecture != null)
             {
                 lastLectureId = firstLecture.LectureID;
             }
 
-            // Pass the course and the last selected lecture ID to the view
+           
             var model = new CourseProgressViewModel
             {
                 Course = course,
                 LastLectureID = lastLectureId
             };
 
-            // Return the course progress view with the data
+           
             return View(model);
         }
         [HttpPost]
         public async Task<IActionResult> UpdateProgress(int courseId, int lectureId)
         {
-            // Get the current user
+          
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
                 return Unauthorized();
             }
 
-            // Get the user's course record
+       
             var userCourse = _userCourseService.GetAll()
                 .FirstOrDefault(u => u.UserID == user.Id && u.CourseID == courseId);
 
@@ -250,12 +252,12 @@ namespace GalacticUniversity.Controllers
                 return NotFound("User course not found");
             }
 
-            // Update the LastLectureID
+            
             userCourse.LectureID = lectureId;
 
             await _userCourseService.Update(userCourse);
 
-            // Redirect back to the Learn page
+
             return RedirectToAction("Learn", new { id = courseId });
 
         }
@@ -272,7 +274,7 @@ namespace GalacticUniversity.Controllers
             if (userCourse == null)
                 return NotFound("Course not found for this user");
 
-            // Check if certificate already exists for this user and course
+           
             var existingCertificate = await _userManager.Users
                 .Include(u => u.Certificates)
                 .Where(u => u.Id == user.Id)
@@ -281,19 +283,19 @@ namespace GalacticUniversity.Controllers
 
             if (existingCertificate != null)
             {
-                // Certificate already exists, return a message informing the user
+               
                 TempData["Error"] = "You have already received a certificate for this course.";
                 return RedirectToAction("Learn", new { id = courseId });
             }
 
-            // Generate a new certificate
+            
             string certificateHtml = CertificateGenerator.GenerateCertificateHtml(
                 user.UserName,
                 userCourse.Course.CourseName,
                 DateTime.Now
             );
 
-            // Create a complete HTML document
+           
             certificateHtml = @"<!DOCTYPE html>
                             <html>
                             <head>
@@ -305,7 +307,7 @@ namespace GalacticUniversity.Controllers
                             </body>
                             </html>";
 
-            // Create a temporary file with HTML content
+            
             string fileName = $"{userCourse.Course.CourseName}Certificate{user.UserName}.html";
             string tempPath = Path.GetTempFileName();
             await System.IO.File.WriteAllTextAsync(tempPath, certificateHtml);
@@ -314,7 +316,7 @@ namespace GalacticUniversity.Controllers
 
             using (var fileStream = new FileStream(tempPath, FileMode.Open))
             {
-                // Convert FileStream to IFormFile
+              
                 var formFile = new FormFile(fileStream, 0, fileStream.Length, "certificate", fileName)
                 {
                     Headers = new HeaderDictionary(),
@@ -327,7 +329,7 @@ namespace GalacticUniversity.Controllers
 
             System.IO.File.Delete(tempPath);
 
-            // Create and save certificate record
+           
             var certificate = new Certificate
             {
                 UserID = user.Id,
@@ -343,7 +345,7 @@ namespace GalacticUniversity.Controllers
             user.Certificates.Add(certificate);
             await _userManager.UpdateAsync(user);
 
-            // Return the HTML file for download
+         
             byte[] bytes = System.Text.Encoding.UTF8.GetBytes(certificateHtml);
             return File(bytes, "text/html", fileName);
         }

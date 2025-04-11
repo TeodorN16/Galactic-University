@@ -49,10 +49,7 @@ namespace GalacticUniversity.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(LectureViewModel lvm)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(lvm);
-            }
+           
             var lecture = new Lecture
             {
                 LectureName = lvm.Name,
@@ -70,7 +67,8 @@ namespace GalacticUniversity.Controllers
             Lecture lecture = await _lectureService.Get(id);
             if (lecture==null)
             {
-                return NotFound();
+                TempData["error"] = "Lecture not found";
+                return RedirectToAction("Index");
             }
             var courses = _courseService.GetAll();
 
@@ -92,10 +90,7 @@ namespace GalacticUniversity.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(LectureViewModel lvm)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(lvm);
-            }
+           
             var lecture = new Lecture
             {
                 LectureID=lvm.ID,
@@ -114,7 +109,8 @@ namespace GalacticUniversity.Controllers
             var lecture = await _lectureService.Get(id);
             if (lecture == null)
             {
-                return NotFound();
+                TempData["error"] = "Lecture not found";
+                return RedirectToAction("Index");
             }
             await _lectureService.Delete(lecture);
             TempData["success"] = "Succesfully deleted lecture";
