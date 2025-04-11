@@ -1,6 +1,6 @@
 ﻿@model GalacticUniversity.Models.ViewModels.CourseViewModel
 
-<link rel="stylesheet" href="~/css/courseIndex.css" asp-append-version="true" />
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -12,6 +12,7 @@
         --success-color: #10b981;
         --light-color: #f3f4f6;
         --dark-color: #1f2937;
+        --warning-color: #fbbf24;
         --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     }
 
@@ -21,7 +22,6 @@
         font-family: 'Poppins', sans-serif;
     }
 
-    /* Rename page-header to about-header to match exactly */
     .about-header {
         background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
         border-radius: 16px;
@@ -54,7 +54,6 @@
         max-width: 800px;
     }
 
-        /* Exact display-4 styling from the About page */
         .about-header-content h1.display-4 {
             font-size: 3.5rem;
             line-height: 1.2;
@@ -87,17 +86,20 @@
     }
 
     @@keyframes twinkle {
-        0% {
-            opacity: 0.2;
-        }
+        0%
 
-        50% {
-            opacity: 1;
-        }
+    {
+        opacity: 0.2;
+    }
 
-        100% {
-            opacity: 0.2;
-        }
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.2;
+    }
+
     }
 
     .filter-container {
@@ -160,7 +162,7 @@
         color: white;
         border: none;
         border-radius: 8px;
-        padding: 8px 16px;
+        padding: 10px 20px;
         font-weight: 600;
         transition: all 0.3s ease;
     }
@@ -184,6 +186,25 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
         }
+
+    /* Added from first document */
+    .btn-sm {
+        padding: 8px 16px;
+        font-size: 0.875rem;
+    }
+
+    .btn-group {
+        display: flex;
+        gap: 5px;
+    }
+
+    .alert-info {
+        background-color: rgba(99, 102, 241, 0.1);
+        color: var(--secondary-color);
+        border: none;
+        border-radius: 8px;
+        padding: 20px;
+    }
 
     .section-title {
         position: relative;
@@ -222,6 +243,7 @@
 
     .table {
         margin-bottom: 0;
+        width: 100%;
     }
 
         .table thead {
@@ -235,13 +257,13 @@
                 border-bottom: 2px solid #e5e7eb;
             }
 
-        .table tbody td {
+        .table tbody td, .table tbody th {
             padding: 15px;
             vertical-align: middle;
             border-bottom: 1px solid #f3f4f6;
         }
 
-        .table tbody tr:last-child td {
+        .table tbody tr:last-child td, .table tbody tr:last-child th {
             border-bottom: none;
         }
 
@@ -310,24 +332,31 @@
 
     /* Responsive adjustments */
     @@media (max-width: 768px) {
-        .filter-form {
-            flex-direction: column;
-        }
+        .filter-form
 
-        .filter-group {
-            width: 100%;
-        }
+    {
+        flex-direction: column;
+    }
 
-        .admin-header {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 15px;
-        }
+    .filter-group {
+        width: 100%;
+    }
+
+    .admin-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .about-header-content h1.display-4 {
+        font-size: 2.5rem;
+    }
+
     }
 </style>
 
 <div class="container mt-5 mb-5">
-    <!-- Renamed to exactly match About Us -->
+    <!-- Header section with galaxy animation -->
     <div class="about-header">
         <div class="galaxy-animation" id="stars-container"></div>
         <div class="about-header-content">
@@ -362,7 +391,7 @@
 
                     <div>
                         <button type="submit" class="btn btn-primary">
-                            <i class="bi bi-filter me-2"></i>Filter Courses
+                           Filter 
                         </button>
                     </div>
                 </div>
@@ -377,41 +406,45 @@
         </div>
 
         <div class="admin-table-container">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Course Name</th>
-                        <th>Description</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Category</th>
-                        <th>Options</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.Courses)
-                    {
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
                         <tr>
-                            <td>@item.CourseName</td>
-                            <td>@item.Description</td>
-                            <td>@item.StartDate.ToString("MMMM d, yyyy", new System.Globalization.CultureInfo("en-US"))</td>
-                            <td>@item.EndDate.ToString("MMMM d, yyyy", new System.Globalization.CultureInfo("en-US"))</td>
-                            <td>@item.Category.CategoryName</td>
-                            <td>
-                                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.CourseID">
-                                    <i class="bi bi-pencil me-1"></i> Edit
-                                </a>
-
-                                <form asp-action="Delete" asp-route-id="@item.CourseID" method="post" style="display:inline; margin-left: 5px;">
-                                    <button type="submit" class="btn btn-danger">
-                                        <i class="bi bi-trash me-1"></i> Delete
-                                    </button>
-                                </form>
-                            </td>
+                            <th>Course Name</th>
+                            <th>Description</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Category</th>
+                            <th>Options</th>
                         </tr>
-                    }
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Courses)
+                        {
+                            <tr>
+                                <td>@item.CourseName</td>
+                                <td>@item.Description</td>
+                                <td>@item.StartDate.ToString("MMMM d, yyyy", new System.Globalization.CultureInfo("en-US"))</td>
+                                <td>@item.EndDate.ToString("MMMM d, yyyy", new System.Globalization.CultureInfo("en-US"))</td>
+                                <td>@item.Category.CategoryName</td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a class="btn btn-primary btn-sm" asp-action="Edit" asp-route-id="@item.CourseID">
+                                            <i class="bi bi-pencil me-1"></i> Edit
+                                        </a>
+
+                                        <form asp-action="Delete" asp-route-id="@item.CourseID" method="post" style="display:inline;">
+                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                <i class="bi bi-trash me-1"></i> Delete
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
     }
     else
@@ -440,7 +473,7 @@
 
                     <div>
                         <button type="submit" class="btn btn-primary">
-                            Filter
+                            <i class="bi bi-filter me-2"></i>Filter
                         </button>
                     </div>
                 </div>
@@ -462,7 +495,7 @@
                         {
                             <div class="action-btns">
                                 <a class="btn btn-primary" asp-action="Details" asp-controller="Course" asp-route-id="@item.CourseID">
-                                    View Details
+                                    <i class="bi bi-info-circle me-1"></i> View Details
                                 </a>
                             </div>
                         }
@@ -470,6 +503,13 @@
                 </div>
             }
         </div>
+
+        @if (!Model.Courses.Any())
+        {
+            <div class="alert alert-info text-center" role="alert">
+                <i class="bi bi-info-circle me-2"></i>No courses available based on your filter criteria. Please adjust your filters or check back later.
+            </div>
+        }
     }
 </div>
 
