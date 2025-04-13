@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
 
 
 namespace GalacticUniversity.Controllers
@@ -227,6 +228,8 @@ namespace GalacticUniversity.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
+           
+
             Course course = await _courseService.GetAll().Where(c => c.CourseID == id)
                 .Include(c => c.Lectures)
                 .ThenInclude(l => l.LectureResources)
@@ -239,6 +242,16 @@ namespace GalacticUniversity.Controllers
 
         public async Task<IActionResult> JoinCourse(int courseId)
         {
+            var currentUser = await _userManager.GetUserAsync(User);
+            var userCourses = _userCourseService.GetAll();
+
+            
+            if (userCourses.Any(uc => uc.CourseID == courseId && uc.UserID == currentUser.Id))
+            {
+                
+                TempData["error"] = "You have already enrolled to this course.";
+                return RedirectToAction("Index", "Course");  
+            }
 
 
             var userID = _userManager.GetUserId(User);

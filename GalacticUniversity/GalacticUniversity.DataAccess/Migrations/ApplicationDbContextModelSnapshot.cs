@@ -115,9 +115,6 @@ namespace GalacticUniversity.DataAccess.Migrations
                     b.Property<int>("CategoryID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CourseID1")
-                        .HasColumnType("int");
-
                     b.Property<string>("CourseName")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -140,8 +137,6 @@ namespace GalacticUniversity.DataAccess.Migrations
                     b.HasKey("CourseID");
 
                     b.HasIndex("CategoryID");
-
-                    b.HasIndex("CourseID1");
 
                     b.ToTable("courses");
                 });
@@ -521,10 +516,6 @@ namespace GalacticUniversity.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GalacticUniversity.Models.Course", null)
-                        .WithMany("UserCourses")
-                        .HasForeignKey("CourseID1");
-
                     b.Navigation("Category");
                 });
 
@@ -562,7 +553,7 @@ namespace GalacticUniversity.DataAccess.Migrations
             modelBuilder.Entity("GalacticUniversity.Models.UserCourses", b =>
                 {
                     b.HasOne("GalacticUniversity.Models.Course", "Course")
-                        .WithMany()
+                        .WithMany("UserCourses")
                         .HasForeignKey("CourseID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

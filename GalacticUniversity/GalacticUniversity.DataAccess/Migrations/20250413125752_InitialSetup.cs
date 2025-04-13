@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace GalacticUniversity.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class Setup : Migration
+    public partial class InitialSetup : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -204,8 +204,7 @@ namespace GalacticUniversity.DataAccess.Migrations
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ImageURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CategoryID = table.Column<int>(type: "int", nullable: false),
-                    CourseID1 = table.Column<int>(type: "int", nullable: true)
+                    CategoryID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -216,11 +215,6 @@ namespace GalacticUniversity.DataAccess.Migrations
                         principalTable: "categories",
                         principalColumn: "CategoryID",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_courses_courses_CourseID1",
-                        column: x => x.CourseID1,
-                        principalTable: "courses",
-                        principalColumn: "CourseID");
                 });
 
             migrationBuilder.CreateTable(
@@ -415,11 +409,6 @@ namespace GalacticUniversity.DataAccess.Migrations
                 name: "IX_courses_CategoryID",
                 table: "courses",
                 column: "CategoryID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_courses_CourseID1",
-                table: "courses",
-                column: "CourseID1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Feedback_UserID",
