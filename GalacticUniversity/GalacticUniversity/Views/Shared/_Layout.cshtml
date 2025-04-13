@@ -6,13 +6,13 @@
     <title>@ViewData["Title"] - GalacticUniversity</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 
-    @*<link rel="stylesheet" href="~/css/Body.css" asp-append-version="true" /> *@
+  
     <link rel="stylesheet" href="~/css/navbar.css" asp-append-version="true" /> 
     <link rel="stylesheet" href="~/css/rocket.css" />
 
-    @* Toaster *@
+    
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" asp-append-version="true" />
-    <!-- Font Awesome for Rocket Icon -->
+   
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
@@ -58,7 +58,7 @@
                     <span class="link-title" style="white-space: nowrap;">Tarot</span>
                 </a>
 
-                <a asp-controller="AboutUs" asp-action="Index" class="link">
+                <a asp-controller="Home" asp-action="AboutUs" class="link">
                     <span class="link-icon">
                         <svg viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>about</title> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="about-white" fill="#000000" transform="translate(42.666667, 42.666667)"> <path d="M213.333333,3.55271368e-14 C95.51296,3.55271368e-14 3.55271368e-14,95.51168 3.55271368e-14,213.333333 C3.55271368e-14,331.153707 95.51296,426.666667 213.333333,426.666667 C331.154987,426.666667 426.666667,331.153707 426.666667,213.333333 C426.666667,95.51168 331.154987,3.55271368e-14 213.333333,3.55271368e-14 Z M213.333333,384 C119.227947,384 42.6666667,307.43872 42.6666667,213.333333 C42.6666667,119.227947 119.227947,42.6666667 213.333333,42.6666667 C307.44,42.6666667 384,119.227947 384,213.333333 C384,307.43872 307.44,384 213.333333,384 Z M240.04672,128 C240.04672,143.46752 228.785067,154.666667 213.55008,154.666667 C197.698773,154.666667 186.713387,143.46752 186.713387,127.704107 C186.713387,112.5536 197.99616,101.333333 213.55008,101.333333 C228.785067,101.333333 240.04672,112.5536 240.04672,128 Z M192.04672,192 L234.713387,192 L234.713387,320 L192.04672,320 L192.04672,192 Z" id="Shape"> </path> </g> </g> </g></svg>
                     </span>
@@ -156,21 +156,15 @@
                         <div class="schoolbag"></div>
                     </div>
                     <h3>Galactic University</h3>
-                    <p class="footer-tagline">Expanding minds across the universe since 2120</p>
-                    <div class="social-icons">
-                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
+                    <p class="footer-tagline">Expanding minds across the universe since 2006</p>
+                   
                 </div>
                 <div class="footer-links">
                     <h4>Quick Links</h4>
                     <ul>
                         <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                         <li><a asp-area="" asp-controller="Course" asp-action="Index">Courses</a></li>
-                        <li><a asp-area="" asp-controller="AboutUs" asp-action="Index">About Us</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a></li>
                         <li><a asp-area="" asp-controller="Contact" asp-action="Index">Contact</a></li>
                     </ul>
                 </div>
@@ -186,8 +180,8 @@
                 <div class="footer-links">
                     <h4>Legal</h4>
                     <ul>
-                        <li><a asp-area="" asp-controller="PrivacyPolicy" asp-action="Index">Privacy Policy</a></li>
-                        <li><a asp-area="" asp-controller="TermsOfService" asp-action="Index">Terms of Service</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="PrivacyPolicy">Privacy Policy</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="TermsOfService">Terms of Service</a></li>
                         
                     </ul>
                 </div>

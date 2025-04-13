@@ -17,22 +17,31 @@ namespace GalacticUniversity.Controllers
             _courseService = courseService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var courses = _courseService.GetAll()
                 .Include(c => c.Comments)
                 .Include(c=>c.Lectures)
                 .Include(c=>c.Category)
-                .OrderByDescending(c => c.Comments.Count) // Order by popularity (number of comments)
-                .Take(3) // Take top 3 courses
+                .OrderByDescending(c => c.Comments.Count) 
+                .Take(3) 
                 .ToList();
             return View(courses);
         }
 
-        public IActionResult Privacy()
+        public async Task<IActionResult> PrivacyPolicy()
         {
             return View();
         }
+        public async Task<IActionResult> AboutUs()
+        {
+            return View();
+        }
+        public async Task<IActionResult> TermsOfService()
+        {
+            return View();
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
