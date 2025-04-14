@@ -48,6 +48,6 @@ namespace GalacticUniversity.Models
         public Category Category { get; set; }
         public ICollection<Lecture> Lectures { get; set; } = new List<Lecture>();
         public ICollection<Comment> Comments { get; set; }
-        public ICollection<Course> UserCourses { get; set; }
+        public ICollection<UserCourses> UserCourses { get; set; }
     }
 }

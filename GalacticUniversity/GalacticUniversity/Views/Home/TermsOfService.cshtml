@@ -1,9 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-@{
+﻿@{
     ViewData["Title"] = "Terms of Service";
 }
 
@@ -29,7 +24,7 @@
     .terms-header {
         background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
         border-radius: 16px;
-        padding: 50px 40px;
+        padding: 60px 40px;
         margin-bottom: 40px;
         color: white;
         box-shadow: var(--card-shadow);
@@ -52,10 +47,60 @@
             z-index: 0;
         }
 
+    /* Star Animation */
+    .galaxy-animation {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 0;
+    }
+
+    .star {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: white;
+        border-radius: 50%;
+        animation: twinkle 2s infinite;
+    }
+
+    @@keyframes twinkle {
+        0%
+
+    {
+        opacity: 0.2;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.2;
+    }
+
+    }
+
     .terms-header-content {
         position: relative;
         z-index: 1;
+        max-width: 800px;
     }
+
+        .terms-header-content h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .terms-header-content p {
+            font-size: 1.25rem;
+            line-height: 1.5;
+        }
 
     .terms-content {
         background-color: white;
@@ -66,18 +111,13 @@
     }
 
     .content-section {
-        margin-bottom: 40px;
+        margin-bottom: 30px;
     }
 
-        .content-section:last-child {
-            margin-bottom: 0;
-        }
-
     .section-title {
-        position: relative;
-        font-weight: 600;
         color: var(--primary-color);
-        margin-bottom: 20px;
+        font-weight: 600;
+        margin-bottom: 15px;
         padding-bottom: 10px;
         border-bottom: 2px solid #f3f4f6;
     }
@@ -87,56 +127,8 @@
         border-radius: 8px;
         padding: 15px 20px;
         font-size: 0.9rem;
-        margin-top: 20px;
+        margin-bottom: 20px;
     }
-
-    .highlight-box {
-        background: linear-gradient(to right, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
-        border-left: 4px solid var(--primary-color);
-        padding: 20px;
-        border-radius: 8px;
-        margin: 25px 0;
-    }
-
-    .table-of-contents {
-        background-color: #f8faff;
-        border-radius: 12px;
-        padding: 25px;
-        margin-bottom: 30px;
-    }
-
-        .table-of-contents ul {
-            list-style-type: none;
-            padding-left: 10px;
-        }
-
-            .table-of-contents ul li {
-                margin-bottom: 10px;
-                position: relative;
-                padding-left: 25px;
-            }
-
-                .table-of-contents ul li::before {
-                    content: '';
-                    position: absolute;
-                    left: 0;
-                    top: 8px;
-                    width: 8px;
-                    height: 8px;
-                    border-radius: 50%;
-                    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-                }
-
-                .table-of-contents ul li a {
-                    color: var(--secondary-color);
-                    text-decoration: none;
-                    transition: all 0.3s ease;
-                }
-
-                    .table-of-contents ul li a:hover {
-                        color: var(--primary-color);
-                        padding-left: 5px;
-                    }
 
     .back-to-top {
         position: fixed;
@@ -169,11 +161,16 @@
 </style>
 
 <div class="container mt-5 mb-5">
+<<<<<<< HEAD
    
+=======
+    <!-- Terms of Service Header with Galaxy Animation -->
+>>>>>>> origin/main
     <div class="terms-header">
+        <div class="galaxy-animation" id="stars-container"></div>
         <div class="terms-header-content">
-            <h1 class="display-5 fw-bold mb-3">Terms of Service</h1>
-            <p class="mb-0 fs-5">Please read these terms carefully before using our educational services.</p>
+            <h1>Terms of Service</h1>
+            <p>Please read these terms before using our services.</p>
         </div>
     </div>
 
@@ -183,6 +180,7 @@
             <strong>Last Updated:</strong> March 21, 2025
         </div>
 
+<<<<<<< HEAD
         
         <div class="table-of-contents mt-4">
             <h4 class="mb-3">Contents</h4>
@@ -204,160 +202,36 @@
         </div>
 
         <div class="content-section" id="agreement">
+=======
+        <div class="content-section">
+>>>>>>> origin/main
             <h3 class="section-title">1. Agreement to Terms</h3>
-            <p>These Terms of Service ("Terms") constitute a legally binding agreement made between you, whether personally or on behalf of an entity ("you") and Galactic University ("we," "us," or "our"), concerning your access to and use of our educational platform and services.</p>
-            <p>By accessing or using our platform, you agree to be bound by these Terms. If you disagree with any part of the Terms, you may not access our platform or use our services.</p>
+            <p>By using Galactic University's platform, you agree to these terms. If you disagree, please do not use our services.</p>
         </div>
 
-        <div class="content-section" id="changes">
-            <h3 class="section-title">2. Changes to Terms</h3>
-            <p>We reserve the right to modify or replace these Terms at any time at our sole discretion. The most current version will be posted on our website with the "Last Updated" date at the top.</p>
-            <p>It is your responsibility to check our Terms periodically for changes. Your continued use of our platform following the posting of revised Terms means that you accept and agree to the changes.</p>
-            <p>We will provide notice of material changes through our platform or via direct communication to registered users.</p>
+        <div class="content-section">
+            <h3 class="section-title">2. User Accounts</h3>
+            <p>You are responsible for maintaining the security of your account and all activities that occur under it.</p>
         </div>
 
-        <div class="content-section" id="access">
-            <h3 class="section-title">3. Accessing the Platform</h3>
-            <p>We grant you a limited, non-exclusive, non-transferable, revocable license to access and use our platform strictly in accordance with these Terms.</p>
-            <p>We reserve the right to:</p>
-            <ul>
-                <li>Modify, suspend, or discontinue the platform (or any part of it) at any time, with or without notice</li>
-                <li>Restrict access to some or all of the platform to users, including registered users</li>
-                <li>Charge fees for access to certain portions of the platform or specific services</li>
-            </ul>
-            <p>You are responsible for:</p>
-            <ul>
-                <li>Making all arrangements necessary for you to have access to the platform</li>
-                <li>Ensuring that all persons who access the platform through your connection are aware of these Terms and comply with them</li>
-                <li>Ensuring that your access meets our minimum technical requirements</li>
-            </ul>
-
-            <div class="highlight-box">
-                <h5 class="mb-3">Accessibility Notice</h5>
-                <p class="mb-0">Galactic University is committed to providing an accessible experience. If you encounter accessibility barriers, please contact our accessibility team at accessibility@galacticuniversity.edu.</p>
-            </div>
+        <div class="content-section">
+            <h3 class="section-title">3. User Conduct</h3>
+            <p>Users must respect academic integrity and refrain from disruptive behavior. Violations may result in account termination.</p>
         </div>
 
-        <div class="content-section" id="accounts">
-            <h3 class="section-title">4. User Accounts</h3>
-            <p>To access certain features of the platform, you may be required to register for an account. You agree to provide accurate, current, and complete information during the registration process and to update such information to keep it accurate, current, and complete.</p>
-            <p>You are responsible for:</p>
-            <ul>
-                <li>Maintaining the confidentiality of your account credentials</li>
-                <li>All activities that occur under your account</li>
-                <li>Notifying us immediately of any unauthorized use or security breach</li>
-            </ul>
-            <p>We reserve the right to disable any user account at any time if, in our opinion, you have failed to comply with these Terms or if we suspect unauthorized or fraudulent use of your account.</p>
+        <div class="content-section">
+            <h3 class="section-title">4. Intellectual Property</h3>
+            <p>Course materials are protected by copyright. You may use them for personal educational purposes only.</p>
         </div>
 
-        <div class="content-section" id="conduct">
-            <h3 class="section-title">5. User Conduct</h3>
-            <p>As a user of our platform, you agree not to:</p>
-            <ul>
-                <li>Use the platform in any way that violates applicable laws or regulations</li>
-                <li>Engage in academic dishonesty, including plagiarism, cheating, or unauthorized collaboration</li>
-                <li>Impersonate another person or misrepresent your affiliation with any person or entity</li>
-                <li>Interfere with or disrupt the platform or servers or networks connected to the platform</li>
-                <li>Attempt to gain unauthorized access to any portion of the platform or any other systems or networks</li>
-                <li>Use the platform to transmit harmful code, malware, or other malicious content</li>
-                <li>Collect or harvest any information from the platform without authorization</li>
-                <li>Use the platform for any commercial purpose without our prior written consent</li>
-                <li>Harass, abuse, or harm another person or entity through our platform</li>
-                <li>Create or submit unwanted electronic communications to other users</li>
-            </ul>
-            <p>Violation of these conduct standards may result in disciplinary action, up to and including termination of your account and expulsion from Galactic University programs.</p>
+        <div class="content-section">
+            <h3 class="section-title">5. Payments</h3>
+            <p>Tuition is due according to your program's payment schedule. Late payments may restrict access to platform features.</p>
         </div>
 
-        <div class="content-section" id="content">
-            <h3 class="section-title">6. Intellectual Property</h3>
-            <p>The platform and its entire contents, features, and functionality (including but not limited to all information, software, text, displays, images, video, and audio, and the design, selection, and arrangement thereof) are owned by Galactic University, its licensors, or other providers of such material and are protected by copyright, trademark, patent, trade secret, and other intellectual property or proprietary rights laws.</p>
-
-            <h5 class="mt-4 mb-3">Course Materials</h5>
-            <p>All course materials, including but not limited to lectures, presentations, assignments, readings, and assessments, are protected by copyright. You may access and use these materials solely for your personal educational purposes. You may not:</p>
-            <ul>
-                <li>Reproduce, distribute, modify, create derivative works of, publicly display, publicly perform, republish, download, store, or transmit any course materials</li>
-                <li>Share your account or course access with others</li>
-                <li>Record, reproduce, or distribute class lectures or discussions without explicit permission</li>
-                <li>Remove any copyright or other proprietary notices</li>
-            </ul>
-
-            <h5 class="mt-4 mb-3">Student Work</h5>
-            <p>You retain ownership of original work that you create as part of your coursework. However, by submitting work through our platform, you grant us a non-exclusive, royalty-free, perpetual, worldwide license to use, store, display, reproduce, modify, create derivative works, and distribute such content for educational and institutional purposes.</p>
-        </div>
-
-        <div class="content-section" id="payments">
-            <h3 class="section-title">7. Tuition and Payments</h3>
-            <p>By enrolling in courses or programs at Galactic University, you agree to pay all applicable tuition and fees as described at the time of enrollment. Payment terms include:</p>
-            <ul>
-                <li>Tuition is due according to the payment schedule established for your program</li>
-                <li>Accepted payment methods include universal credit transfer, quantum-secured cryptocurrency, and interplanetary banking networks</li>
-                <li>Late payments may incur additional fees and/or result in restricted access to platform features</li>
-                <li>Refunds are governed by our Refund Policy, available separately</li>
-            </ul>
-
-            <div class="highlight-box">
-                <h5 class="mb-3">Financial Assistance</h5>
-                <p class="mb-0">Galactic University offers various financial assistance options, including scholarships, grants, and payment plans. For more information, contact our Financial Aid Office at financial.aid@galacticuniversity.edu.</p>
-            </div>
-        </div>
-
-        <div class="content-section" id="academic">
-            <h3 class="section-title">8. Academic Policies</h3>
-            <p>By enrolling in courses at Galactic University, you agree to abide by our academic policies, including:</p>
-            <ul>
-                <li>Academic Integrity Policy prohibiting plagiarism, cheating, and other forms of academic dishonesty</li>
-                <li>Attendance and participation requirements specified for each course</li>
-                <li>Grading policies and assessment criteria</li>
-                <li>Course completion requirements for earning credits or credentials</li>
-                <li>Student Code of Conduct governing behavior in virtual and physical learning environments</li>
-            </ul>
-            <p>Detailed academic policies are available in the Student Handbook, which is incorporated by reference into these Terms.</p>
-        </div>
-
-        <div class="content-section" id="disclaimers">
-            <h3 class="section-title">9. Disclaimers</h3>
-            <p>THE PLATFORM AND ALL CONTENT AND SERVICES PROVIDED THROUGH IT ARE PROVIDED ON AN "AS IS" AND "AS AVAILABLE" BASIS, WITHOUT ANY WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED.</p>
-            <p>GALACTIC UNIVERSITY DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.</p>
-            <p>We do not warrant that:</p>
-            <ul>
-                <li>The platform will meet your specific requirements</li>
-                <li>The platform will be uninterrupted, timely, secure, or error-free</li>
-                <li>The results obtained from using the platform will be accurate or reliable</li>
-                <li>The quality of courses, content, or services will meet your expectations</li>
-                <li>Any errors in the platform will be corrected</li>
-            </ul>
-            <p>Educational content is provided for general informational purposes only and may not be suitable for all learners or contexts.</p>
-        </div>
-
-        <div class="content-section" id="limitation">
-            <h3 class="section-title">10. Limitation of Liability</h3>
-            <p>IN NO EVENT SHALL GALACTIC UNIVERSITY, ITS AFFILIATES, OR THEIR LICENSORS, SERVICE PROVIDERS, EMPLOYEES, AGENTS, OFFICERS, OR DIRECTORS BE LIABLE FOR DAMAGES OF ANY KIND ARISING OUT OF OR IN CONNECTION WITH YOUR USE OF THE PLATFORM OR ANY CONTENT OR SERVICES PROVIDED THROUGH IT.</p>
-            <p>This includes any direct, indirect, special, incidental, consequential, or punitive damages, including but not limited to, personal injury, pain and suffering, emotional distress, loss of revenue, loss of profits, loss of business or anticipated savings, loss of data, and whether caused by tort (including negligence), breach of contract, or otherwise, even if foreseeable.</p>
-            <p>Some jurisdictions do not allow the exclusion or limitation of certain warranties or incidental or consequential damages, so some of the above limitations may not apply to you.</p>
-        </div>
-
-        <div class="content-section" id="termination">
-            <h3 class="section-title">11. Termination</h3>
-            <p>We may terminate or suspend your account and access to our platform immediately, without prior notice or liability, for any reason whatsoever, including without limitation if you breach these Terms.</p>
-            <p>Upon termination, your right to use the platform will immediately cease. If you wish to terminate your account, you may simply discontinue using the platform or contact us to request account deletion.</p>
-            <p>All provisions of the Terms which by their nature should survive termination shall survive termination, including, without limitation, ownership provisions, warranty disclaimers, indemnity, and limitations of liability.</p>
-        </div>
-
-        <div class="content-section" id="governing">
-            <h3 class="section-title">12. Governing Law</h3>
-            <p>These Terms shall be governed and construed in accordance with the Interplanetary Education Standards Act of 2122 and applicable Earth jurisdictions where Galactic University maintains satellite campuses.</p>
-            <p>Any disputes arising under these Terms will be subject to the exclusive jurisdiction of the courts located within the Mars Colony Judicial District.</p>
-            <p>You agree to submit to the personal and exclusive jurisdiction of the courts located within the Mars Colony Judicial District to resolve any dispute or claim arising from these Terms.</p>
-        </div>
-
-        <div class="content-section" id="contact">
-            <h3 class="section-title">13. Contact Information</h3>
-            <p>If you have any questions about these Terms, please contact us:</p>
-            <ul>
-                <li><strong>Email:</strong> legal@galacticuniversity.edu</li>
-                <li><strong>Postal Address:</strong> Legal Department, Galactic University Headquarters, Mars Campus, Olympus Mons District, Mars Colony</li>
-                <li><strong>Quantum Comm Channel:</strong> QC-GU-LEGAL-2025</li>
-            </ul>
+        <div class="content-section">
+            <h3 class="section-title">6. Contact Information</h3>
+            <p>For questions about these Terms, contact us at info@galacticuniversity.edu.</p>
         </div>
     </div>
 </div>
@@ -372,7 +246,24 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+<<<<<<< HEAD
        
+=======
+        // Create twinkling stars in the header
+        const starsContainer = document.getElementById('stars-container');
+        const starCount = 100;
+
+        for (let i = 0; i < starCount; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.animationDelay = `${Math.random() * 2}s`;
+            starsContainer.appendChild(star);
+        }
+
+        // Back to top button functionality
+>>>>>>> origin/main
         const backToTopButton = document.getElementById('backToTop');
 
         window.addEventListener('scroll', function() {
@@ -389,6 +280,7 @@
                 behavior: 'smooth'
             });
         });
+<<<<<<< HEAD
 
         
         document.querySelectorAll('.table-of-contents a').forEach(anchor => {
@@ -404,5 +296,7 @@
                 });
             });
         });
+=======
+>>>>>>> origin/main
     });
 </script>

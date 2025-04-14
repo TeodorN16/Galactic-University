@@ -17,7 +17,7 @@ namespace GalacticUniversity.Tests.UnitTests.Models
                 UserID = "user123",
                 CourseID = 101,
                 IssueDate = DateTime.Today,
-                CertificateUrl = "https://cloudinary.com/xyz123"
+                
             };
 
             // Assert
@@ -25,7 +25,7 @@ namespace GalacticUniversity.Tests.UnitTests.Models
             Assert.AreEqual("user123", certificate.UserID);
             Assert.AreEqual(101, certificate.CourseID);
             Assert.AreEqual(DateTime.Today, certificate.IssueDate.Date);
-            Assert.AreEqual("https://cloudinary.com/xyz123", certificate.CertificateUrl);
+            
         }
 
         [Test]
@@ -43,7 +43,7 @@ namespace GalacticUniversity.Tests.UnitTests.Models
                 Course = course,  // Set the Course object
                 CourseID = course.CourseID,
                 IssueDate = DateTime.Today,
-                CertificateUrl = "https://cloudinary.com/xyz123"
+              
             };
 
             // Assert the foreign key relationship
@@ -63,12 +63,12 @@ namespace GalacticUniversity.Tests.UnitTests.Models
                 UserID = "user123",
                 CourseID = 101,
                 IssueDate = DateTime.Today,
-                CertificateUrl = "https://cloudinary.com/xyz123"
+                
             };
 
             // Assert ForeignKey relationships
-            Assert.IsNotNull(certificate.UserID);  // Ensure UserID is set
-            Assert.IsNotNull(certificate.CourseID);  // Ensure CourseID is set
+            Assert.IsNotNull(certificate.UserID);  
+            Assert.IsNotNull(certificate.CourseID);  
         }
     }
 }

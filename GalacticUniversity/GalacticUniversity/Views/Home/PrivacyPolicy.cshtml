@@ -1,13 +1,9 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-@{
+﻿@{
     ViewData["Title"] = "Privacy Policy";
 }
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
 <style>
     :root {
@@ -24,12 +20,24 @@
         background-color: #f8f9fa;
         color: var(--secondary-color);
         font-family: 'Poppins', sans-serif;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
+    main {
+        flex: 1 0 auto;
+    }
+
+    footer {
+        flex-shrink: 0;
+        margin-top: auto;
     }
 
     .privacy-header {
         background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
         border-radius: 16px;
-        padding: 50px 40px;
+        padding: 60px 40px;
         margin-bottom: 40px;
         color: white;
         box-shadow: var(--card-shadow);
@@ -55,6 +63,55 @@
     .privacy-header-content {
         position: relative;
         z-index: 1;
+        max-width: 800px;
+    }
+
+        .privacy-header-content h1.display-5 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        .privacy-header-content p.fs-5 {
+            font-size: 1.25rem;
+            line-height: 1.5;
+        }
+
+    /* Star Animation */
+    .galaxy-animation {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 0;
+    }
+
+    .star {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: white;
+        border-radius: 50%;
+        animation: twinkle 2s infinite;
+    }
+
+    @@keyframes twinkle {
+        0%
+
+    {
+        opacity: 0.2;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.2;
+    }
+
     }
 
     .privacy-content {
@@ -168,6 +225,7 @@
         }
 </style>
 
+<<<<<<< HEAD
 <div class="container mt-5 mb-5">
    
     <div class="privacy-header">
@@ -240,133 +298,104 @@
             <div class="highlight-box">
                 <h5 class="mb-3">Special Note on Biometric Data</h5>
                 <p class="mb-0">For students participating in remote examinations, we may collect biometric data for identity verification purposes only with explicit consent. This data is encrypted and retained only for the duration necessary to verify your identity.</p>
+=======
+<main>
+    <div class="container mt-5 mb-5">
+        <!-- Updated header with star animation -->
+        <div class="privacy-header">
+            <div class="galaxy-animation" id="stars-container"></div>
+            <div class="privacy-header-content">
+                <h1 class="display-5 fw-bold mb-3">Privacy Policy</h1>
+                <p class="mb-0 fs-5">We collect only what's necessary to provide your certificates. Nothing more.</p>
+>>>>>>> origin/main
             </div>
         </div>
 
-        <div class="content-section" id="information-use">
-            <h3 class="section-title">3. How We Use Your Information</h3>
-            <p>We use information that we collect about you or that you provide to us, including any personal information:</p>
-            <ul>
-                <li>To provide, maintain, and improve our educational services</li>
-                <li>To process enrollments, payments, and credential verifications</li>
-                <li>To personalize your learning experience and recommend relevant content</li>
-                <li>To communicate with you about courses, updates, and support</li>
-                <li>To analyze and improve our platform's performance and educational effectiveness</li>
-                <li>To detect, prevent, and address technical issues and security threats</li>
-                <li>To comply with academic accreditation and regulatory requirements</li>
-            </ul>
-
-            <p>We process your personal data based on the following legal grounds:</p>
-            <ul>
-                <li>Performance of our contract with you as a student</li>
-                <li>Our legitimate interests in operating and improving our educational services</li>
-                <li>Your consent, where specifically requested</li>
-                <li>Compliance with legal obligations applicable to educational institutions</li>
-            </ul>
-        </div>
-
-        <div class="content-section" id="information-sharing">
-            <h3 class="section-title">4. Information Sharing and Disclosure</h3>
-            <p>We may disclose aggregated information about our users, and information that does not identify any individual, without restriction. We may disclose personal information that we collect or you provide as described in this privacy policy:</p>
-            <ul>
-                <li>To our subsidiaries and affiliates within the Galactic University system.</li>
-                <li>To contractors, service providers, and other third parties we use to support our educational operations.</li>
-                <li>To accrediting bodies, educational partners, and credential verification services.</li>
-                <li>To fulfill the purpose for which you provide it.</li>
-                <li>For any other purpose disclosed by us when you provide the information.</li>
-                <li>With your consent.</li>
-            </ul>
-
-            <p>We may also disclose your personal information:</p>
-            <ul>
-                <li>To comply with any court order, law, or legal process.</li>
-                <li>To enforce or apply our terms of use and other agreements.</li>
-                <li>If we believe disclosure is necessary to protect the rights, property, or safety of Galactic University, our students, or others.</li>
-            </ul>
-        </div>
-
-        <div class="content-section" id="data-security">
-            <h3 class="section-title">5. Data Security</h3>
-            <p>We have implemented measures designed to secure your personal information from accidental loss and from unauthorized access, use, alteration, and disclosure. All information you provide to us is stored on secure servers behind firewalls.</p>
-            <p>Our security measures include:</p>
-            <ul>
-                <li>Encryption of sensitive data at rest and in transit using quantum-resistant algorithms</li>
-                <li>Multi-factor authentication for account access</li>
-                <li>Regular security assessments and penetration testing</li>
-                <li>Staff training on data protection and security practices</li>
-                <li>Access controls and authorization protocols</li>
-            </ul>
-            <p>Unfortunately, the transmission of information via the internet is not completely secure. Although we do our best to protect your personal information, we cannot guarantee the security of your personal information transmitted to our website.</p>
-        </div>
-
-        <div class="content-section" id="user-rights">
-            <h3 class="section-title">6. Your Rights and Choices</h3>
-            <p>Depending on your location, you may have certain rights regarding your personal information, including:</p>
-            <ul>
-                <li>Access to your personal information</li>
-                <li>Correction of inaccurate or incomplete information</li>
-                <li>Deletion of your personal information in certain circumstances</li>
-                <li>Restriction or objection to certain processing activities</li>
-                <li>Data portability to transfer your information to another service</li>
-                <li>Withdrawal of consent where processing is based on consent</li>
-            </ul>
-            <p>To exercise these rights, please contact us using the information provided in the "Contact Us" section.</p>
-
-            <div class="highlight-box">
-                <h5 class="mb-3">Academic Records Retention</h5>
-                <p class="mb-0">Please note that certain educational records may be retained as required by academic accreditation standards and applicable laws, even if you request deletion of your personal information.</p>
+        <div class="privacy-content">
+            <div class="policy-update">
+                <strong>Last Updated:</strong> March 21, 2025
             </div>
-        </div>
 
-        <div class="content-section" id="cookies">
-            <h3 class="section-title">7. Cookies and Tracking Technologies</h3>
-            <p>We use cookies and similar tracking technologies to track the activity on our platform and hold certain information.</p>
-            <p>Cookies are files with a small amount of data which may include an anonymous unique identifier. Cookies are sent to your browser from a website and stored on your device.</p>
-            <p>We use the following types of cookies:</p>
-            <ul>
-                <li><strong>Essential cookies:</strong> Necessary for the website to function properly.</li>
-                <li><strong>Analytics cookies:</strong> Help us understand how visitors interact with our website.</li>
-                <li><strong>Functional cookies:</strong> Enable enhanced functionality and personalization.</li>
-                <li><strong>Marketing cookies:</strong> Used to track visitors across websites to enable targeted advertising.</li>
-            </ul>
-            <p>You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent. However, if you do not accept cookies, you may not be able to use some portions of our platform.</p>
-        </div>
+            <div class="content-section mt-4" id="introduction">
+                <h3 class="section-title">1. What We Collect</h3>
+                <p>We only collect the following information from you:</p>
+                <ul>
+                    <li>Email address</li>
+                    <li>Username</li>
+                    <li>Password (encrypted)</li>
+                </ul>
+            </div>
 
-        <div class="content-section" id="children">
-            <h3 class="section-title">8. Children's Privacy</h3>
-            <p>Our platform is not intended for children under 16 years of age. We do not knowingly collect personal information from children under 16. If you are a parent or guardian and believe we may have collected information about a child, please contact us using the information in the "Contact Us" section, and we will promptly delete such information.</p>
-        </div>
+            <div class="content-section" id="how-we-use">
+                <h3 class="section-title">2. How We Use It</h3>
+                <p>We use this information solely to:</p>
+                <ul>
+                    <li>Create and manage your account</li>
+                    <li>Generate and issue certificates</li>
+                    <li>Verify your access to the platform</li>
+                </ul>
+            </div>
 
-        <div class="content-section" id="changes">
-            <h3 class="section-title">9. Changes to This Privacy Policy</h3>
-            <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date at the top of this page.</p>
-            <p>We will provide more prominent notice of material changes to this policy, including, for certain services, email notification of Privacy Policy changes. We encourage you to review this Privacy Policy periodically for any changes.</p>
-        </div>
+            <div class="content-section" id="data-security">
+                <h3 class="section-title">3. Data Security</h3>
+                <p>Your data is stored securely. Passwords are encrypted, and we don't share your personal information with third parties.</p>
+            </div>
 
-        <div class="content-section" id="contact">
-            <h3 class="section-title">10. Contact Us</h3>
-            <p>If you have any questions about this Privacy Policy or our data practices, please contact us:</p>
-            <ul>
-                <li><strong>Email:</strong> privacy@galacticuniversity.edu</li>
-                <li><strong>Postal Address:</strong> Data Protection Office, Galactic University Headquarters, Mars Campus, Olympus Mons District, Mars Colony</li>
-                <li><strong>Quantum Comm Channel:</strong> QC-GU-PRIVACY-2025</li>
-            </ul>
-            <p>For urgent privacy matters, you may also contact our Data Protection Officer directly at dpo@galacticuniversity.edu.</p>
+            <div class="content-section" id="contact">
+                <h3 class="section-title">4. Contact Us</h3>
+                <p>If you have any questions, feel free to reach out:</p>
+                <ul>
+                    <li><strong>Email:</strong> info@galacticuniversity.edu</li>
+                </ul>
+            </div>
         </div>
     </div>
-</div>
+</main>
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/main
 <div class="back-to-top" id="backToTop">
     <i class="bi bi-arrow-up"></i>
 </div>
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/main
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+<<<<<<< HEAD
         
+=======
+        // Create stars animation for the galaxy background
+        const starsContainer = document.getElementById('stars-container');
+        const starsCount = 50;
+
+        for (let i = 0; i < starsCount; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+
+            // Random position
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = `${Math.random() * 100}%`;
+
+            // Random size
+            const size = Math.random() * 3 + 1;
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+
+            // Random animation delay
+            star.style.animationDelay = `${Math.random() * 2}s`;
+
+            starsContainer.appendChild(star);
+        }
+
+        // Back to top functionality
+>>>>>>> origin/main
         const backToTopButton = document.getElementById('backToTop');
 
         window.addEventListener('scroll', function() {
@@ -384,7 +413,6 @@
             });
         });
 
-        // Smooth scrolling for table of contents links
         document.querySelectorAll('.table-of-contents a').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
