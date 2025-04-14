@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GalacticUniversity.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250413125752_InitialSetup")]
+    [Migration("20250414130114_InitialSetup")]
     partial class InitialSetup
     {
         /// <inheritdoc />
@@ -252,7 +252,7 @@ namespace GalacticUniversity.DataAccess.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("UserCourses");
+                    b.ToTable("userCourses");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

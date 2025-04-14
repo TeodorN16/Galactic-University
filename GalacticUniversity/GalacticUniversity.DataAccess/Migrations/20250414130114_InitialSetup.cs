@@ -315,7 +315,7 @@ namespace GalacticUniversity.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserCourses",
+                name: "userCourses",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -326,21 +326,21 @@ namespace GalacticUniversity.DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserCourses", x => x.Id);
+                    table.PrimaryKey("PK_userCourses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserCourses_AspNetUsers_UserID",
+                        name: "FK_userCourses_AspNetUsers_UserID",
                         column: x => x.UserID,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserCourses_courses_CourseID",
+                        name: "FK_userCourses_courses_CourseID",
                         column: x => x.CourseID,
                         principalTable: "courses",
                         principalColumn: "CourseID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserCourses_lectures_LectureID",
+                        name: "FK_userCourses_lectures_LectureID",
                         column: x => x.LectureID,
                         principalTable: "lectures",
                         principalColumn: "LectureID");
@@ -426,18 +426,18 @@ namespace GalacticUniversity.DataAccess.Migrations
                 column: "CourseID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserCourses_CourseID",
-                table: "UserCourses",
+                name: "IX_userCourses_CourseID",
+                table: "userCourses",
                 column: "CourseID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserCourses_LectureID",
-                table: "UserCourses",
+                name: "IX_userCourses_LectureID",
+                table: "userCourses",
                 column: "LectureID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserCourses_UserID",
-                table: "UserCourses",
+                name: "IX_userCourses_UserID",
+                table: "userCourses",
                 column: "UserID");
         }
 
@@ -472,7 +472,7 @@ namespace GalacticUniversity.DataAccess.Migrations
                 name: "lectureResources");
 
             migrationBuilder.DropTable(
-                name: "UserCourses");
+                name: "userCourses");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

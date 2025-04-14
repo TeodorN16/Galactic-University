@@ -249,7 +249,7 @@ namespace GalacticUniversity.DataAccess.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("UserCourses");
+                    b.ToTable("userCourses");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
