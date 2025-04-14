@@ -336,7 +336,7 @@ namespace GalacticUniversity.Controllers
                 CourseID = courseId,
                 Course = userCourse.Course,
                 IssueDate = DateTime.Now,
-                CertificateUrl = "URL not available"
+               
             };
 
             if (user.Certificates == null)

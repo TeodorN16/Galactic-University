@@ -171,7 +171,7 @@ namespace GalacticUniversity.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Feedback",
+                name: "feedbacks",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -184,9 +184,9 @@ namespace GalacticUniversity.DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Feedback", x => x.Id);
+                    table.PrimaryKey("PK_feedbacks", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Feedback_AspNetUsers_UserID",
+                        name: "FK_feedbacks_AspNetUsers_UserID",
                         column: x => x.UserID,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -411,8 +411,8 @@ namespace GalacticUniversity.DataAccess.Migrations
                 column: "CategoryID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Feedback_UserID",
-                table: "Feedback",
+                name: "IX_feedbacks_UserID",
+                table: "feedbacks",
                 column: "UserID");
 
             migrationBuilder.CreateIndex(
@@ -466,7 +466,7 @@ namespace GalacticUniversity.DataAccess.Migrations
                 name: "comments");
 
             migrationBuilder.DropTable(
-                name: "Feedback");
+                name: "feedbacks");
 
             migrationBuilder.DropTable(
                 name: "lectureResources");

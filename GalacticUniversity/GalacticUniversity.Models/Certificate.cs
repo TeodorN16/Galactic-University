@@ -23,8 +23,7 @@ namespace GalacticUniversity.Models
 
         public DateTime IssueDate { get; set; }
 
-        public string CertificateUrl { get; set; } // Cloudinary URL
-
+        
 
 
 

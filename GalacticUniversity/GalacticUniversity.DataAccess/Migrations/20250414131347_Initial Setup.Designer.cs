@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GalacticUniversity.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250414130114_InitialSetup")]
+    [Migration("20250414131347_Initial Setup")]
     partial class InitialSetup
     {
         /// <inheritdoc />
@@ -175,7 +175,7 @@ namespace GalacticUniversity.DataAccess.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("Feedback");
+                    b.ToTable("feedbacks");
                 });
 
             modelBuilder.Entity("GalacticUniversity.Models.Lecture", b =>
