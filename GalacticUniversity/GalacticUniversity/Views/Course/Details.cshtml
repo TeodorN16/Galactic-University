@@ -219,7 +219,7 @@
         flex-direction: column;
     }
 
-    /* Twinkling stars animation */
+
     .galaxy-animation {
         position: absolute;
         top: 0;
@@ -259,7 +259,7 @@
   
     
 
-    /* Responsive adjustments */
+
     @@media (max-width: 768px) {
         .course-header
 
@@ -398,7 +398,7 @@
         opacity: 0.6;
     }
 
-    /* Login Prompt */
+    
     .login-prompt {
         text-align: center;
         background-color: rgba(255, 255, 255, 0.05);
@@ -420,7 +420,7 @@
                 text-decoration: underline;
             }
 
-    /* Animations for space theme */
+   
     .comment-card {
         animation: fadeInUp 0.6s ease both;
         animation-delay: calc(var(--animation-order) * 0.1s);
@@ -441,7 +441,7 @@
 
     }
 
-    /* Space Theme Elements */
+   
     .comments-container::after {
         content: '';
         position: absolute;
@@ -458,7 +458,7 @@
 </style>
 
 <div class="container mt-5 mb-5">
-    <!-- Course Header -->
+
     <div class="course-header">
         <div class="galaxy-animation" id="stars-container"></div>
         <div class="course-header-content">
@@ -486,9 +486,9 @@
         </div>
     </div>
 
-    <!-- Two-Column Layout -->
+  
     <div class="row">
-        <!-- Left Column: Lectures Accordion (2 per row) -->
+      
         <div class="col-md-8 mb-4">
             <div class="lectures-container">
                 <h3 class="section-title">Lectures</h3>
@@ -544,7 +544,6 @@
             </div>
         </div>
 
-        <!-- Right Column: Fixed Enroll Section -->
         <div class="col-md-4">
             <div class="enroll-card">
                 <h4><i class="bi bi-rocket-takeoff me-2"></i>Get Started</h4>
@@ -566,12 +565,12 @@
         </div>
     </div>
 </div>
-<!-- Add this right before the closing </div> of the container div, after the two-column layout -->
+
 
 <div class="comments-container mt-5">
     <h3 class="section-title">Cosmic Reviews</h3>
 
-    <!-- Existing Comments -->
+    
     <div class="comments-list">
         @if (Model.Comments != null && Model.Comments.Any())
         {
@@ -631,7 +630,7 @@
         }
     </div>
 
-    <!-- Login Prompt -->
+ 
     <div class="login-prompt">
         <p><i class="bi bi-info-circle me-2"></i>Reviews are shared by students who have enrolled in this course.</p>
     </div>
@@ -643,12 +642,12 @@
 
 
 
-<!-- Bootstrap Icons -->
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet" />
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Create twinkling stars in the header
+       
         const starsContainer = document.getElementById('stars-container');
         const starCount = 100;
 

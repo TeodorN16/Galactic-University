@@ -64,7 +64,7 @@
             line-height: 1.5;
         }
 
-    /* Star Animation */
+    
     .galaxy-animation {
         position: absolute;
         top: 0;
@@ -127,7 +127,7 @@
         margin-bottom: 20px;
     }
 
-    /* Admin Table Styling */
+    
     .admin-table-container {
         background-color: white;
         border-radius: 16px;
@@ -257,7 +257,7 @@
         padding: 20px;
     }
 
-    /* Responsive adjustments */
+ 
     @@media (max-width: 768px) {
         .admin-header
 
@@ -279,7 +279,7 @@
 </style>
 
 <div class="container mt-5 mb-5">
-    <!-- Header section -->
+   
     <div class="about-header">
         <div class="galaxy-animation" id="stars-container"></div>
         <div class="about-header-content">
@@ -288,7 +288,7 @@
         </div>
     </div>
 
-    <!-- Admin section with table and add button -->
+   
     <div class="admin-header">
         <h2 class="section-title">Resource Management</h2>
         <a class="btn btn-success" asp-action="Add" asp-controller="LectureResource">
@@ -316,11 +316,11 @@
                                     @if (!string.IsNullOrEmpty(item.FileUrl) && item.FileUrl.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase))
                                     {
                                         <div class="pdf-container">
-                                            <!-- Embed PDF with fallback options -->
+                                            
                                             <iframe src="@item.FileUrl"
                                                     class="pdf-iframe"
                                                     title="Lecture Resource PDF"></iframe>
-                                            <!-- Fallback link in case iframe fails -->
+                                            
                                             <div class="pdf-fallback">
                                                 <a href="@item.FileUrl" target="_blank" class="btn btn-link">
                                                     <i class="bi bi-file-earmark-pdf me-1"></i>Open PDF in new tab
@@ -367,12 +367,11 @@
     </div>
 </div>
 
-<!-- Bootstrap Icons -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Create twinkling stars in the header
+       
         const starsContainer = document.getElementById('stars-container');
         const starCount = 100;
 

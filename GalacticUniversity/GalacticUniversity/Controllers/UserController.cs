@@ -64,7 +64,6 @@ namespace GalacticUniversity.Controllers
                 return NotFound("User not found.");
             }
 
-            // Get user roles
             var roles = await _userManager.GetRolesAsync(user);
 
             var viewModel = new UserDetailsViewModel

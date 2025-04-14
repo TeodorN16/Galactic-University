@@ -40,7 +40,7 @@ namespace GalacticUniversity.DataAccess
                     EmailConfirmed = true
                 };
 
-                var createResult = await userManager.CreateAsync(user, "@dmIn25");
+                var createResult = await userManager.CreateAsync(user, "admin06");
                 if (createResult.Succeeded)
                 {
                     await userManager.AddToRoleAsync(user, "Admin");
@@ -48,20 +48,20 @@ namespace GalacticUniversity.DataAccess
             }
 
            
-            string userEmail = "tina@gmail.com";
+            string userEmail = "teodor@gmail.com";
             var userUser = await userManager.FindByEmailAsync(userEmail);
             if (userUser == null)
             {
                 var user1 = new User
                 {
-                    UserName = "Tina",
+                    UserName = "Teodor",
                     Email = userEmail,
                     NormalizedEmail = userEmail.ToUpper(),
-                    NormalizedUserName = "TINA",
-                    PhoneNumber = "0899993243",
+                    NormalizedUserName = "Teodor",
+                    PhoneNumber = "0894712253",
                     EmailConfirmed = true
                 };
-                var createResult = await userManager.CreateAsync(user1, "tiN@0641");
+                var createResult = await userManager.CreateAsync(user1, "teodor06");
                 if (createResult.Succeeded)
                 {
                     await userManager.AddToRoleAsync(user1, "User");
@@ -135,8 +135,8 @@ namespace GalacticUniversity.DataAccess
                     {
                         CourseName = "Astrology Course",
                         Description = "A comprehensive course on the history, practices, and systems of astrology.",
-                        StartDate = new DateTime(2023, 1, 1),
-                        EndDate = new DateTime(2023, 12, 31),
+                        StartDate = new DateTime(2025, 4, 14),
+                        EndDate = new DateTime(2025, 10, 31),
                         CategoryID = context.categories.FirstOrDefault(c => c.CategoryName == "astrology")?.CategoryID ?? 1,
                         ImageURL = "/img/astrology (2).png"
                     },
@@ -144,8 +144,8 @@ namespace GalacticUniversity.DataAccess
                     {
                         CourseName = "Astronomy Course: Cosmic Explorations",
                         Description = "Explore the universe, from neighboring planets to distant galaxies.",
-                        StartDate = new DateTime(2023, 2, 1),
-                        EndDate = new DateTime(2023, 12, 31),
+                        StartDate = new DateTime(2025, 1, 20),
+                        EndDate = new DateTime(2023, 7,20), 
                         CategoryID = context.categories.FirstOrDefault(c => c.CategoryName == "astronomy")?.CategoryID ?? 1,
                         ImageURL = "/img/astronomy.png"
                     },
@@ -153,8 +153,8 @@ namespace GalacticUniversity.DataAccess
                     {
                         CourseName = "Physics Course: Everyday Physics Understanding",
                         Description = "Understanding the physics principles that govern our daily lives.",
-                        StartDate = new DateTime(2023, 3, 1),
-                        EndDate = new DateTime(2023, 12, 31),
+                        StartDate = new DateTime(2024, 12, 22),
+                        EndDate = new DateTime(2025, 12, 22),
                         CategoryID = context.categories.FirstOrDefault(c => c.CategoryName == "physics")?.CategoryID ?? 3,
                         ImageURL = "/img/physics.png"
                     }
@@ -287,13 +287,13 @@ namespace GalacticUniversity.DataAccess
                 }
             }
 
-            // Seed Lecture Resources
+           
             if (!context.lectureResources.Any())
             {
                 
                 var lectureIds = context.lectures.ToDictionary(l => l.LectureName, l => l.LectureID);
 
-                // Only proceed if we have lectures in the database
+               
                 if (lectureIds.Count > 0)
                 {
                     var lectureResources = new List<LectureResource>();

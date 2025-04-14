@@ -48,7 +48,7 @@ namespace GalacticUniversity.Core.CloudinaryService
             }
         public async Task<string> UploadDocumentAsync(IFormFile file)
         {
-            // Validate input
+         
             if (file == null || file.Length == 0)
             {
                 return null;
@@ -56,38 +56,36 @@ namespace GalacticUniversity.Core.CloudinaryService
 
             try
             {
-                // Get file extension (case-insensitive)
+                
                 string fileExtension = Path.GetExtension(file.FileName)?.ToLowerInvariant();
                 if (string.IsNullOrEmpty(fileExtension) || fileExtension != ".pdf")
                 {
                     return null;
                 }
 
-                // Open the file stream
+               
                 using var stream = file.OpenReadStream();
 
-                // Configure Cloudinary upload parameters for PDFs
+            
                 var uploadParams = new RawUploadParams
                 {
                     File = new FileDescription(file.FileName, stream),
                     
                 };
 
-                // Perform the upload
+               
                 var uploadResult = await _cloudinary.UploadAsync(uploadParams);
 
-                // Check the result
                 if (uploadResult == null || uploadResult.SecureUrl == null)
                 {
                     return null;
                 }
 
-                // Return the secure URL
                 return uploadResult.SecureUrl.ToString();
             }
             catch (Exception)
             {
-                // Silently handle any unexpected errors
+                
                 return null;
             }
         }

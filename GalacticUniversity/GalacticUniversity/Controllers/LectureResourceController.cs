@@ -30,7 +30,7 @@ namespace GalacticUniversity.Controllers
                 LectureId = lr.LectureID,
                 LectureName=lr.Lecture.LectureName
             }).ToList();
-            //var list = _lectureResourceService.GetAll().Include(lr=>lr.Lecture);
+          
             return View(model);
         }
         public async Task<IActionResult> Add()
@@ -110,7 +110,7 @@ namespace GalacticUniversity.Controllers
                 currentLectureResource.FileUrl = lrvm.FileUrl;
             }
 
-            // Update the lecture ID
+           
             currentLectureResource.LectureID = lrvm.LectureId;
 
           

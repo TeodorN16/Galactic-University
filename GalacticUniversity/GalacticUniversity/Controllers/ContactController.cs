@@ -43,11 +43,9 @@ namespace GalacticUniversity.Controllers
 
                 await _feedbackService.Add(feedback);
 
-                // Return JSON success response for AJAX requests
                 return Json(new { success = true, message = "Your message has been sent successfully!" });
             
 
-            // Return JSON error response with validation errors
            
         }
 
@@ -67,12 +65,13 @@ namespace GalacticUniversity.Controllers
             var feedback = await _feedbackService.Get(id);
             if (feedback == null)
             {
-                return NotFound();
+                TempData["error"] = "Feedback not found";
+                return RedirectToAction("Index");
             }
 
             await _feedbackService.Delete(feedback);
             TempData["success"] = "Feedback read.";
-            // Return success response
+            
             return RedirectToAction("List");
         }
     }

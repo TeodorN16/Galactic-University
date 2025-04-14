@@ -20,16 +20,16 @@
         font-family: 'Poppins', sans-serif;
         display: flex;
         flex-direction: column;
-        min-height: 100vh; /* Full viewport height */
+        min-height: 100vh; 
     }
 
     main {
-        flex: 1 0 auto; /* This will make main content take up all available space */
+        flex: 1 0 auto; 
     }
 
     footer {
-        flex-shrink: 0; /* Prevent footer from shrinking */
-        margin-top: auto; /* Push footer to bottom when content is short */
+        flex-shrink: 0; 
+        margin-top: auto; 
     }
 
     .about-header {
@@ -75,7 +75,7 @@
             line-height: 1.5;
         }
 
-    /* Star Animation */
+   
     .galaxy-animation {
         position: absolute;
         top: 0;
@@ -128,7 +128,7 @@
             border-radius: 2px;
         }
 
-    /* Form Styling */
+ 
     .form-card {
         background-color: white;
         border-radius: 16px;
@@ -253,7 +253,7 @@
 
 <main>
     <div class="container mt-5 mb-5">
-        <!-- Header section -->
+
         <div class="about-header">
             <div class="galaxy-animation" id="stars-container"></div>
             <div class="about-header-content">
@@ -262,7 +262,7 @@
             </div>
         </div>
 
-        <!-- Form section -->
+
         <div class="form-card">
             <h2 class="section-title">Resource Details</h2>
             <form method="post" class="mt-4" enctype="multipart/form-data">
@@ -320,16 +320,15 @@
 @section Scripts {
     <script>
         function disableUrlField() {
-            // Clear the URL field if a file is selected
+            
             document.getElementById('FileUrl').value = '';
         }
 
         function disableFileUpload() {
-            // Clear the file upload if URL is provided
+            ]
             document.getElementById('fileUpload').value = '';
         }
 
-        // Create stars animation for the galaxy background
         document.addEventListener('DOMContentLoaded', function() {
             const starsContainer = document.getElementById('stars-container');
             const starsCount = 50;
@@ -338,16 +337,16 @@
                 const star = document.createElement('div');
                 star.classList.add('star');
 
-                // Random position
+              
                 star.style.left = `${Math.random() * 100}%`;
                 star.style.top = `${Math.random() * 100}%`;
 
-                // Random size
+              
                 const size = Math.random() * 3 + 1;
                 star.style.width = `${size}px`;
                 star.style.height = `${size}px`;
 
-                // Random animation delay
+            
                 star.style.animationDelay = `${Math.random() * 2}s`;
 
                 starsContainer.appendChild(star);

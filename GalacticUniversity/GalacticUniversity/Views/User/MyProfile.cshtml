@@ -3,7 +3,6 @@
     ViewData["Title"] = "My Galactic Dashboard";
 }
 
-<!-- Custom styles -->
 <style>
     :root {
         --primary-color: #6366f1;
@@ -201,7 +200,6 @@
             box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
         }
 
-    /* Responsive adjustments */
     @@media (max-width: 768px) {
         .profile-header
 
@@ -228,11 +226,10 @@
     }
 </style>
 
-<!-- Google Fonts - Poppins -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <div class="container mt-5">
-    <!-- Profile Header -->
+
     <div class="profile-header">
         <div class="profile-header-content">
             <div class="d-flex align-items-center mb-4">
@@ -277,7 +274,6 @@
         </div>
     </div>
 
-    <!-- My Courses Section -->
     <h2 class="section-title">My Learning Journey</h2>
     @if (Model?.Courses != null && Model.Courses.Any())
     {
