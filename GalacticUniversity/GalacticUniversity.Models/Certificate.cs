@@ -13,14 +13,18 @@ namespace GalacticUniversity.Models
         [Key]
         public int CertificateID { get; set; }
 
+        [Required]
         public string UserID { get; set; }
         [ForeignKey("UserID")]
         public User User { get; set; }
 
+        [Required]
         public int CourseID { get; set; }
         [ForeignKey("CourseID")]
         public Course Course { get; set; }
 
+        [Required]
+        [DataType(DataType.Date)]
         public DateTime IssueDate { get; set; }
 
         

@@ -12,14 +12,16 @@ namespace GalacticUniversity.Models
     {
         [Key]
         public int LectureID { get; set; }
+        [Required]
         public string LectureName { get; set; }
+        [Required]
         public string Description { get; set; }
 
-        // Foreign Keys
+        
         [ForeignKey("Course")]
         public int? CourseID { get; set; }
 
-        // Navigation Properties
+        
         public Course? Course { get; set; }
         public ICollection<LectureResource>? LectureResources { get; set; }
     }

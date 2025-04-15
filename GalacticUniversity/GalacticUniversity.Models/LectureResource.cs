@@ -13,15 +13,16 @@ namespace GalacticUniversity.Models
     {
         [Key]
         public int ResourceID { get; set; }
+        [Required]
         public string FileUrl { get; set; }
 
         [NotMapped]
         public IFormFile File {get;set;}
-        // oreign Keys
+       
         [ForeignKey("Lecture")]
         public int LectureID { get; set; }
          
-        // Navigation Properties
+ 
         public Lecture Lecture { get; set; }
     }
 }
